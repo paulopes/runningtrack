@@ -1,0 +1,46 @@
+Changelog
+=========
+
+
+0.3.1
+-----
+
+Changes:
+~~~~~~~~
+
+- Switch to the Read The Docs sphinx theme
+- Replace the 'numpydoc' sphinx parameter parser with 'sphinx.ext.napoleon'
+- Corrections to the commited files
+
+------------------------------------------------------
+
+0.3.0
+-----
+
+Changes:
+~~~~~~~~
+
+- The project was moved to github: https://github.com/paulopes/running
+- Documentation using sphinx and github pages.
+- Testing using pytest.
+
+------------------------------------------------------
+
+0.2.0
+-----
+
+Changes:
+~~~~~~~~
+
+- Easier API function calls.
+
+------------------------------------------------------
+
+0.1.0
+-----
+
+Changes:
+~~~~~~~~
+
+- Initial version.
+
