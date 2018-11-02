@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-""" "runningtrack" package
+""" "runninggroup" package
 """
 
 from __future__ import print_function, division
@@ -27,6 +27,8 @@ from .changes import ChangingFolders, sleep, wait_for_beat_and_get_changed_folde
 from .config import load_logging_config, get_config, get_file_type_and_mtime
 from .dates import current_date, current_day, current_time
 from .const import Const
+from .log import log, logger
+from .track import track
 
 
 const = Const(
@@ -52,128 +54,66 @@ except NameError:
     display = HTML = lambda a: None
     FloatProgress = lambda value, min, max, description: { "value": value }
 
+try:
+    from msvcrt import kbhit, getch
+    const.USING_WINDOWS = True
+except NameError:
+    kbhit = getch = lambda : ''
+    const.USING_WINDOWS = False
 
-if not const.IS_A_JUPYTER_NOTEBOOK:
-    if os.name == 'nt':
-        try:
-            from colorama import init
-            init()
-            const.USING_ANSI = True
-        except NameError:
-            const.USING_ANSI = False
-    else:
-        const.USING_ANSI = True
-else:
-    const.USING_ANSI = False
 
+# if not const.IS_A_JUPYTER_NOTEBOOK:
+#     from .track import track
+#     const.USING_ANSI = track.USING_ANSI
+# else:
+#     const.USING_ANSI = False
+# if not const.USING_ANSI:
+#     print_line = lambda text, name=None: None
+#     percentage_bar = lambda value, length=50: ''
+
+# const.MAX_RUNNER_NAME = 16
+const.PROGRESS_BAR_LENGTH = 15
+const.MAX_LABEL_LENGTH = 66
+# const.PROGRESS_MESSAGE = r'  {:>' + str(int(const.MAX_RUNNER_NAME)) + r'} {} {}% '
+const.BRIEF_PROGRESS_MESSAGE = '{} {}%  '
 
 const.WEEK_DAYS = ('Monday:    ', 'Tuesday:   ', 'Wednesday: ', 'Thursday:  ',
                    'Friday:    ', 'Saturday:  ', 'Sunday:    ')
 
 
-def wait(track, *tracks):
-    # Multiple tracks can be provided as parameters
+def text_fix(text, fix=80):
+    properly_spaced = ' '.join(text.split())
+    truncated = properly_spaced[:fix-3] + '...'
+    if len(truncated) < len(properly_spaced):
+        return truncated
+    else:
+        return properly_spaced.ljust(fix)
+
+
+def wait(group, *groups):
+    # Multiple groups can be provided as parameters
     # or as a list, tuple, or dict object.
-    if type(track) is Track:
-        track.wait(*tracks)
+    if type(group) is Group:
+        group.wait(*groups)
     else:
-        if type(track) is dict:
-            tracks = list(track.values())
+        if type(group) is dict:
+            groups = list(group.values())
         else:
-            tracks = list(track)
-        tracks[0].wait(*tracks[1:])
+            groups = list(group)
+        groups[0].wait(*groups[1:])
 
 
-def now(track, *tracks):
-    # Multiple tracks can be provided as parameters
+def now(group, *groups):
+    # Multiple groups can be provided as parameters
     # or as a list, tuple, or dict object.
-    if type(track) is Track:
-        track.now(*tracks)
+    if type(group) is Group:
+        group.now(*groups)
     else:
-        if type(track) is dict:
-            tracks = list(track.values())
+        if type(group) is dict:
+            groups = list(group.values())
         else:
-            tracks = list(track)
-        tracks[0].now(*tracks[1:])
-
-
-def trace(level):
-    from logging import config, NOTSET
-    if level != NOTSET:
-        config.dictConfig({
-            "version": 1,
-            "disable_existing_loggers": False,
-            "formatters": {
-                "simple": {
-                    "format": "[%(asctime).19s,%(msecs)03d] %(levelname)s %(message)s",
-                    "datefmt": "%Y-%m-%d %H:%M:%S"
-                }
-            },
-            "handlers": {
-                "console": {
-                    "class": "logging.StreamHandler",
-                    "formatter": "simple",
-                    "stream": "ext://sys.stdout"
-                }
-            },
-            "root": {
-                "level": level,
-                "handlers": ["console"]
-            }
-        })
-    else:
-        config.dictConfig({
-            "version": 1,
-            "disable_existing_loggers": False,
-            "handlers": {
-                "console": {
-                    "class": "logging.NullHandler"
-                }
-            },
-            "root": {
-                "handlers": ["console"]
-            }
-        })
-
-
-def debug(enabled=True):
-    from logging import DEBUG, NOTSET
-    if enabled:
-        trace(DEBUG)
-    else:
-        trace(NOTSET)
-    
-
-def info(enabled=True):
-    from logging import INFO, NOTSET
-    if enabled:
-        trace(INFO)
-    else:
-        trace(NOTSET)
-
-
-def warning(enabled=True):
-    from logging import WARNING, NOTSET
-    if enabled:
-        trace(WARNING)
-    else:
-        trace(NOTSET)
-
-
-def error(enabled=True):
-    from logging import ERROR, NOTSET
-    if enabled:
-        trace(ERROR)
-    else:
-        trace(NOTSET)
-
-
-def critical(enabled=True):
-    from logging import CRITICAL, NOTSET
-    if enabled:
-        trace(CRITICAL)
-    else:
-        trace(NOTSET)
+            groups = list(group)
+        groups[0].now(*groups[1:])
 
 
 # Multiprocessing logging
@@ -222,14 +162,14 @@ class ConcurrentLogger(logging.Logger):
         self.log_queue.put(d)
 
 
-def runner_process(progress_queue, log_queue, track_name, track_args, track_kargs, runner, runner_name, run_id):
+def runner_process(progress_queue, log_queue, group_name, group_args, group_kargs, runner, runner_name, run_id):
 
     global ConcurrentLogger
 
     Logger = ConcurrentLogger
     Logger.log_queue = log_queue
 
-    Logger.session = '| ' + track_name + ' ' + runner_name + ' | '
+    Logger.session = '| ' + group_name + ' ' + runner_name + ' | '
     logging.setLoggerClass(Logger)
 
     # Monkey patch root logger and already defined loggers
@@ -238,11 +178,11 @@ def runner_process(progress_queue, log_queue, track_name, track_args, track_karg
         if not isinstance(logger, logging.PlaceHolder):
             logger.__class__ = Logger
 
-    result = runner(track_name, *track_args, **track_kargs)
+    result = runner(group_name, *group_args, **group_kargs)
     
     # If the runner yields intermediate progress information
     # then it is a generator, and we need to retrieve each
-    # yielded progress value (0-100) using a for loop.
+    # yielded progress value using a for loop.
     if isgenerator(result):
         progress_value = 0
         for yielded_value in result:
@@ -258,8 +198,6 @@ def runner_process(progress_queue, log_queue, track_name, track_args, track_karg
                 progress_value = int(100.0 * progress_value)
             if progress_value < 0:
                 progress_queue.put({runner_name: 0})
-            elif progress_value > 100:
-                progress_queue.put({runner_name: 100})
             else:
                 progress_queue.put({runner_name: yielded_value})
 
@@ -273,41 +211,7 @@ def runner_process(progress_queue, log_queue, track_name, track_args, track_karg
         progress_queue.put({runner_name: 100})
 
 
-def ansi_named_line(text, name=None):
-    if name:
-        if name not in ansi_named_line.line_owners:
-            ansi_named_line.total_lines += 1
-            ansi_named_line.line_owners[name] = ansi_named_line.total_lines
-            ansi_named_line.last_text[name] = ''
-
-        if ansi_named_line.last_text[name] != text:
-            ansi_named_line.last_text[name] = text
-            difference = ansi_named_line.current_line - ansi_named_line.line_owners[name]
-            if difference > 0:
-                sys.stdout.write('\033[{}A'.format(difference))
-            elif difference < 0:
-                sys.stdout.write('\033[{}B'.format(-difference))
-            ansi_named_line.current_line = ansi_named_line.line_owners[name]
-            sys.stdout.write(text)
-            sys.stdout.flush()
-    else:
-        ansi_named_line.total_lines += 1
-        difference = ansi_named_line.current_line - ansi_named_line.total_lines
-        if difference > 0:
-            sys.stdout.write('\033[{}A'.format(difference))
-        elif difference < 0:
-            sys.stdout.write('\033[{}B'.format(-difference))
-        ansi_named_line.current_line = ansi_named_line.total_lines
-        sys.stdout.write(text)
-        sys.stdout.flush()
-
-ansi_named_line.current_line = 0
-ansi_named_line.total_lines = 0
-ansi_named_line.line_owners = dict()
-ansi_named_line.last_text = dict()
-
-
-class Track(object):
+class Group(object):
 
     def watch_folder(self, path, callback=None):
         self._changingFolders.add(path, callback)
@@ -324,7 +228,7 @@ class Track(object):
 
         file_type, file_mtime = get_file_type_and_mtime(path_with_name)
         # is_logging_file = config_name == 'logging'
-        is_service_file = config_name == self._trackName
+        is_service_file = config_name == self._groupName
 
         if path_with_name in self._configMtimes:
             if file_mtime > self._configMtimes[path_with_name]:
@@ -358,8 +262,8 @@ class Track(object):
     def load_config_all(self):
         configs = list(self._configurators.keys())
 
-        if self._trackName:
-            config_name = self._trackName
+        if self._groupName:
+            config_name = self._groupName
             if config_name in configs:
                 self.load_config(config_name)
                 configs.remove(config_name)
@@ -375,9 +279,8 @@ class Track(object):
 
         run_id = uuid4().hex
 
-        logger = logging.getLogger()
         logger.info(starting_log_message)
-        logger.debug('Starting run ' + run_id + ' of ' + self._trackName + 'at UTC ISO time ' + run_timestamp)
+        logger.debug('Starting run ' + run_id + ' of ' + self._groupName + 'at UTC ISO time ' + run_timestamp)
 
         runners_progress_queue = Queue()
         run_log_queue = Queue()
@@ -395,47 +298,44 @@ class Track(object):
             "log_thread": run_log_thread,
         }
 
-        if const.USING_ANSI:
-            ansi_named_line('\r\033[K{}'.format(self._trackName))
-
         for runner_name in self._runners:
             runner = self._runners[runner_name]
             process = Process(target=runner_process,
                               args=(runners_progress_queue,
                                     run_log_queue,
-                                    self._trackName,
-                                    self._trackArgs,
-                                    self._trackKArgs,
+                                    self._groupName,
+                                    self._groupArgs,
+                                    self._groupKArgs,
                                     runner,
                                     runner_name,
                                     run_id))
             process.start()
             start_time = time.time()
-            self._runs[run_id]["process_info"][runner_name] = (process, start_time, start_time, runner, 0)
+            self._runs[run_id]["process_info"][runner_name] = (
+                process, start_time, start_time, runner, 0)
             self._runs[run_id]["runners_processes"][runner_name] = process
             self._runs[run_id]["runners_progress"][runner_name] = 0
             if const.IS_A_JUPYTER_NOTEBOOK:
                 self._runners_progress_bars[runner_name].value = 0
-                self._runners_progress_bars_previous_value[runner_name] = 0
                 self._runners_progress_descriptions[runner_name].value = ''
-            elif const.USING_ANSI:
-                name = self._trackName + runner_name
-                ansi_named_line('\r\033[K  {}: 0%'.format(runner_name), name)
+            self._runners_progress_bars_previous_value[runner_name] = 0
+            self._runners_progress_bars_previous_label[runner_name] = ''
 
         if run_id in self._runs:
             process_count = len(self._runs[run_id]["process_info"].keys())
             if process_count > 1:
-                logger.debug(str(process_count) + ' processes for run ' + run_id + ' have been launched.')
+                logger.debug(str(process_count) +
+                             ' processes for run ' + run_id +
+                             ' have been launched.')
             elif process_count == 1:
-                logger.debug('One process for run ' + run_id + ' has been launched.')
+                logger.debug('One process for run ' + run_id +
+                             ' has been launched.')
             else:
-                logger.debug('No processes for run ' + run_id + ' have been launched.')
-
+                logger.debug('No processes for run ' + run_id +
+                             ' have been launched.')
         return self
 
     def _timeoutRuns(self):
-        logger = logging.getLogger()
-        runs_to_delete = list()
         for run_id in self._runs:
             
             # Make sure that the runnner's progress information for each run
@@ -443,7 +343,8 @@ class Track(object):
             progress_queue = self._runs[run_id]["runners_progress_queue"]
             while not progress_queue.empty():
                 progress_updates = progress_queue.get()
-                self._runs[run_id]["runners_progress"].update(progress_updates)
+                self._runs[run_id]["runners_progress"].update(
+                    progress_updates)
 
                 # Reset the time of the last_progress_update
                 # of each runner that provided a new progress value
@@ -454,35 +355,76 @@ class Track(object):
                     self._runs[run_id]["process_info"][runner_name] = \
                         (process, start, time.time(), runner, timeout)
 
-                if const.IS_A_JUPYTER_NOTEBOOK:
-                    for runner_name in progress_updates:
-                        if type(progress_updates[runner_name]) in {list, tuple}:
-                            value = progress_updates[runner_name][0]
-                            if value != self._runners_progress_bars_previous_value[runner_name]:
-                                self._runners_progress_bars[runner_name].value = value
-                                self._runners_progress_bars_previous_value[runner_name] = value
-                            label = progress_updates[runner_name][1]
-                            self._runners_progress_descriptions[runner_name].value = label
-                        else:
-                            value = progress_updates[runner_name]
-                            if value != self._runners_progress_bars_previous_value[runner_name]:
-                                self._runners_progress_bars[runner_name].value = value
-                                self._runners_progress_bars_previous_value[runner_name] = value
-                            if value >= 100:
+                # Do this here only if running immediately, not scheduled.
+                if not self._awaitThread:
+
+                    if const.IS_A_JUPYTER_NOTEBOOK:
+                        for runner_name in progress_updates:
+                            if runner_name in self._runners_progress_bars_previous_value:
+                                previous_value = self._runners_progress_bars_previous_value[runner_name]
+                            else:
+                                previous_value = 0
+                            if runner_name in self._runners_progress_bars_previous_label:
+                                previous_label = self._runners_progress_bars_previous_label[runner_name]
+                            else:
+                                previous_label = ''
+                            if type(progress_updates[runner_name]) in {list, tuple}:
+                                value = min(progress_updates[runner_name][0], 100)
+                                if value != previous_value:
+                                    self._runners_progress_bars[runner_name].value = value
+                                    self._runners_progress_bars_previous_value[runner_name] = value
+                                label = progress_updates[runner_name][1]
+                                if label != previous_label:
+                                    self._runners_progress_descriptions[runner_name].value = label
+                                    self._runners_progress_bars_previous_label[runner_name] = label
+                            else:
+                                value = min(progress_updates[runner_name], 100)
+                                if value != previous_value:
+                                    self._runners_progress_bars[runner_name].value = value
+                                    self._runners_progress_bars_previous_value[runner_name] = value
                                 self._runners_progress_descriptions[runner_name].value = ''
-                elif const.USING_ANSI:
-                    for runner_name in progress_updates:
-                        if type(progress_updates[runner_name]) in {list, tuple}:
-                            value = progress_updates[runner_name][0]
-                            label = progress_updates[runner_name][1]
-                        else:
-                            value = progress_updates[runner_name]
-                            label = ''
-                        name = self._trackName + runner_name
-                        if label:
-                            ansi_named_line('\r\033[K  {}: {}% - {}'.format(runner_name, value, label), name)
-                        else:
-                            ansi_named_line('\r\033[K  {}: {}%'.format(runner_name, value), name)
+                                self._runners_progress_bars_previous_label[runner_name] = ''
+
+                    elif track.DETAIL == track.DETAIL_FULL:
+                        for runner_name in progress_updates:
+                            if runner_name in self._runners_progress_bars_previous_value:
+                                previous_value = self._runners_progress_bars_previous_value[runner_name]
+                            else:
+                                previous_value = 0
+                            if runner_name in self._runners_progress_bars_previous_label:
+                                previous_label = self._runners_progress_bars_previous_label[runner_name]
+                            else:
+                                previous_label = ''
+                            if type(progress_updates[runner_name]) in {list, tuple}:
+                                value = progress_updates[runner_name][0]
+                                label = progress_updates[runner_name][1]
+                            else:
+                                value = progress_updates[runner_name]
+                                label = ''
+                            name = self._groupName + runner_name
+                            if label:
+                                if value != previous_value or label != previous_label:
+                                    track.print_line('  {} {} {}'.format(
+                                                    text_fix(runner_name,
+                                                        self._max_runner_name_length),
+                                                    track.percentage_bar(value,
+                                                        const.PROGRESS_BAR_LENGTH),
+                                                    text_fix(label,
+                                                        const.MAX_LABEL_LENGTH)),
+                                            name)
+                                    self._runners_progress_bars_previous_value[runner_name] = value
+                                    self._runners_progress_bars_previous_label[runner_name] = label
+                            elif value != previous_value or label != previous_label:
+                                track.print_line('  {} {}'.format(
+                                                text_fix(runner_name,
+                                                    self._max_runner_name_length),
+                                                track.percentage_bar(value, 
+                                                    const.PROGRESS_BAR_LENGTH)),
+                                        name)
+                                self._runners_progress_bars_previous_value[runner_name] = value
+                                self._runners_progress_bars_previous_label[runner_name] = label
+
+                        track.print_line('', '_lastline')  # Park cursor at the bottom
 
             no_processes_running = True
             timeout = self._timeoutSetting
@@ -502,18 +444,18 @@ class Track(object):
                             process.terminate()
 
                     if time.time() - last_progress_update > timeout > 0:
-                        logger.error('Timeout of {} {} at {} seconds.'.format(self._trackName, runner_name, timeout))
+                        logger.error('Timeout of {} {} at {} seconds.'.format(self._groupName, runner_name, timeout))
                         process.terminate()
                         if retry_count < retries:
                             new_retry = retry_count + 1
-                            logger.error('Retry number {} of {} {}.'.format(new_retry, self._trackName, runner_name))
+                            logger.error('Retry number {} of {} {}.'.format(new_retry, self._groupName, runner_name))
                             run_log_queue = self._runs[run_id]["log_queue"]
                             new_process = Process(target=runner_process,
                                                     args=(progress_queue,
                                                             run_log_queue,
-                                                            self._trackName,
-                                                            self._trackArgs,
-                                                            self._trackKArgs,
+                                                            self._groupName,
+                                                            self._groupArgs,
+                                                            self._groupKArgs,
                                                             runner,
                                                             runner_name,
                                                             run_id))
@@ -524,7 +466,7 @@ class Track(object):
                             self._runs[run_id]["runners_progress"][runner_name] = 0
                             no_processes_running = False
                         else:
-                            logger.error('The {} {} runner was canceled after {} retries.'.format(self._trackName, runner_name, retry_count))
+                            logger.error('The {} {} runner was canceled after {} retries.'.format(self._groupName, runner_name, retry_count))
                     else:
                         no_processes_running = False
 
@@ -532,36 +474,42 @@ class Track(object):
                 for runner_name in self._runs[run_id]["process_info"]:
                     process, start, last_progress_update, runner, retry_count = self._runs[run_id]["process_info"][runner_name]
                     process.join()
-                    runs_to_delete.append(run_id)
+                    self.runs_to_delete.append(run_id)
 
             # Provide progress of this run based on the progress of its runners.
             runner_count = len(self._runs[run_id]["runners_progress"])
             if runner_count > 0:
+                success_count = 0
+                warning_count = 0
+                error_count = 0
                 sum_of_runners_progress = 0
                 for runner_name in self._runs[run_id]["runners_progress"]:
                     runner_progress = self._runs[run_id]["runners_progress"][runner_name]
                     if type(runner_progress) in {list, tuple}:
                         runner_progress = runner_progress[0]
-                    sum_of_runners_progress += runner_progress
+                    sum_of_runners_progress += min(runner_progress, 100)
+                    if runner_progress > 102:
+                        error_count += 1
+                    elif runner_progress == 102:
+                        warning_count += 1
+                    elif runner_progress == 101:
+                        success_count += 1
                 progress = int(sum_of_runners_progress / runner_count)
+                if progress >= 100:
+                    if error_count == runner_count:
+                        progress = 103  # Error color red
+                    elif error_count > 0 or warning_count > 0:
+                        progress = 102  # Warning color yellow
+                    elif success_count == runner_count:
+                        progress = 101  # Success color green
+                    else:
+                        progress = 100
 
                 self._progressQueue.put((run_id, progress))
 
-        for run_id in runs_to_delete:
-            if run_id in self._runs:
-                logger.debug('Ending {} run {}'.format(self._trackName, run_id))
-                self._runs[run_id]["log_queue"].put(None)
-                del self._runs[run_id]["timestamp"]
-                del self._runs[run_id]["log_queue"]
-                del self._runs[run_id]["process_info"]
-                del self._runs[run_id]["runners_processes"]
-                del self._runs[run_id]["runners_progress"]
-                del self._runs[run_id]["log_thread"]
-                del self._runs[run_id]
-
         return self
 
-    def _scheduled(self):
+    def _scheduled(self):  #, progress, progress_bars, previous_progress_message):
 
         def normalized_time(moment):
             pm_delta = 0
@@ -594,7 +542,7 @@ class Track(object):
             return ' '.join(day_schedule.split()).upper().replace(' AM', 'AM').replace(' PM', 'PM').split()
 
         def get_schedule_from_config():
-            service_config = self._config[self._trackName]
+            service_config = self._config[self._groupName]
             if "schedule" in self._override:
                 service_config["schedule"] = self._override["schedule"]
 
@@ -650,12 +598,12 @@ class Track(object):
             ]
 
             for day in xrange(0, 7):
-                schedule_description = self._trackName + '  ' + const.WEEK_DAYS[day]
+                schedule_description = self._groupName + '  ' + const.WEEK_DAYS[day]
                 for schedule in times[day]:
                     schedule_description += schedule + ' '
                 logger.info(schedule_description)
 
-            logger.info('Waiting for next scheduled run of {}.'.format(self._trackName))
+            logger.info('Waiting for next scheduled run of {}.'.format(self._groupName))
 
             for day in xrange(0, 7):
                 times[day] = set(times[day])
@@ -663,11 +611,10 @@ class Track(object):
             return times
 
         # Here begins the heart of the functionality of this class.
-        logger = logging.getLogger()
         logger.info(current_date(self._utcSetting) + ' ' +
                     current_time(self._utcSetting) + ' ' +
                     const.WEEK_DAYS[current_day(self._utcSetting)])
-        logger.info('Starting {} according to the following schedule:'.format(self._trackName))
+        logger.info('Starting {} according to the following schedule:'.format(self._groupName))
 
         scheduled_times = get_schedule_from_config()
         previous_occurrence = ''
@@ -710,11 +657,11 @@ class Track(object):
         now = current_time(self._utcSetting)
         week_day = current_day(self._utcSetting)
         logger.info(today + ' ' + now + ' ' + const.WEEK_DAYS[week_day])
-        logger.info('Stopping {} scheduled runs.'.format(self._trackName))
+        logger.info('Stopping {} scheduled runs.'.format(self._groupName))
         return self
 
     def _serviceOptionsConfigurator(self, config):
-        service_config = config[self._trackName]
+        service_config = config[self._groupName]
         if "options" not in service_config:
             service_config["options"] = OrderedDict()
         options_service_config = service_config["options"]
@@ -771,7 +718,7 @@ class Track(object):
     def _bootstrap(self):
         if self._notBootstrapped:
             # First time config is loaded, if there is a config file.
-            self.add_config(self._trackName, self._serviceOptionsConfigurator)
+            self.add_config(self._groupName, self._serviceOptionsConfigurator)
 
             try:
                 script_path = os.path.dirname(os.path.realpath(sys.modules["__main__"].__file__))
@@ -790,115 +737,394 @@ class Track(object):
         return self
 
     def _await(self):
-        self._bootstrap()._scheduled()
-        return self
-
-    def wait(self, *other_tracks):
-        self._start()
-        try:
-            for other_track in other_tracks:
-                other_track._start()
-                other_track._awaitThread.join()
-            self._awaitThread.join()
-        except KeyboardInterrupt:
-            pass  # This would be an expected exception that should not be raised.
-
-        for other_track in other_tracks:
-            other_track._stop()
-        self._stop()
-        return self
-
-    def now(self, *other_tracks):
         self._bootstrap()
-        self._run('Immediate {} run.'.format(self._trackName))
+        self._scheduled()
+        return self
 
+    def _setup_progress_indicators(self):
         progress = {
-            self._trackName: 0,
+            self._groupName: 0,
         }
         if const.IS_A_JUPYTER_NOTEBOOK:
-            progress_bar = FloatProgress(value=0, min=0, max=100, description=self._trackName)
+            display(HTML('<br><h4>Group Progress</h4>'))
+            progress_bar = FloatProgress(value=0, min=0, max=100, description=self._groupName)
             progress_bars = {
-                self._trackName: progress_bar,
+                self._groupName: progress_bar,
             }
             display(progress_bar)
-        previous_progress_message = '{} total progress: {}%'.format(
-            self._trackName,
-            progress[self._trackName])
+        else:
+            progress_bars = dict()
 
-        run_count = len(self._runs)
-        for other_track in other_tracks:
-            other_track._bootstrap()
-            other_track._run('Immediate {} run.'.format(other_track._trackName))
-            run_count += len(other_track._runs)
-            progress[other_track._trackName] = 0
+        self._max_group_name_length = len(self._groupName)
+        self._max_runner_name_length = 0
+
+        for runner_name in self._runners:
+            self._max_runner_name_length = max(
+                self._max_runner_name_length,
+                len(runner_name))
+        for other_group in self._other_groups:
+            self._max_group_name_length = max(
+                self._max_group_name_length,
+                len(other_group._groupName))
+            for runner_name in other_group._runners:
+                self._max_runner_name_length = max(
+                    self._max_runner_name_length,
+                    len(runner_name))
+
+        for other_group in self._other_groups:
+            other_group._max_group_name_length = self._max_group_name_length
+            other_group._max_runner_name_length = self._max_runner_name_length
+        
+        if track.DETAIL == track.DETAIL_FULL:
+            track.print_line(self._groupName)
+            for runner_name in self._runners:
+                name = self._groupName + runner_name
+                track.print_line('  {} {}'.format(
+                        text_fix(
+                            runner_name,
+                            self._max_runner_name_length),
+                        track.percentage_bar(0, const.PROGRESS_BAR_LENGTH)),
+                    name)
+
+        if track.DETAIL == track.DETAIL_BRIEF:
+            previous_progress_message = const.BRIEF_PROGRESS_MESSAGE.format(
+                self._groupName,
+                progress[self._groupName])
+        else:
+            previous_progress_message = ''
+
+        for other_group in self._other_groups:
+            progress[other_group._groupName] = 0
+
             if const.IS_A_JUPYTER_NOTEBOOK:
-                progress_bar = FloatProgress(value=0, min=0, max=100, description=other_track._trackName)
-                progress_bars[other_track._trackName] = progress_bar
+                progress_bar = FloatProgress(value=0, min=0, max=100, description=other_group._groupName)
+                progress_bars[other_group._groupName] = progress_bar
                 display(progress_bar)
-            previous_progress_message += '{} total progress: {}%'.format(
-                other_track._trackName,
-                progress[other_track._trackName])
+
+            if track.DETAIL == track.DETAIL_FULL:
+                track.print_line('')  # Empty separating line
+                track.print_line(other_group._groupName)
+
+                for runner_name in other_group._runners:
+                    name = other_group._groupName + runner_name
+                    track.print_line('  {} {}'.format(
+                            text_fix(
+                                runner_name,
+                                self._max_runner_name_length),
+                            track.percentage_bar(0, const.PROGRESS_BAR_LENGTH)),
+                        name)
+
+            if track.DETAIL == track.DETAIL_BRIEF:
+                previous_progress_message += const.BRIEF_PROGRESS_MESSAGE.format(
+                    other_group._groupName,
+                    progress[other_group._groupName])
+
+        if track.DETAIL == track.DETAIL_FULL:
+            track.print_line('')  # Empty line above
+            track.print_line('Group Progress')
+            track.print_line('  {} {} {}%'.format(
+                    text_fix(
+                        self._groupName,
+                        self._max_group_name_length),
+                    track.percentage_bar(progress[self._groupName],
+                                length=const.PROGRESS_BAR_LENGTH),
+                    progress[self._groupName]),
+                self._groupName)
+            for other_group in self._other_groups:
+                track.print_line('  {} {} {}%'.format(
+                        text_fix(
+                            other_group._groupName,
+                            self._max_group_name_length),
+                        track.percentage_bar(progress[other_group._groupName],
+                                    length=const.PROGRESS_BAR_LENGTH),
+                        progress[other_group._groupName]),
+                    other_group._groupName)                
 
         if not const.IS_A_JUPYTER_NOTEBOOK:
-            if const.USING_ANSI:
-                ansi_named_line('\r\033[K' + previous_progress_message, self._trackName)
-            else:
+            if track.DETAIL == track.DETAIL_FULL:
+                track.print_line('')  # Empty line above
+                track.print_line('', '_lastline')
+            if track.DETAIL == track.DETAIL_BRIEF:
                 sys.stdout.write(previous_progress_message)
                 sys.stdout.flush()
 
-        while run_count > 0:
-            # Check for timeouts in any of the processes of each run.
-            if len(self._runs) > 0: self._timeoutRuns()
+        return progress, progress_bars, previous_progress_message
 
-            # Show progress.
-            progress_message = ''
-            if self._progressQueue and not self._progressQueue.empty():
-                while not self._progressQueue.empty():
-                    run_id, progress_value = self._progressQueue.get()
-                    progress[self._trackName] = progress_value
-                    if const.IS_A_JUPYTER_NOTEBOOK:
-                        progress_bars[self._trackName].value = progress_value
-                    elif const.USING_ANSI:
-                        ansi_named_line('\r\033[K' + 
-                            '{} total progress: {}%'.format(
-                                self._trackName, progress_value),
-                            self._trackName)
+    def _follow_runners_progress(self):
+        for run_id in self._runs:
+            progress_updates = self._runs[run_id]["runners_progress"]
 
-            progress_message += '{} total progress: {}%'.format(
-                self._trackName,
-                progress[self._trackName])
-
-            for other_track in other_tracks:
-                if len(other_track._runs) > 0: other_track._timeoutRuns()
-
-                if other_track._progressQueue and not other_track._progressQueue.empty():
-                    while not other_track._progressQueue.empty():
-                        run_id, progress_value = other_track._progressQueue.get()
-                        progress[other_track._trackName] = progress_value
-                        if const.IS_A_JUPYTER_NOTEBOOK:
-                            progress_bars[other_track._trackName].value = progress_value
-                progress_message += '{} total progress: {}%'.format(
-                    other_track._trackName,
-                    progress[other_track._trackName])
-
-            if progress_message != previous_progress_message:
-                if not const.IS_A_JUPYTER_NOTEBOOK:
-                    if const.USING_ANSI:
-                        ansi_named_line('\r\033[K' + progress_message,
-                                        self._trackName)
+            if const.IS_A_JUPYTER_NOTEBOOK:
+                for runner_name in progress_updates:
+                    if runner_name in self._runners_progress_bars_previous_value:
+                        previous_value = self._runners_progress_bars_previous_value[runner_name]
                     else:
-                        sys.stdout.write('\b' * len(previous_progress_message) +
-                                         progress_message)
-                        sys.stdout.flush()
+                        previous_value = 0
+                    if runner_name in self._runners_progress_bars_previous_label:
+                        previous_label = self._runners_progress_bars_previous_label[runner_name]
+                    else:
+                        previous_label = ''
+                    if type(progress_updates[runner_name]) in {list, tuple}:
+                        value = min(progress_updates[runner_name][0], 100)
+                        if value != previous_value:
+                            self._runners_progress_bars[runner_name].value = value
+                            self._runners_progress_bars_previous_value[runner_name] = value
+                        label = progress_updates[runner_name][1]
+                        if label != previous_label:
+                            self._runners_progress_descriptions[runner_name].value = label
+                            self._runners_progress_bars_previous_label[runner_name] = label
+                    else:
+                        value = min(progress_updates[runner_name], 100)
+                        if value != previous_value:
+                            self._runners_progress_bars[runner_name].value = value
+                            self._runners_progress_bars_previous_value[runner_name] = value
+                        if value >= 100:
+                            self._runners_progress_descriptions[runner_name].value = ''
+                        self._runners_progress_bars_previous_label[runner_name] = ''
+
+            elif track.DETAIL == track.DETAIL_FULL:
+                for runner_name in progress_updates:
+                    if runner_name in self._runners_progress_bars_previous_value:
+                        previous_value = self._runners_progress_bars_previous_value[runner_name]
+                    else:
+                        previous_value = 0
+                    if runner_name in self._runners_progress_bars_previous_label:
+                        previous_label = self._runners_progress_bars_previous_label[runner_name]
+                    else:
+                        previous_label = ''
+                    if type(progress_updates[runner_name]) in {list, tuple}:
+                        value = progress_updates[runner_name][0]
+                        label = progress_updates[runner_name][1]
+                    else:
+                        value = progress_updates[runner_name]
+                        label = ''
+                    name = self._groupName + runner_name
+                    if label:
+                        if value != previous_value or label != previous_label:
+                            track.print_line('  {} {} {}'.format(
+                                            text_fix(runner_name,
+                                                self._max_runner_name_length),
+                                            track.percentage_bar(value,
+                                                const.PROGRESS_BAR_LENGTH),
+                                            text_fix(label,
+                                                const.MAX_LABEL_LENGTH)),
+                                        name)
+                            self._runners_progress_bars_previous_value[runner_name] = value
+                            self._runners_progress_bars_previous_label[runner_name] = label
+                    elif value != previous_value or label != previous_label:
+                        track.print_line('  {} {}'.format(
+                                        text_fix(runner_name,
+                                            self._max_runner_name_length),
+                                        track.percentage_bar(value, 
+                                            const.PROGRESS_BAR_LENGTH)),
+                                    name)
+                        self._runners_progress_bars_previous_value[runner_name] = value
+                        self._runners_progress_bars_previous_label[runner_name] = label
+
+                track.print_line('', '_lastline')  # Park cursor at the bottom
+
+    def wait(self, *other_groups):
+        self._other_groups = other_groups
+
+        track.kickoff_tracking()
+        log.kickoff_logging()
+
+        progress, progress_bars, previous_progress_message = self._setup_progress_indicators()
+
+        if not const.IS_A_JUPYTER_NOTEBOOK:
+            if const.USING_WINDOWS:
+                if track.DETAIL == track.DETAIL_FULL:
+                    track.print_line('Press Q to stop scheduled runs.')
+                else:
+                    print('Press Q to stop scheduled runs.')
+            else:
+                if track.DETAIL == track.DETAIL_FULL:
+                    track.print_line('Press Ctrl+C to stop scheduled runs.')
+                else:
+                    print('Press Ctrl+C to stop scheduled runs.')
+
+        self._start()
+        for other_group in other_groups:
+            other_group._start()
+            # other_group._awaitThread.join()
+        try:
+            while True:
+                progress_message = ''
+                progress_message = self._follow_groups_progress(progress, progress_message, progress_bars, previous_progress_message)
+                self._follow_runners_progress()
+
+                for other_group in other_groups:
+                    progress_message = other_group._follow_groups_progress(progress, progress_message, progress_bars, previous_progress_message)
+                    other_group._follow_runners_progress()
+
+                while len(self.runs_to_delete) > 0:
+                    run_id = self.runs_to_delete.pop()
+                    if run_id in self._runs:
+                        logger.debug('Ending {} run {}'.format(self._groupName, run_id))
+                        self._runs[run_id]["log_queue"].put(None)
+                        del self._runs[run_id]["timestamp"]
+                        del self._runs[run_id]["log_queue"]
+                        del self._runs[run_id]["process_info"]
+                        del self._runs[run_id]["runners_processes"]
+                        del self._runs[run_id]["runners_progress"]
+                        del self._runs[run_id]["log_thread"]
+                        del self._runs[run_id]
+
+                # After .1 seconds check if there was an interruption.
+                sleep(0.1)
+                if kbhit():
+                    # Handle an interruption in Windows
+                    pressed = getch()
+                    if pressed == b'Q' or pressed == b'q':
+                        break
+
+            # self._awaitThread.join()
+
+        except KeyboardInterrupt:
+            # Handle an interruption not in Windows or with Ctrl+Break.
+            pass  # This would be an expected exception that should not be raised.
+
+        if track.DETAIL == track.DETAIL_FULL:
+            track.print_line('Stopping all scheduled runs.')
+        else:
+            print('Stopping all scheduled runs.')
+
+        for other_group in other_groups:
+            other_group._stop()
+        self._stop()
+        log.close()
+        return self
+
+    def _follow_groups_progress(self, progress, progress_message, progress_bars, previous_progress_message):
+        if len(self._runs) > 0:
+            self._timeoutRuns()
+        
+        if self._progressQueue and not self._progressQueue.empty():
+            while not self._progressQueue.empty():
+                run_id, progress_value = self._progressQueue.get()
+                progress[self._groupName] = progress_value
+                if const.IS_A_JUPYTER_NOTEBOOK:
+                    progress_bars[self._groupName].value = min(
+                        progress_value, 100)
+                elif track.DETAIL == track.DETAIL_FULL:
+                    track.print_line('  {} {} {}%'.format(
+                            text_fix(
+                                self._groupName,
+                                self._max_group_name_length),
+                            track.percentage_bar(progress_value,
+                                length=const.PROGRESS_BAR_LENGTH),
+                            min(progress_value, 100)),
+                        self._groupName)
+
+        if track.DETAIL == track.DETAIL_BRIEF:
+            progress_message = const.BRIEF_PROGRESS_MESSAGE.format(
+                self._groupName,
+                progress[self._groupName])
+
+        # for other_group in self._other_groups:
+        #     if len(other_group._runs) > 0: other_group._timeoutRuns()
+
+        #     if other_group._progressQueue and not other_group._progressQueue.empty():
+        #         while not other_group._progressQueue.empty():
+        #             run_id, progress_value = other_group._progressQueue.get()
+        #             progress[other_group._groupName] = progress_value
+        #             if const.IS_A_JUPYTER_NOTEBOOK:
+        #                 progress_bars[other_group._groupName].value = progress_value
+        #             elif track.DETAIL == track.DETAIL_FULL:
+        #                 track.print_line('  {} {} {}%'.format(
+        #                                 text_fix(other_group._groupName, self._max_group_name_length),
+        #                                 track.percentage_bar(progress_value,
+        #                                     length=const.PROGRESS_BAR_LENGTH),
+        #                                 progress_value),
+        #                         other_group._groupName)
+
+        #     if track.DETAIL == track.DETAIL_BRIEF:
+        #         progress_message += const.BRIEF_PROGRESS_MESSAGE.format(
+        #             other_group._groupName,
+        #             progress[other_group._groupName])
+
+        if track.DETAIL == track.DETAIL_BRIEF:
+            sys.stdout.write('\b' * len(previous_progress_message) +
+                                progress_message)
+            sys.stdout.flush()
+            previous_progress_message = progress_message
+
+        track.print_line('', '_lastline')  # Park cursor at the bottom
+
+        return progress_message
+
+    def now(self, *other_groups):
+        self._other_groups = other_groups
+        self._bootstrap()
+
+        track.kickoff_tracking()
+        log.kickoff_logging()
+
+        self._run('Immediate {} run.'.format(self._groupName))
+
+        progress, progress_bars, previous_progress_message = self._setup_progress_indicators()
+
+        run_count = len(self._runs)
+        for other_group in other_groups:
+            other_group._bootstrap()
+            other_group._run('Immediate {} run.'.format(other_group._groupName))
+            run_count += len(other_group._runs)
+
+        while run_count > 0:
+            progress_message = ''
+
+            progress_message = self._follow_groups_progress(progress, progress_message, progress_bars, previous_progress_message)
+
+            for other_group in other_groups:
+                progress_message = other_group._follow_groups_progress(progress, progress_message, progress_bars, previous_progress_message)
+
+            if track.DETAIL == track.DETAIL_BRIEF:
+                sys.stdout.write('\b' * len(previous_progress_message) +
+                                    progress_message)
+                sys.stdout.flush()
                 previous_progress_message = progress_message
 
-            sleep(0.1)
-            
-            # After .1 seconds check again if there are still any active runs.
-            run_count = len(self._runs)
-            for other_track in other_tracks:
-                run_count += len(other_track._runs)
+            if track.DETAIL == track.DETAIL_FULL:
+                track.print_line('', '_lastline')  # Park cursor at the bottom
 
+            while len(self.runs_to_delete) > 0:
+                run_id = self.runs_to_delete.pop()
+                if run_id in self._runs:
+                    logger.debug('Ending {} run {}'.format(self._groupName, run_id))
+                    self._runs[run_id]["log_queue"].put(None)
+                    del self._runs[run_id]["timestamp"]
+                    del self._runs[run_id]["log_queue"]
+                    del self._runs[run_id]["process_info"]
+                    del self._runs[run_id]["runners_processes"]
+                    del self._runs[run_id]["runners_progress"]
+                    del self._runs[run_id]["log_thread"]
+                    del self._runs[run_id]
+
+            for other_group in other_groups:
+                while len(other_group.runs_to_delete) > 0:
+                    run_id = other_group.runs_to_delete.pop()
+                    if run_id in other_group._runs:
+                        logger.debug('Ending {} run {}'.format(other_group._groupName, run_id))
+                        other_group._runs[run_id]["log_queue"].put(None)
+                        del other_group._runs[run_id]["timestamp"]
+                        del other_group._runs[run_id]["log_queue"]
+                        del other_group._runs[run_id]["process_info"]
+                        del other_group._runs[run_id]["runners_processes"]
+                        del other_group._runs[run_id]["runners_progress"]
+                        del other_group._runs[run_id]["log_thread"]
+                        del other_group._runs[run_id]
+
+            # After .1 seconds check again if there are still any active runs.
+            sleep(0.1)
+            run_count = len(self._runs)
+            for other_group in other_groups:
+                run_count += len(other_group._runs)
+
+        if track.DETAIL == track.DETAIL_FULL:
+            track.print_line('Ending immediate run.')
+        else:
+            print('Ending immediate run.')
+        log.close()
         return self
 
     def _start(self):
@@ -923,21 +1149,22 @@ class Track(object):
             self._configurators[config_name].append(now)
         return self
 
-    def lanes(self, *runners, **runners_by_name):
+    def runners(self, *runners, **runners_by_name):
         for runner in runners:
             self._runners[runner.__name__] = runner
 
         for runner_name in runners_by_name:
             self._runners[runner_name] = runners_by_name[runner_name]
+            self._runners_progress_bars_previous_value[runner_name] = 0
+            self._runners_progress_bars_previous_label[runner_name] = ''
 
         if const.IS_A_JUPYTER_NOTEBOOK:
-            display(HTML('<h4>{}</h4>'.format(self._trackName)))
+            display(HTML('<br><h4>{}</h4>'.format(self._groupName)))
             for runner_name in self._runners:
                 progress_bar = FloatProgress(value=0, min=0, max=100)
                 progress_runner_name = Label(runner_name, layout=Layout(width='15em'))
                 progress_description = Label('', layout=Layout(width='65em'))
                 self._runners_progress_bars[runner_name] = progress_bar
-                self._runners_progress_bars_previous_value[runner_name] = 0
                 self._runners_progress_runner_names[runner_name] = progress_runner_name
                 self._runners_progress_descriptions[runner_name] = progress_description
                 display(HBox([progress_runner_name, progress_bar, progress_description]))
@@ -1041,10 +1268,11 @@ class Track(object):
             self._stop()._start()
         return self
 
-    def __init__(self, track_name, *track_args, **track_kargs):
-        self._trackName = track_name.strip().lower()
-        self._trackArgs = track_args
-        self._trackKArgs = track_kargs
+    def __init__(self, group_name, *group_args, **group_kargs):
+        self._groupName = group_name.strip().lower()
+        self._other_groups = tuple()
+        self._groupArgs = group_args
+        self._groupKArgs = group_kargs
         self._configPath = None
         self._notBootstrapped = True
         self._awaitThread = None
@@ -1055,8 +1283,11 @@ class Track(object):
         self._runners = OrderedDict()
         self._runners_progress_bars = dict()
         self._runners_progress_bars_previous_value = dict()
+        self._runners_progress_bars_previous_label = dict()
         self._runners_progress_runner_names = dict()
         self._runners_progress_descriptions = dict()
+        self._max_group_name_length = 0
+        self._max_runner_name_length = 0
         self._plugins = dict()
         self._pluginsConfigName = dict()
         self._pluginsConfigSection = dict()
@@ -1069,3 +1300,4 @@ class Track(object):
         self._retriesSetting = const.DEFAULT_RETRIES_SETTING
         self._override = dict()
         self._runs = dict()
+        self.runs_to_delete = list()

@@ -49,7 +49,7 @@ class Const(dict):
             const = Const(ONE=1, TWO=2, THREE=3, FOUR=4, FIVE=5)
     """
     def __init__(self, *args, **kwargs):
-        # self.__dict__ = self
+        self._exceptions = set(self.__dict__.keys())
         for item in args + (kwargs,):
             if isinstance(item, dict):
                 for key in item:
@@ -63,13 +63,13 @@ class Const(dict):
             raise AttributeError("No such attribute: " + name)
 
     def __setattr__(self, name, value):
-        if name not in self.__dict__:
+        if name not in self.__dict__ or name in self._exceptions:
             self.__dict__[name] = value
         else:
             raise AttributeError("Not allowed to set attribute: " + name)
 
     def __setitem__(self, key, value):
-        if key not in self.__dict__:
+        if key not in self.__dict__ or key in self._exceptions:
             self.__dict__[key] = value
         else:
             raise KeyError("Not allowed to set key: " + key)
