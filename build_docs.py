@@ -8,16 +8,20 @@ import shutil
 
 
 PACKAGE_NAMES = (
-    'running',
-    'tests',
+    'runningtrack',
 )
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
 os.chdir(ROOT)
 
-
 # Generate API documentation
-API = os.path.join(ROOT, 'api')
+try:
+    import msvcrt
+    APIDOC = 'sphinx-apidoc.exe'
+except:
+    APIDOC = 'sphinx-apidoc'
+
+API = os.path.join(ROOT, 'docsource', 'api')
 
 for package in PACKAGE_NAMES:
     rst_filename = os.path.join(ROOT, package + '.rst')
@@ -25,7 +29,7 @@ for package in PACKAGE_NAMES:
         print('Removing {} file'.format(rst_filename))
         os.remove(rst_filename)
         
-    (subprocess.Popen('sphinx-apidoc.exe {} -o api'.format(package), shell=True)).communicate()
+    (subprocess.Popen('{} {} -o {}'.format(APIDOC, package, API), shell=True)).communicate()
 
 
 # Build html documentation from all .rst sources.

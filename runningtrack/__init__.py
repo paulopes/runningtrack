@@ -54,27 +54,19 @@ except NameError:
     display = HTML = lambda a: None
     FloatProgress = lambda value, min, max, description: { "value": value }
 
-try:
-    from msvcrt import kbhit, getch
-    const.USING_WINDOWS = True
-except NameError:
+if os.name == 'nt':
+    try:
+        from msvcrt import kbhit, getch
+        const.USING_WINDOWS = True
+    except NameError:
+        kbhit = getch = lambda : ''
+        const.USING_WINDOWS = False
+else:
     kbhit = getch = lambda : ''
     const.USING_WINDOWS = False
 
-
-# if not const.IS_A_JUPYTER_NOTEBOOK:
-#     from .track import track
-#     const.USING_ANSI = track.USING_ANSI
-# else:
-#     const.USING_ANSI = False
-# if not const.USING_ANSI:
-#     print_line = lambda text, name=None: None
-#     percentage_bar = lambda value, length=50: ''
-
-# const.MAX_RUNNER_NAME = 16
 const.PROGRESS_BAR_LENGTH = 15
 const.MAX_LABEL_LENGTH = 66
-# const.PROGRESS_MESSAGE = r'  {:>' + str(int(const.MAX_RUNNER_NAME)) + r'} {} {}% '
 const.BRIEF_PROGRESS_MESSAGE = '{} {}%  '
 
 const.WEEK_DAYS = ('Monday:    ', 'Tuesday:   ', 'Wednesday: ', 'Thursday:  ',

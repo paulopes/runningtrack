@@ -2,6 +2,20 @@ Changelog
 =========
 
 
+0.4.0
+-----
+
+Changes:
+~~~~~~~~
+
+- Prepare for pypi upload
+- Upgrade rtd sphinx theme and apply new customization
+- Add track module
+- Better separation of logging and tracking
+- Rename root module to runningtrack
+
+------------------------------------------------------
+
 0.3.1
 -----
 

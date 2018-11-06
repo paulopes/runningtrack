@@ -1,10 +1,10 @@
-About **running**
-=================
+About **runningtrack**
+======================
 
-The running package runs functions in background processes, using a schedule,
+The runningtrack package runs functions in background processes, using a schedule,
 and with a timeout/retry capability.
 
-**running** is a Python package that allows you to launch functions in
+**runningtrack** is a Python package that allows you to launch functions in
 background processes, at scheduled weekdays and times, multiple times a
 day if necessary, and should a function take longer than a certain
 timeout to complete then the function will be terminated and launched
@@ -21,10 +21,10 @@ Example
 
 
     def main(*argv):
-        import running
+        import runningtrack
 
         groups = (
-            running.Group("cl1").run(
+            runningtrack.Group("cl1").run(
                 # Functions to be launched in parallel:
                 runners.pub,
                 runners.sub1a,
@@ -32,7 +32,7 @@ Example
                 # Everyday at this time:
             ).at("12:30"),
 
-            running.Group("cl3").run(
+            runningtrack.Group("cl3").run(
                 # Functions to be launched in parallel:
                 runners.pub,
                 runners.sub1a,
@@ -43,10 +43,10 @@ Example
         # Use the 'now' parameter to bypass the schedule
         # runnning all runner groups at once and just once.
         if len(argv) > 1 and argv[1].lower() == 'now':
-            running.now(*groups)
+            runningtrack.now(*groups)
         else:
-            running.info()
-            running.wait(*groups)
+            runningtrack.info()
+            runningtrack.wait(*groups)
 
 
     if __name__ == "__main__":

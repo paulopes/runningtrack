@@ -1,0 +1,482 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>runningtrack.changes &mdash; Running Track 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Running Track
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">About <strong>runningtrack</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../README.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../README.html#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id1">0.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#changes">Changes:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id2">0.3.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id3">Changes:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id4">0.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id5">Changes:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id6">0.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id7">Changes:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id8">0.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id9">Changes:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../docsource/api/modules.html">runningtrack</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../docsource/api/runningtrack.html">runningtrack package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../docsource/api/runningtrack.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../docsource/api/runningtrack.html#module-runningtrack.changes">runningtrack.changes module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../docsource/api/runningtrack.html#module-runningtrack.config">runningtrack.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../docsource/api/runningtrack.html#module-runningtrack.const">runningtrack.const module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../docsource/api/runningtrack.html#module-runningtrack.dates">runningtrack.dates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../docsource/api/runningtrack.html#module-runningtrack.log">runningtrack.log module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../docsource/api/runningtrack.html#module-runningtrack.track">runningtrack.track module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../docsource/api/runningtrack.html#module-runningtrack">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Running Track</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../runningtrack.html">runningtrack</a> &raquo;</li>
+        
+      <li>runningtrack.changes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for runningtrack.changes</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">import</span> <span class="nn">errno</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">imp</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="k">import</span> <span class="n">glob</span>
+
+<span class="kn">from</span> <span class="nn">.dates</span> <span class="k">import</span> <span class="n">current_seconds_milliseconds</span><span class="p">,</span> <span class="n">current_seconds</span>
+
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">xrange</span> <span class="o">=</span> <span class="nb">range</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Python &gt;= 3.4</span>
+        <span class="kn">from</span> <span class="nn">importlib.util</span> <span class="k">import</span> <span class="n">find_spec</span>
+
+        <span class="c1"># Determine if a top-level python module or package has been pre-installed in site-packages.</span>
+        <span class="k">def</span> <span class="nf">module_is_installed</span><span class="p">(</span><span class="n">module_name</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">find_spec</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="c1"># for Python 3.3</span>
+        <span class="kn">from</span> <span class="nn">importlib</span> <span class="k">import</span> <span class="n">find_loader</span>
+
+        <span class="c1"># Determine if a top-level python module or package has been pre-installed in site-packages.</span>
+        <span class="k">def</span> <span class="nf">module_is_installed</span><span class="p">(</span><span class="n">module_name</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">find_loader</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Determine if a top-level python module or package has been pre-installed in site-packages.</span>
+<div class="viewcode-block" id="module_is_installed"><a class="viewcode-back" href="../../docsource/api/runningtrack.html#runningtrack.changes.module_is_installed">[docs]</a>    <span class="k">def</span> <span class="nf">module_is_installed</span><span class="p">(</span><span class="n">module_name</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">imp</span><span class="o">.</span><span class="n">find_module</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">found</span></div>
+
+
+<span class="c1"># Example usage of the function module_is_installed().</span>
+<span class="n">USING_WIN32</span> <span class="o">=</span> <span class="n">module_is_installed</span><span class="p">(</span><span class="s2">&quot;win32file&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="sleep"><a class="viewcode-back" href="../../docsource/api/runningtrack.html#runningtrack.changes.sleep">[docs]</a><span class="k">def</span> <span class="nf">sleep</span><span class="p">(</span><span class="n">seconds</span><span class="p">):</span>
+    <span class="n">okay</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">seconds</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">!=</span> <span class="n">errno</span><span class="o">.</span><span class="n">EINTR</span><span class="p">:</span>
+            <span class="k">raise</span>
+    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+        <span class="n">okay</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="n">okay</span></div>
+
+
+<span class="k">if</span> <span class="n">USING_WIN32</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">win32file</span>
+    <span class="kn">import</span> <span class="nn">win32con</span>
+    <span class="kn">import</span> <span class="nn">win32event</span>
+    <span class="kn">import</span> <span class="nn">pywintypes</span>
+
+    <span class="k">class</span> <span class="nc">FolderChanges</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+        <span class="n">flags</span> <span class="o">=</span> <span class="p">(</span><span class="n">win32con</span><span class="o">.</span><span class="n">FILE_NOTIFY_CHANGE_FILE_NAME</span> <span class="o">|</span>
+                 <span class="n">win32con</span><span class="o">.</span><span class="n">FILE_NOTIFY_CHANGE_DIR_NAME</span> <span class="o">|</span>
+                 <span class="n">win32con</span><span class="o">.</span><span class="n">FILE_NOTIFY_CHANGE_ATTRIBUTES</span> <span class="o">|</span>
+                 <span class="n">win32con</span><span class="o">.</span><span class="n">FILE_NOTIFY_CHANGE_SIZE</span> <span class="o">|</span>
+                 <span class="n">win32con</span><span class="o">.</span><span class="n">FILE_NOTIFY_CHANGE_LAST_WRITE</span> <span class="o">|</span>
+                 <span class="n">win32con</span><span class="o">.</span><span class="n">FILE_NOTIFY_CHANGE_SECURITY</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">change_handle</span> <span class="o">=</span> <span class="n">win32file</span><span class="o">.</span><span class="n">FindFirstChangeNotification</span><span class="p">(</span>
+                        <span class="n">path</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">FolderChanges</span><span class="o">.</span><span class="n">flags</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">pywintypes</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+                <span class="k">pass</span>  <span class="c1"># This happens when the config folder doesn&#39;t exist</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">changed</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+    <span class="k">class</span> <span class="nc">ChangingFolders</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+        <span class="k">def</span> <span class="nf">get_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback_path</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">callback_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">[</span><span class="n">callback_path</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="k">lambda</span> <span class="n">path</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s1">&#39;Path &#39;</span> <span class="o">+</span> <span class="n">path</span> <span class="o">+</span> <span class="s1">&#39; not found in callbacks.&#39;</span><span class="p">}</span>
+
+        <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="n">folder_changes</span> <span class="o">=</span> <span class="n">FolderChanges</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">callback</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">folder_changes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">folder_changes</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">win32_handles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">folder_changes</span><span class="o">.</span><span class="n">change_handle</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">pass</span>  <span class="c1"># This happens when the config folder doesn&#39;t exist</span>
+
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">paths</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">folder_changes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">win32_handles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+
+    <span class="k">def</span> <span class="nf">wait_for_beat_and_get_changed_folders</span><span class="p">(</span><span class="n">wait_period</span><span class="p">,</span> <span class="n">changing_folders</span><span class="p">):</span>
+
+        <span class="n">returning_changed_folders</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+        <span class="c1"># Make sure that the interval does not include milliseconds, yet still promoting</span>
+        <span class="c1"># that calculations using interval can include milliseconds in their results.</span>
+        <span class="n">interval</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">wait_period</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">this_second</span> <span class="o">=</span> <span class="n">current_seconds_milliseconds</span><span class="p">()</span>
+        <span class="n">max_seconds</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">this_second</span> <span class="o">+</span> <span class="n">interval</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">max_seconds</span> <span class="o">&gt;</span> <span class="mf">60.0</span><span class="p">:</span>
+            <span class="n">max_seconds</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">wait_for</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">interval</span> <span class="o">-</span> <span class="n">this_second</span> <span class="o">%</span> <span class="n">interval</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">interrupter</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">wait_for</span> <span class="o">&gt;=</span> <span class="mf">60.0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">this_second</span> <span class="o">&lt;</span> <span class="n">max_seconds</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">interrupter</span> <span class="o">=</span> <span class="n">win32event</span><span class="o">.</span><span class="n">WaitForMultipleObjects</span><span class="p">(</span>
+                    <span class="n">changing_folders</span><span class="o">.</span><span class="n">win32_handles</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="nb">int</span><span class="p">(</span><span class="mf">1000.0</span> <span class="o">*</span> <span class="n">wait_for</span><span class="p">)</span>
+                <span class="p">)</span> <span class="o">-</span> <span class="n">win32event</span><span class="o">.</span><span class="n">WAIT_OBJECT_0</span>
+            <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">!=</span> <span class="n">errno</span><span class="o">.</span><span class="n">EINTR</span><span class="p">:</span>
+                    <span class="k">raise</span>
+            <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">except</span> <span class="n">pywintypes</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+                <span class="k">pass</span>  <span class="c1"># This happens when the config folder doesn&#39;t exist</span>
+
+            <span class="n">this_second</span> <span class="o">=</span> <span class="n">current_seconds_milliseconds</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">max_seconds</span> <span class="o">&gt;</span> <span class="mf">59.0</span><span class="p">:</span>
+                <span class="n">max_seconds</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="n">wait_for</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">interval</span> <span class="o">-</span> <span class="n">this_second</span> <span class="o">%</span> <span class="n">interval</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">interrupter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">interrupter</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">changing_folders</span><span class="o">.</span><span class="n">win32_handles</span><span class="p">):</span>
+                <span class="n">returning_changed_folders</span><span class="p">[</span><span class="n">changing_folders</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="n">interrupter</span><span class="p">]]</span> <span class="o">=</span>\
+                    <span class="n">changing_folders</span><span class="o">.</span><span class="n">callbacks</span><span class="p">[</span><span class="n">changing_folders</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="n">interrupter</span><span class="p">]]</span>
+                <span class="n">win32file</span><span class="o">.</span><span class="n">FindNextChangeNotification</span><span class="p">(</span><span class="n">changing_folders</span><span class="o">.</span><span class="n">win32_handles</span><span class="p">[</span><span class="n">interrupter</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">returning_changed_folders</span>
+
+<span class="k">else</span><span class="p">:</span>
+
+<div class="viewcode-block" id="FolderChanges"><a class="viewcode-back" href="../../docsource/api/runningtrack.html#runningtrack.changes.FolderChanges">[docs]</a>    <span class="k">class</span> <span class="nc">FolderChanges</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FolderChanges.check"><a class="viewcode-back" href="../../docsource/api/runningtrack.html#runningtrack.changes.FolderChanges.check">[docs]</a>        <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">timestamp</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">st_mtime</span>
+            <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                <span class="n">timestamp</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">timestamp</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">changed</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="n">timestamp</span></div>
+
+<div class="viewcode-block" id="FolderChanges.reset"><a class="viewcode-back" href="../../docsource/api/runningtrack.html#runningtrack.changes.FolderChanges.reset">[docs]</a>        <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">changed</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">st_mtime</span>
+            <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">changed</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="ChangingFolders"><a class="viewcode-back" href="../../docsource/api/runningtrack.html#runningtrack.changes.ChangingFolders">[docs]</a>    <span class="k">class</span> <span class="nc">ChangingFolders</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ChangingFolders.get_callback"><a class="viewcode-back" href="../../docsource/api/runningtrack.html#runningtrack.changes.ChangingFolders.get_callback">[docs]</a>        <span class="k">def</span> <span class="nf">get_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback_path</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">callback_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">[</span><span class="n">callback_path</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="k">lambda</span> <span class="n">path</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s1">&#39;Path &#39;</span> <span class="o">+</span> <span class="n">path</span> <span class="o">+</span> <span class="s1">&#39; not found in callbacks.&#39;</span><span class="p">}</span></div>
+
+<div class="viewcode-block" id="ChangingFolders.add"><a class="viewcode-back" href="../../docsource/api/runningtrack.html#runningtrack.changes.ChangingFolders.add">[docs]</a>        <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="n">folder_changes</span> <span class="o">=</span> <span class="n">FolderChanges</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">callback</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">folder_changes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">folder_changes</span><span class="p">)</span></div>
+
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">paths</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">folder_changes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="wait_for_beat_and_get_changed_folders"><a class="viewcode-back" href="../../docsource/api/runningtrack.html#runningtrack.changes.wait_for_beat_and_get_changed_folders">[docs]</a>    <span class="k">def</span> <span class="nf">wait_for_beat_and_get_changed_folders</span><span class="p">(</span><span class="n">wait_period</span><span class="p">,</span> <span class="n">changing_folders</span><span class="p">):</span>
+
+        <span class="n">returning_changed_folders</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+        <span class="c1"># Make sure that the interval does not include milliseconds, yet still promoting</span>
+        <span class="c1"># that calculations using interval can include milliseconds in their results.</span>
+        <span class="n">interval</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">wait_period</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">wait_for</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">interval</span> <span class="o">-</span> <span class="n">current_seconds</span><span class="p">()</span> <span class="o">%</span> <span class="n">interval</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">sleep</span><span class="p">(</span><span class="n">wait_for</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">changing_folders</span><span class="o">.</span><span class="n">paths</span><span class="p">)):</span>
+                <span class="n">folder_changes</span> <span class="o">=</span> <span class="n">changing_folders</span><span class="o">.</span><span class="n">folder_changes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">folder_changes</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">folder_changes</span><span class="o">.</span><span class="n">changed</span><span class="p">:</span>
+                    <span class="n">returning_changed_folders</span><span class="p">[</span><span class="n">changing_folders</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span>\
+                        <span class="n">changing_folders</span><span class="o">.</span><span class="n">callbacks</span><span class="p">[</span><span class="n">changing_folders</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+                    <span class="n">folder_changes</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="n">returning_changed_folders</span></div>
+
+
+<div class="viewcode-block" id="every_file_in"><a class="viewcode-back" href="../../docsource/api/runningtrack.html#runningtrack.changes.every_file_in">[docs]</a><span class="k">def</span> <span class="nf">every_file_in</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">changing_folders</span> <span class="o">=</span> <span class="n">ChangingFolders</span><span class="p">()</span>
+    <span class="n">changing_folders</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">filter</span><span class="p">:</span>
+        <span class="n">path_filter</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">filter</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">path_filter</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">)</span>
+
+    <span class="n">file_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">path_filter</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
+        <span class="n">file_name</span> <span class="o">=</span> <span class="n">file_path</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">):]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">file_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">file_name</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">file_name</span>
+    <span class="n">file_path_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">file_list</span><span class="p">)</span>
+
+    <span class="n">wait_period</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">wait_for_beat_and_get_changed_folders</span><span class="p">(</span><span class="n">wait_period</span><span class="p">,</span> <span class="n">changing_folders</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">file_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">path_filter</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">file_path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">file_path_set</span><span class="p">:</span>
+                <span class="n">file_name</span> <span class="o">=</span> <span class="n">file_path</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">):]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">file_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">file_name</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">file_name</span>
+        <span class="n">file_path_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">file_list</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Paulo Lopes
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

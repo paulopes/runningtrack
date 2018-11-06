@@ -1,0 +1,904 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>runningtrack package &mdash; Running Track 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="runningtrack" href="modules.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Running Track
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">About <strong>runningtrack</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../README.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../README.html#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id1">0.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#changes">Changes:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id2">0.3.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id3">Changes:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id4">0.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id5">Changes:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id6">0.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id7">Changes:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id8">0.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id9">Changes:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">runningtrack</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">runningtrack package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-runningtrack.changes">runningtrack.changes module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-runningtrack.config">runningtrack.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-runningtrack.const">runningtrack.const module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-runningtrack.dates">runningtrack.dates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-runningtrack.log">runningtrack.log module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-runningtrack.track">runningtrack.track module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-runningtrack">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Running Track</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">runningtrack</a> &raquo;</li>
+        
+      <li>runningtrack package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="runningtrack-package">
+<h1>runningtrack package<a class="headerlink" href="#runningtrack-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-runningtrack.changes">
+<span id="runningtrack-changes-module"></span><h2>runningtrack.changes module<a class="headerlink" href="#module-runningtrack.changes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="runningtrack.changes.ChangingFolders">
+<em class="property">class </em><code class="descclassname">runningtrack.changes.</code><code class="descname">ChangingFolders</code><a class="reference internal" href="../../_modules/runningtrack/changes.html#ChangingFolders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.changes.ChangingFolders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="runningtrack.changes.ChangingFolders.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>path</em>, <em>callback=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/changes.html#ChangingFolders.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.changes.ChangingFolders.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.changes.ChangingFolders.get_callback">
+<code class="descname">get_callback</code><span class="sig-paren">(</span><em>callback_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/changes.html#ChangingFolders.get_callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.changes.ChangingFolders.get_callback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="runningtrack.changes.FolderChanges">
+<em class="property">class </em><code class="descclassname">runningtrack.changes.</code><code class="descname">FolderChanges</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/changes.html#FolderChanges"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.changes.FolderChanges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="runningtrack.changes.FolderChanges.check">
+<code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/changes.html#FolderChanges.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.changes.FolderChanges.check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.changes.FolderChanges.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/changes.html#FolderChanges.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.changes.FolderChanges.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.changes.every_file_in">
+<code class="descclassname">runningtrack.changes.</code><code class="descname">every_file_in</code><span class="sig-paren">(</span><em>path</em>, <em>filter=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/changes.html#every_file_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.changes.every_file_in" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.changes.module_is_installed">
+<code class="descclassname">runningtrack.changes.</code><code class="descname">module_is_installed</code><span class="sig-paren">(</span><em>module_name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/changes.html#module_is_installed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.changes.module_is_installed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.changes.sleep">
+<code class="descclassname">runningtrack.changes.</code><code class="descname">sleep</code><span class="sig-paren">(</span><em>seconds</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/changes.html#sleep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.changes.sleep" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.changes.wait_for_beat_and_get_changed_folders">
+<code class="descclassname">runningtrack.changes.</code><code class="descname">wait_for_beat_and_get_changed_folders</code><span class="sig-paren">(</span><em>wait_period</em>, <em>changing_folders</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/changes.html#wait_for_beat_and_get_changed_folders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.changes.wait_for_beat_and_get_changed_folders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-runningtrack.config">
+<span id="runningtrack-config-module"></span><h2>runningtrack.config module<a class="headerlink" href="#module-runningtrack.config" title="Permalink to this headline">¶</a></h2>
+<p>Helper functions to deal with configuration files</p>
+<dl class="class">
+<dt id="runningtrack.config.OrderedDictYAMLLoader">
+<em class="property">class </em><code class="descclassname">runningtrack.config.</code><code class="descname">OrderedDictYAMLLoader</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/config.html#OrderedDictYAMLLoader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.config.OrderedDictYAMLLoader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">yaml.loader.Loader</span></code></p>
+<p>A YAML loader that loads mappings into ordered dictionaries.</p>
+<dl class="method">
+<dt id="runningtrack.config.OrderedDictYAMLLoader.construct_mapping">
+<code class="descname">construct_mapping</code><span class="sig-paren">(</span><em>node</em>, <em>deep=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/config.html#OrderedDictYAMLLoader.construct_mapping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.config.OrderedDictYAMLLoader.construct_mapping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.config.OrderedDictYAMLLoader.construct_yaml_map">
+<code class="descname">construct_yaml_map</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/config.html#OrderedDictYAMLLoader.construct_yaml_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.config.OrderedDictYAMLLoader.construct_yaml_map" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.config.get_config">
+<code class="descclassname">runningtrack.config.</code><code class="descname">get_config</code><span class="sig-paren">(</span><em>path_with_name</em>, <em>file_type</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/config.html#get_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.config.get_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.config.get_file_type_and_mtime">
+<code class="descclassname">runningtrack.config.</code><code class="descname">get_file_type_and_mtime</code><span class="sig-paren">(</span><em>path_with_name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/config.html#get_file_type_and_mtime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.config.get_file_type_and_mtime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.config.load_config_ini">
+<code class="descclassname">runningtrack.config.</code><code class="descname">load_config_ini</code><span class="sig-paren">(</span><em>full_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/config.html#load_config_ini"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.config.load_config_ini" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.config.load_config_json">
+<code class="descclassname">runningtrack.config.</code><code class="descname">load_config_json</code><span class="sig-paren">(</span><em>full_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/config.html#load_config_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.config.load_config_json" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.config.load_config_yaml">
+<code class="descclassname">runningtrack.config.</code><code class="descname">load_config_yaml</code><span class="sig-paren">(</span><em>full_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/config.html#load_config_yaml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.config.load_config_yaml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.config.load_logging_config">
+<code class="descclassname">runningtrack.config.</code><code class="descname">load_logging_config</code><span class="sig-paren">(</span><em>path_with_name</em>, <em>config_type</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/config.html#load_logging_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.config.load_logging_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.config.merge_defaults">
+<code class="descclassname">runningtrack.config.</code><code class="descname">merge_defaults</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/config.html#merge_defaults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.config.merge_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge a dictionary that has an item with a “DEFAULT” key,
+if that item is itself a dictionary, then merge that
+item’s subitems with all the other items in the dictionary
+that are also themselves dictionaries.</p>
+<p>The purpose is to mimic the behaviour of the [DEFAULT]
+sections of .ini or .conf files when using .json or .yaml
+files, or when using OrderedDict or dict data structures.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<em>dict</em><em> or </em><em>OrderedDict</em>) – The dictionary that is to have its “DEFAULT” key merged
+with the other keys.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The merged version of the dictionary as an OrderedDict,
+or the original config (be it a dict or an OrderedDict)
+if it had no “DEFAULT” key to begin with, or it was not
+a dict or an OrderedDict.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">OrderedDict or dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.config.validate_logging_config">
+<code class="descclassname">runningtrack.config.</code><code class="descname">validate_logging_config</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/config.html#validate_logging_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.config.validate_logging_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-runningtrack.const">
+<span id="runningtrack-const-module"></span><h2>runningtrack.const module<a class="headerlink" href="#module-runningtrack.const" title="Permalink to this headline">¶</a></h2>
+<p>Dictionary in which the elements can be accessed as if they
+were attributes, and cannot be changed.</p>
+<p>When you have defined a Const instance like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="o">=</span> <span class="n">Const</span><span class="p">(</span><span class="n">ABC</span><span class="o">=</span><span class="s2">&quot;123&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then <code class="docutils literal notranslate"><span class="pre">const[&quot;ABC&quot;]</span></code> is the same as <code class="docutils literal notranslate"><span class="pre">const.ABC</span></code></p>
+<p>You can set a new constant item in the same way by assigning
+to it, but you CANNOT change items that already exist,
+because they are intended to be constant.</p>
+<p>You can define items in the constructor, as in the example,
+but the value of such an item can be overridden by an OS
+environment value if it has the same name.</p>
+<p>For example, if there is an OS environment variable called
+WEB_PORT with a value of 8080, and you define a const in
+this way:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="o">=</span> <span class="n">Const</span><span class="p">(</span><span class="n">WEB_PORT</span><span class="o">=</span><span class="mi">3000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then <code class="docutils literal notranslate"><span class="pre">const.WEB_PORT</span></code> will have the value 8080, not 3000.</p>
+<p>If you want to set a constant item that cannot be overriden
+by an envirnment variable, then set it after instanciating,
+like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="o">=</span> <span class="n">Const</span><span class="p">()</span>
+<span class="n">const</span><span class="o">.</span><span class="n">WEB_PORT</span> <span class="o">=</span> <span class="mi">3000</span>
+</pre></div>
+</div>
+<p>You can pass one or more dictionaries to the constructor
+for when that is convenient for defining the values:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="o">=</span> <span class="n">Const</span><span class="p">({</span>
+    <span class="s2">&quot;ONE&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;TWO&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="p">},</span> <span class="p">{</span>
+    <span class="s2">&quot;THREE&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;FOUR&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+<span class="p">},</span> <span class="n">FIVE</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is the same as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="o">=</span> <span class="n">Const</span><span class="p">(</span><span class="n">ONE</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">TWO</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">THREE</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">FOUR</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">FIVE</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="runningtrack.const.Const">
+<em class="property">class </em><code class="descclassname">runningtrack.const.</code><code class="descname">Const</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/const.html#Const"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.const.Const" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-runningtrack.dates">
+<span id="runningtrack-dates-module"></span><h2>runningtrack.dates module<a class="headerlink" href="#module-runningtrack.dates" title="Permalink to this headline">¶</a></h2>
+<p>Helper functions to deal with dates</p>
+<dl class="function">
+<dt id="runningtrack.dates.current_date">
+<code class="descclassname">runningtrack.dates.</code><code class="descname">current_date</code><span class="sig-paren">(</span><em>utc_setting=True</em>, <em>moment=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/dates.html#current_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.dates.current_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current date as text in the ISO format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Sig:</th><td class="field-body"><p class="first">(bool, Union[datetime.datetime, None]) -&gt; str</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>utc_setting</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether we want the current moment to be timezone agnostic.
+(the default is True, which denotes to be timezone agnostic.)</li>
+<li><strong>moment</strong> (<em>datetime.datetime</em><em>, </em><em>optional</em>) – The moment considered to be the “now” moment.
+(the default is None, which denotes the use of the current moment.)
+This parameter is mostly useful for testing purposes, otherwise it
+shouldn’t be provided.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The current date as text.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.dates.current_day">
+<code class="descclassname">runningtrack.dates.</code><code class="descname">current_day</code><span class="sig-paren">(</span><em>utc_setting=True</em>, <em>moment=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/dates.html#current_day"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.dates.current_day" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current day of the week.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Sig:</th><td class="field-body"><p class="first">(bool, Union[datetime.datetime, None]) -&gt; int</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>utc_setting</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether we want the current moment to be timezone agnostic.
+(the default is True, which denotes to be timezone agnostic.)</li>
+<li><strong>moment</strong> (<em>datetime.datetime</em><em>, </em><em>optional</em>) – The moment considered to be the “now” moment.
+(the default is None, which denotes the use of the current moment.)
+This parameter is mostly useful for testing purposes, otherwise it
+shouldn’t be provided.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The current day of the week in range [0, 6], Monday is 0.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">int</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.dates.current_seconds">
+<code class="descclassname">runningtrack.dates.</code><code class="descname">current_seconds</code><span class="sig-paren">(</span><em>moment=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/dates.html#current_seconds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.dates.current_seconds" title="Permalink to this definition">¶</a></dt>
+<dd><p>The seconds of the current minute.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Sig:</th><td class="field-body">(Union[datetime.datetime, None]) -&gt; int</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>moment</strong> (<em>datetime.datetime</em><em>, </em><em>optional</em>) – The moment considered to be the “now” moment.
+(the default is None, which denotes the use of the current moment.)
+This parameter is mostly useful for testing purposes, otherwise it
+shouldn’t be provided.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current seconds within the current minute.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.dates.current_seconds_milliseconds">
+<code class="descclassname">runningtrack.dates.</code><code class="descname">current_seconds_milliseconds</code><span class="sig-paren">(</span><em>moment=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/dates.html#current_seconds_milliseconds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.dates.current_seconds_milliseconds" title="Permalink to this definition">¶</a></dt>
+<dd><p>The seconds and milliseconds of the current minute.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Sig:</th><td class="field-body">(Union[datetime.datetime, None]) -&gt; float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>moment</strong> (<em>datetime.datetime</em><em>, </em><em>optional</em>) – The moment considered to be the “now” moment.
+(the default is None, which denotes the use of the current moment.)
+This parameter is mostly useful for testing purposes, otherwise it
+shouldn’t be provided.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current seconds, with the milliseconds after the decimal point.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.dates.current_time">
+<code class="descclassname">runningtrack.dates.</code><code class="descname">current_time</code><span class="sig-paren">(</span><em>utc_setting=True</em>, <em>moment=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/dates.html#current_time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.dates.current_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current time of the day in the HH:MM format (no seconds).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Sig:</th><td class="field-body"><p class="first">(bool, Union[datetime.datetime, None]) -&gt; str</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>utc_setting</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether we want the current moment to be timezone agnostic.
+(the default is True, which denotes to be timezone agnostic.)</li>
+<li><strong>moment</strong> (<em>datetime.datetime</em><em>, </em><em>optional</em>) – The moment considered to be the “now” moment.
+(the default is None, which denotes the use of the current moment.)
+This parameter is mostly useful for testing purposes, otherwise it
+shouldn’t be provided.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The current time of the day as text.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.dates.now">
+<code class="descclassname">runningtrack.dates.</code><code class="descname">now</code><span class="sig-paren">(</span><em>utc_setting=True</em>, <em>timezone=None</em>, <em>timestamp=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/dates.html#now"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.dates.now" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current moment in time.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Sig:</th><td class="field-body"><p class="first">(bool, Union[datetime.timezone, None], Union[float, None]) -&gt; datetime.datetime</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>utc_setting</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether we want the current moment to be timezone agnostic.
+(the default is True, which denotes to be timezone agnostic.)</li>
+<li><strong>timezone</strong> (<em>datetime.timezone</em><em>, </em><em>optional</em>) – Which timezone we want the current moment to be reported in.
+(the default is None, which denotes the local machine’s timezone.)</li>
+<li><strong>timestamp</strong> (<em>float</em><em>, </em><em>optional</em>) – POSIX timestamp of the moment considered to be the “now” moment.
+(the default is None, which denotes the use of the current moment.)
+This parameter is mostly useful for testing purposes, otherwise it
+shouldn’t be provided.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>the_now_moment</strong> – The current moment.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">datetime.datetime</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-runningtrack.log">
+<span id="runningtrack-log-module"></span><h2>runningtrack.log module<a class="headerlink" href="#module-runningtrack.log" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="runningtrack.log.Log">
+<em class="property">class </em><code class="descclassname">runningtrack.log.</code><code class="descname">Log</code><span class="sig-paren">(</span><em>logger=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/log.html#Log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.log.Log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="runningtrack.log.Log.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/log.html#Log.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.log.Log.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.log.Log.critical">
+<code class="descname">critical</code><span class="sig-paren">(</span><em>handler_id=None</em>, <em>*args</em>, <em>**kargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/log.html#Log.critical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.log.Log.critical" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.log.Log.debug">
+<code class="descname">debug</code><span class="sig-paren">(</span><em>handler_id=None</em>, <em>*args</em>, <em>**kargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/log.html#Log.debug"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.log.Log.debug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.log.Log.error">
+<code class="descname">error</code><span class="sig-paren">(</span><em>handler_id=None</em>, <em>*args</em>, <em>**kargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/log.html#Log.error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.log.Log.error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.log.Log.info">
+<code class="descname">info</code><span class="sig-paren">(</span><em>handler_id=None</em>, <em>*args</em>, <em>**kargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/log.html#Log.info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.log.Log.info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.log.Log.kickoff_logging">
+<code class="descname">kickoff_logging</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/log.html#Log.kickoff_logging"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.log.Log.kickoff_logging" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.log.Log.trace">
+<code class="descname">trace</code><span class="sig-paren">(</span><em>level=None</em>, <em>handler_id=None</em>, <em>*args</em>, <em>**kargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/log.html#Log.trace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.log.Log.trace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.log.Log.warning">
+<code class="descname">warning</code><span class="sig-paren">(</span><em>handler_id=None</em>, <em>*args</em>, <em>**kargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/log.html#Log.warning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.log.Log.warning" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.log.make_sure_path_exists">
+<code class="descclassname">runningtrack.log.</code><code class="descname">make_sure_path_exists</code><span class="sig-paren">(</span><em>dest_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/log.html#make_sure_path_exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.log.make_sure_path_exists" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-runningtrack.track">
+<span id="runningtrack-track-module"></span><h2>runningtrack.track module<a class="headerlink" href="#module-runningtrack.track" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="runningtrack.track.Track">
+<em class="property">class </em><code class="descclassname">runningtrack.track.</code><code class="descname">Track</code><span class="sig-paren">(</span><em>*args</em>, <em>**kargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/track.html#Track"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.track.Track" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#runningtrack.const.Const" title="runningtrack.const.Const"><code class="xref py py-class docutils literal notranslate"><span class="pre">runningtrack.const.Const</span></code></a></p>
+<dl class="attribute">
+<dt id="runningtrack.track.Track.DETAIL_BRIEF">
+<code class="descname">DETAIL_BRIEF</code><em class="property"> = 1</em><a class="headerlink" href="#runningtrack.track.Track.DETAIL_BRIEF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="runningtrack.track.Track.DETAIL_FULL">
+<code class="descname">DETAIL_FULL</code><em class="property"> = 2</em><a class="headerlink" href="#runningtrack.track.Track.DETAIL_FULL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="runningtrack.track.Track.DETAIL_NONE">
+<code class="descname">DETAIL_NONE</code><em class="property"> = 0</em><a class="headerlink" href="#runningtrack.track.Track.DETAIL_NONE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.track.Track.brief">
+<code class="descname">brief</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/track.html#Track.brief"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.track.Track.brief" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.track.Track.full">
+<code class="descname">full</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/track.html#Track.full"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.track.Track.full" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.track.Track.kickoff_tracking">
+<code class="descname">kickoff_tracking</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/track.html#Track.kickoff_tracking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.track.Track.kickoff_tracking" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="runningtrack.track.Track.percentage_bar">
+<em class="property">static </em><code class="descname">percentage_bar</code><span class="sig-paren">(</span><em>value</em>, <em>length=50</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/track.html#Track.percentage_bar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.track.Track.percentage_bar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.track.Track.print_line">
+<code class="descname">print_line</code><span class="sig-paren">(</span><em>text</em>, <em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack/track.html#Track.print_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.track.Track.print_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-runningtrack">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-runningtrack" title="Permalink to this headline">¶</a></h2>
+<p>“runninggroup” package</p>
+<dl class="class">
+<dt id="runningtrack.ConcurrentLogger">
+<em class="property">class </em><code class="descclassname">runningtrack.</code><code class="descname">ConcurrentLogger</code><span class="sig-paren">(</span><em>name</em>, <em>level=0</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#ConcurrentLogger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.ConcurrentLogger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Logger</span></code></p>
+<dl class="method">
+<dt id="runningtrack.ConcurrentLogger.handle">
+<code class="descname">handle</code><span class="sig-paren">(</span><em>record</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#ConcurrentLogger.handle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.ConcurrentLogger.handle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the handlers for the specified record.</p>
+<p>This method is used for unpickled records received from a socket, as
+well as those created locally. Logger-level filtering is applied.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.ConcurrentLogger.isEnabledFor">
+<code class="descname">isEnabledFor</code><span class="sig-paren">(</span><em>level</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#ConcurrentLogger.isEnabledFor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.ConcurrentLogger.isEnabledFor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is this logger enabled for level ‘level’?</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="runningtrack.ConcurrentLogger.log_queue">
+<code class="descname">log_queue</code><em class="property"> = None</em><a class="headerlink" href="#runningtrack.ConcurrentLogger.log_queue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="runningtrack.ConcurrentLogger.session">
+<code class="descname">session</code><em class="property"> = ''</em><a class="headerlink" href="#runningtrack.ConcurrentLogger.session" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.FloatProgress">
+<code class="descclassname">runningtrack.</code><code class="descname">FloatProgress</code><span class="sig-paren">(</span><em>value</em>, <em>min</em>, <em>max</em>, <em>description</em><span class="sig-paren">)</span><a class="headerlink" href="#runningtrack.FloatProgress" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="runningtrack.Group">
+<em class="property">class </em><code class="descclassname">runningtrack.</code><code class="descname">Group</code><span class="sig-paren">(</span><em>group_name</em>, <em>*group_args</em>, <em>**group_kargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="runningtrack.Group.add_config">
+<code class="descname">add_config</code><span class="sig-paren">(</span><em>name</em>, <em>now=&lt;function Group.&lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.add_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.add_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.at">
+<code class="descname">at</code><span class="sig-paren">(</span><em>times</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.bmp">
+<code class="descname">bmp</code><span class="sig-paren">(</span><em>seconds=0</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.bmp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.bmp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.debug">
+<code class="descname">debug</code><span class="sig-paren">(</span><em>enable=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.debug"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.debug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.friday">
+<code class="descname">friday</code><span class="sig-paren">(</span><em>times</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.friday"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.friday" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.load_config">
+<code class="descname">load_config</code><span class="sig-paren">(</span><em>config_name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.load_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.load_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.load_config_all">
+<code class="descname">load_config_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.load_config_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.load_config_all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.monday">
+<code class="descname">monday</code><span class="sig-paren">(</span><em>times</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.monday"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.monday" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.now">
+<code class="descname">now</code><span class="sig-paren">(</span><em>*other_groups</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.now"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.now" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.retries">
+<code class="descname">retries</code><span class="sig-paren">(</span><em>count=2</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.retries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.retries" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.runners">
+<code class="descname">runners</code><span class="sig-paren">(</span><em>*runners</em>, <em>**runners_by_name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.runners"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.runners" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.saturday">
+<code class="descname">saturday</code><span class="sig-paren">(</span><em>times</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.saturday"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.saturday" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.sunday">
+<code class="descname">sunday</code><span class="sig-paren">(</span><em>times</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.sunday"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.sunday" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.thursday">
+<code class="descname">thursday</code><span class="sig-paren">(</span><em>times</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.thursday"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.thursday" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.timeout">
+<code class="descname">timeout</code><span class="sig-paren">(</span><em>seconds=300</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.timeout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.timeout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.tuesday">
+<code class="descname">tuesday</code><span class="sig-paren">(</span><em>times</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.tuesday"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.tuesday" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.wait">
+<code class="descname">wait</code><span class="sig-paren">(</span><em>*other_groups</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.wait"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.wait" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.watch_folder">
+<code class="descname">watch_folder</code><span class="sig-paren">(</span><em>path</em>, <em>callback=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.watch_folder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.watch_folder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="runningtrack.Group.wednesday">
+<code class="descname">wednesday</code><span class="sig-paren">(</span><em>times</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#Group.wednesday"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.Group.wednesday" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.HTML">
+<code class="descclassname">runningtrack.</code><code class="descname">HTML</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#runningtrack.HTML" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.display">
+<code class="descclassname">runningtrack.</code><code class="descname">display</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#runningtrack.display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.getch">
+<code class="descclassname">runningtrack.</code><code class="descname">getch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#runningtrack.getch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.kbhit">
+<code class="descclassname">runningtrack.</code><code class="descname">kbhit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#runningtrack.kbhit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.log_handler_thread">
+<code class="descclassname">runningtrack.</code><code class="descname">log_handler_thread</code><span class="sig-paren">(</span><em>log_queue</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#log_handler_thread"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.log_handler_thread" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.now">
+<code class="descclassname">runningtrack.</code><code class="descname">now</code><span class="sig-paren">(</span><em>group</em>, <em>*groups</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#now"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.now" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.runner_process">
+<code class="descclassname">runningtrack.</code><code class="descname">runner_process</code><span class="sig-paren">(</span><em>progress_queue</em>, <em>log_queue</em>, <em>group_name</em>, <em>group_args</em>, <em>group_kargs</em>, <em>runner</em>, <em>runner_name</em>, <em>run_id</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#runner_process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.runner_process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.text_fix">
+<code class="descclassname">runningtrack.</code><code class="descname">text_fix</code><span class="sig-paren">(</span><em>text</em>, <em>fix=80</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#text_fix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.text_fix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="runningtrack.wait">
+<code class="descclassname">runningtrack.</code><code class="descname">wait</code><span class="sig-paren">(</span><em>group</em>, <em>*groups</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/runningtrack.html#wait"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runningtrack.wait" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="modules.html" class="btn btn-neutral" title="runningtrack" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Paulo Lopes
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

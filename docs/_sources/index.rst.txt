@@ -1,17 +1,18 @@
-.. running documentation master file, created by
-   sphinx-quickstart on Thu Dec 28 14:56:00 2017.
+.. runningtrack documentation master file, created by
+   sphinx-quickstart on Tue Nov  6 15:02:34 2018.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-**running** documentation
-=========================
+Welcome to runningtrack's documentation!
+========================================
 
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
 
    README
    CHANGELOG
-   api/modules
+   docsource/api/modules
 
 
 Indices and tables
@@ -19,5 +20,3 @@ Indices and tables
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
-

@@ -17,7 +17,11 @@ setup(name='runningtrack',
       author='Paulo Lopes',
       author_email='palopes@cisco.com',
       url='https://paulopes.github.io/running/',
-      description='Runs functions concurrently in the background, scheduled and with timeout/retries if they get stuck.',
+      description='''
+Runs functions concurrently in the background,
+scheduled and with timeout/retries if they get
+stuck.
+''',
       long_description=README,
       packages=find_packages('runningtrack'),
       install_requires=[
