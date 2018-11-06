@@ -2,6 +2,17 @@ Changelog
 =========
 
 
+0.4.1
+-----
+
+Changes:
+~~~~~~~~
+
+- Fix one 0.3.1 changelog entry, which was incorrect
+- Fix setup.py, it was not including the runningtrack package
+
+------------------------------------------------------
+
 0.4.0
 -----
 
@@ -25,7 +36,6 @@ Changes:
 - Switch to the Read The Docs sphinx theme
 - Replace the 'numpydoc' sphinx parameter parser with 'sphinx.ext.napoleon'
 - Corrections to the commited files
-- Support for the generation of .pyi stub files based on signatures and comments
 
 ------------------------------------------------------
 
