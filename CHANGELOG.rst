@@ -2,6 +2,16 @@ Changelog
 =========
 
 
+0.4.2
+-----
+
+Changes:
+~~~~~~~~
+
+- Update dev dependencies with doc8 and twine
+
+------------------------------------------------------
+
 0.4.1
 -----
 
