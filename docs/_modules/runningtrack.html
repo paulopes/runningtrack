@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>runningtrack &mdash; Running Track 0.4.1 documentation</title>
+  <title>runningtrack &mdash; Running Track 0.4.2 documentation</title>
   
 
   
@@ -82,25 +82,32 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id1">0.4.1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id1">0.4.2</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#changes">Changes:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id2">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id3">0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id4">Changes:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id2">0.4.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id3">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id5">0.3.0</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id6">Changes:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id4">0.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id5">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id7">0.2.0</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id8">Changes:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id6">0.3.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id7">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id9">0.1.0</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id10">Changes:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id8">0.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id9">Changes:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id10">0.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id11">Changes:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id12">0.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id13">Changes:</a></li>
 </ul>
 </li>
 </ul>
@@ -238,18 +245,30 @@
     <span class="n">display</span> <span class="o">=</span> <span class="n">HTML</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="kc">None</span>
     <span class="n">FloatProgress</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">value</span><span class="p">,</span> <span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">value</span> <span class="p">}</span>
 
-<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span><span class="p">:</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">msvcrt</span> <span class="k">import</span> <span class="n">kbhit</span><span class="p">,</span> <span class="n">getch</span>
-        <span class="n">const</span><span class="o">.</span><span class="n">USING_WINDOWS</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
-        <span class="n">kbhit</span> <span class="o">=</span> <span class="n">getch</span> <span class="o">=</span> <span class="k">lambda</span> <span class="p">:</span> <span class="s1">&#39;&#39;</span>
-        <span class="n">const</span><span class="o">.</span><span class="n">USING_WINDOWS</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">kbhit</span> <span class="o">=</span> <span class="n">getch</span> <span class="o">=</span> <span class="k">lambda</span> <span class="p">:</span> <span class="s1">&#39;&#39;</span>
-    <span class="n">const</span><span class="o">.</span><span class="n">USING_WINDOWS</span> <span class="o">=</span> <span class="kc">False</span>
 
-<span class="n">const</span><span class="o">.</span><span class="n">PROGRESS_BAR_LENGTH</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">msvcrt</span> <span class="k">import</span> <span class="n">getch</span><span class="p">,</span> <span class="n">kbhit</span>
+
+    <span class="k">def</span> <span class="nf">wait_for_enter_with_timeout</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">kbhit</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">getch</span><span class="p">()</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">select</span>
+
+<div class="viewcode-block" id="wait_for_enter_with_timeout"><a class="viewcode-back" href="../docsource/api/runningtrack.html#runningtrack.wait_for_enter_with_timeout">[docs]</a>    <span class="k">def</span> <span class="nf">wait_for_enter_with_timeout</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">i</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">e</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">select</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="n">timeout</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<span class="n">const</span><span class="o">.</span><span class="n">PROGRESS_BAR_LENGTH</span> <span class="o">=</span> <span class="mi">20</span>
 <span class="n">const</span><span class="o">.</span><span class="n">MAX_LABEL_LENGTH</span> <span class="o">=</span> <span class="mi">66</span>
 <span class="n">const</span><span class="o">.</span><span class="n">BRIEF_PROGRESS_MESSAGE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">%  &#39;</span>
 
@@ -600,7 +619,7 @@
                                 <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_value</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_label</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span>
 
-                        <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;_lastline&#39;</span><span class="p">)</span>  <span class="c1"># Park cursor at the bottom</span>
+                        <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;_lastline&#39;</span><span class="p">)</span>  <span class="c1"># Park cursor at the bottom</span>
 
             <span class="n">no_processes_running</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">timeout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeoutSetting</span>
@@ -685,7 +704,7 @@
 
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">_scheduled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1">#, progress, progress_bars, previous_progress_message):</span>
+    <span class="k">def</span> <span class="nf">_scheduled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">def</span> <span class="nf">normalized_time</span><span class="p">(</span><span class="n">moment</span><span class="p">):</span>
             <span class="n">pm_delta</span> <span class="o">=</span> <span class="mi">0</span>
@@ -978,7 +997,7 @@
                 <span class="n">display</span><span class="p">(</span><span class="n">progress_bar</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
-                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>  <span class="c1"># Empty separating line</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">()</span>  <span class="c1"># Empty separating line</span>
                 <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">)</span>
 
                 <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="n">other_group</span><span class="o">.</span><span class="n">_runners</span><span class="p">:</span>
@@ -996,30 +1015,28 @@
                     <span class="n">progress</span><span class="p">[</span><span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">])</span>
 
         <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
-            <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>  <span class="c1"># Empty line above</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">()</span>  <span class="c1"># Empty line above</span>
             <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;Group Progress&#39;</span><span class="p">)</span>
-            <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;  </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;  </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">text_fix</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_max_group_name_length</span><span class="p">),</span>
                     <span class="n">track</span><span class="o">.</span><span class="n">percentage_bar</span><span class="p">(</span><span class="n">progress</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">],</span>
-                                <span class="n">length</span><span class="o">=</span><span class="n">const</span><span class="o">.</span><span class="n">PROGRESS_BAR_LENGTH</span><span class="p">),</span>
-                    <span class="n">progress</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">]),</span>
+                                <span class="n">length</span><span class="o">=</span><span class="n">const</span><span class="o">.</span><span class="n">PROGRESS_BAR_LENGTH</span><span class="p">)),</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">other_group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_other_groups</span><span class="p">:</span>
-                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;  </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;  </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">text_fix</span><span class="p">(</span>
                             <span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_max_group_name_length</span><span class="p">),</span>
                         <span class="n">track</span><span class="o">.</span><span class="n">percentage_bar</span><span class="p">(</span><span class="n">progress</span><span class="p">[</span><span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">],</span>
-                                    <span class="n">length</span><span class="o">=</span><span class="n">const</span><span class="o">.</span><span class="n">PROGRESS_BAR_LENGTH</span><span class="p">),</span>
-                        <span class="n">progress</span><span class="p">[</span><span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">]),</span>
+                                    <span class="n">length</span><span class="o">=</span><span class="n">const</span><span class="o">.</span><span class="n">PROGRESS_BAR_LENGTH</span><span class="p">)),</span>
                     <span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">)</span>                
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
-                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>  <span class="c1"># Empty line above</span>
-                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;_lastline&#39;</span><span class="p">)</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">()</span>  <span class="c1"># Empty line above</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;_lastline&#39;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_BRIEF</span><span class="p">:</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">previous_progress_message</span><span class="p">)</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
@@ -1097,7 +1114,7 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_value</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_label</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span>
 
-                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;_lastline&#39;</span><span class="p">)</span>  <span class="c1"># Park cursor at the bottom</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;_lastline&#39;</span><span class="p">)</span>  <span class="c1"># Park cursor at the bottom</span>
 
 <div class="viewcode-block" id="Group.wait"><a class="viewcode-back" href="../docsource/api/runningtrack.html#runningtrack.Group.wait">[docs]</a>    <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">other_groups</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_other_groups</span> <span class="o">=</span> <span class="n">other_groups</span>
@@ -1108,60 +1125,43 @@
         <span class="n">progress</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">,</span> <span class="n">previous_progress_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup_progress_indicators</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">const</span><span class="o">.</span><span class="n">USING_WINDOWS</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
-                    <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;Press Q to stop scheduled runs.&#39;</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Press Q to stop scheduled runs.&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;Press ENTER to stop scheduled runs.&#39;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
-                    <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;Press Ctrl+C to stop scheduled runs.&#39;</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Press Ctrl+C to stop scheduled runs.&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Press ENTER to stop scheduled runs.&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">other_group</span> <span class="ow">in</span> <span class="n">other_groups</span><span class="p">:</span>
             <span class="n">other_group</span><span class="o">.</span><span class="n">_start</span><span class="p">()</span>
-            <span class="c1"># other_group._awaitThread.join()</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-                <span class="n">progress_message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-                <span class="n">progress_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_follow_groups_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">,</span> <span class="n">progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">,</span> <span class="n">previous_progress_message</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_follow_runners_progress</span><span class="p">()</span>
 
-                <span class="k">for</span> <span class="n">other_group</span> <span class="ow">in</span> <span class="n">other_groups</span><span class="p">:</span>
-                    <span class="n">progress_message</span> <span class="o">=</span> <span class="n">other_group</span><span class="o">.</span><span class="n">_follow_groups_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">,</span> <span class="n">progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">,</span> <span class="n">previous_progress_message</span><span class="p">)</span>
-                    <span class="n">other_group</span><span class="o">.</span><span class="n">_follow_runners_progress</span><span class="p">()</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">progress_message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">progress_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_follow_groups_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">,</span> <span class="n">progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">,</span> <span class="n">previous_progress_message</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_follow_runners_progress</span><span class="p">()</span>
 
-                <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">runs_to_delete</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">run_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">runs_to_delete</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-                    <span class="k">if</span> <span class="n">run_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">:</span>
-                        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Ending </span><span class="si">{}</span><span class="s1"> run </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span> <span class="n">run_id</span><span class="p">))</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;log_queue&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-                        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span>
-                        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;log_queue&quot;</span><span class="p">]</span>
-                        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">]</span>
-                        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_processes&quot;</span><span class="p">]</span>
-                        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_progress&quot;</span><span class="p">]</span>
-                        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;log_thread&quot;</span><span class="p">]</span>
-                        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">other_group</span> <span class="ow">in</span> <span class="n">other_groups</span><span class="p">:</span>
+                <span class="n">progress_message</span> <span class="o">=</span> <span class="n">other_group</span><span class="o">.</span><span class="n">_follow_groups_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">,</span> <span class="n">progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">,</span> <span class="n">previous_progress_message</span><span class="p">)</span>
+                <span class="n">other_group</span><span class="o">.</span><span class="n">_follow_runners_progress</span><span class="p">()</span>
 
-                <span class="c1"># After .1 seconds check if there was an interruption.</span>
-                <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">kbhit</span><span class="p">():</span>
-                    <span class="c1"># Handle an interruption in Windows</span>
-                    <span class="n">pressed</span> <span class="o">=</span> <span class="n">getch</span><span class="p">()</span>
-                    <span class="k">if</span> <span class="n">pressed</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;Q&#39;</span> <span class="ow">or</span> <span class="n">pressed</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;q&#39;</span><span class="p">:</span>
-                        <span class="k">break</span>
+            <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">runs_to_delete</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">run_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">runs_to_delete</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">run_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Ending </span><span class="si">{}</span><span class="s1"> run </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span> <span class="n">run_id</span><span class="p">))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;log_queue&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+                    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span>
+                    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;log_queue&quot;</span><span class="p">]</span>
+                    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">]</span>
+                    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_processes&quot;</span><span class="p">]</span>
+                    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_progress&quot;</span><span class="p">]</span>
+                    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;log_thread&quot;</span><span class="p">]</span>
+                    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">]</span>
 
-            <span class="c1"># self._awaitThread.join()</span>
-
-        <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
-            <span class="c1"># Handle an interruption not in Windows or with Ctrl+Break.</span>
-            <span class="k">pass</span>  <span class="c1"># This would be an expected exception that should not be raised.</span>
+            <span class="k">if</span> <span class="n">wait_for_enter_with_timeout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">):</span>
+                <span class="k">break</span>
 
         <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
             <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;Stopping all scheduled runs.&#39;</span><span class="p">)</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Stopping all scheduled runs.&#39;</span><span class="p">)</span>
 
@@ -1183,49 +1183,22 @@
                     <span class="n">progress_bars</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
                         <span class="n">progress_value</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
-                    <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;  </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;  </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">text_fix</span><span class="p">(</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">_max_group_name_length</span><span class="p">),</span>
                             <span class="n">track</span><span class="o">.</span><span class="n">percentage_bar</span><span class="p">(</span><span class="n">progress_value</span><span class="p">,</span>
-                                <span class="n">length</span><span class="o">=</span><span class="n">const</span><span class="o">.</span><span class="n">PROGRESS_BAR_LENGTH</span><span class="p">),</span>
-                            <span class="nb">min</span><span class="p">(</span><span class="n">progress_value</span><span class="p">,</span> <span class="mi">100</span><span class="p">)),</span>
+                                <span class="n">length</span><span class="o">=</span><span class="n">const</span><span class="o">.</span><span class="n">PROGRESS_BAR_LENGTH</span><span class="p">)),</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_BRIEF</span><span class="p">:</span>
             <span class="n">progress_message</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">BRIEF_PROGRESS_MESSAGE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span>
                 <span class="n">progress</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">])</span>
-
-        <span class="c1"># for other_group in self._other_groups:</span>
-        <span class="c1">#     if len(other_group._runs) &gt; 0: other_group._timeoutRuns()</span>
-
-        <span class="c1">#     if other_group._progressQueue and not other_group._progressQueue.empty():</span>
-        <span class="c1">#         while not other_group._progressQueue.empty():</span>
-        <span class="c1">#             run_id, progress_value = other_group._progressQueue.get()</span>
-        <span class="c1">#             progress[other_group._groupName] = progress_value</span>
-        <span class="c1">#             if const.IS_A_JUPYTER_NOTEBOOK:</span>
-        <span class="c1">#                 progress_bars[other_group._groupName].value = progress_value</span>
-        <span class="c1">#             elif track.DETAIL == track.DETAIL_FULL:</span>
-        <span class="c1">#                 track.print_line(&#39;  {} {} {}%&#39;.format(</span>
-        <span class="c1">#                                 text_fix(other_group._groupName, self._max_group_name_length),</span>
-        <span class="c1">#                                 track.percentage_bar(progress_value,</span>
-        <span class="c1">#                                     length=const.PROGRESS_BAR_LENGTH),</span>
-        <span class="c1">#                                 progress_value),</span>
-        <span class="c1">#                         other_group._groupName)</span>
-
-        <span class="c1">#     if track.DETAIL == track.DETAIL_BRIEF:</span>
-        <span class="c1">#         progress_message += const.BRIEF_PROGRESS_MESSAGE.format(</span>
-        <span class="c1">#             other_group._groupName,</span>
-        <span class="c1">#             progress[other_group._groupName])</span>
-
-        <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_BRIEF</span><span class="p">:</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\b</span><span class="s1">&#39;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">previous_progress_message</span><span class="p">)</span> <span class="o">+</span>
                                 <span class="n">progress_message</span><span class="p">)</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
             <span class="n">previous_progress_message</span> <span class="o">=</span> <span class="n">progress_message</span>
-
-        <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;_lastline&#39;</span><span class="p">)</span>  <span class="c1"># Park cursor at the bottom</span>
 
         <span class="k">return</span> <span class="n">progress_message</span>
 
@@ -1261,7 +1234,7 @@
                 <span class="n">previous_progress_message</span> <span class="o">=</span> <span class="n">progress_message</span>
 
             <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
-                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;_lastline&#39;</span><span class="p">)</span>  <span class="c1"># Park cursor at the bottom</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;_lastline&#39;</span><span class="p">)</span>  <span class="c1"># Park cursor at the bottom</span>
 
             <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">runs_to_delete</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">run_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">runs_to_delete</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
@@ -1298,6 +1271,7 @@
 
         <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
             <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;Ending immediate run.&#39;</span><span class="p">)</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ending immediate run.&#39;</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>

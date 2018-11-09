@@ -2,6 +2,18 @@ Changelog
 =========
 
 
+0.4.2
+-----
+
+Changes:
+~~~~~~~~
+
+- Update dev dependencies with doc8 and twine
+- Track print_line and percentage_bar corrections for the Mac
+- Corrections to brief / full tracking and interruptions with ENTER
+
+------------------------------------------------------
+
 0.4.1
 -----
 
@@ -12,6 +24,7 @@ Changes:
 - Fix setup.py, it was not including the runningtrack package
 
 ------------------------------------------------------
+
 0.4.0
 -----
 

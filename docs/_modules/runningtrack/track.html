@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>runningtrack.track &mdash; Running Track 0.4.1 documentation</title>
+  <title>runningtrack.track &mdash; Running Track 0.4.2 documentation</title>
   
 
   
@@ -82,25 +82,32 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id1">0.4.1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id1">0.4.2</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#changes">Changes:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id2">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id3">0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id4">Changes:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id2">0.4.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id3">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id5">0.3.0</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id6">Changes:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id4">0.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id5">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id7">0.2.0</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id8">Changes:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id6">0.3.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id7">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id9">0.1.0</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id10">Changes:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id8">0.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id9">Changes:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id10">0.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id11">Changes:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id12">0.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id13">Changes:</a></li>
 </ul>
 </li>
 </ul>
@@ -193,6 +200,14 @@
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">Const</span>
 
 
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">colorama</span> <span class="k">import</span> <span class="n">init</span>
+        <span class="n">init</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+
 <div class="viewcode-block" id="Track"><a class="viewcode-back" href="../../docsource/api/runningtrack.html#runningtrack.track.Track">[docs]</a><span class="k">class</span> <span class="nc">Track</span><span class="p">(</span><span class="n">Const</span><span class="p">):</span>
     <span class="n">DETAIL_NONE</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">DETAIL_BRIEF</span> <span class="o">=</span> <span class="mi">1</span>
@@ -205,6 +220,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">line_owners</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_text</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracking_initialized</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">first_time</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Track</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kargs</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Track.brief"><a class="viewcode-back" href="../../docsource/api/runningtrack.html#runningtrack.track.Track.brief">[docs]</a>    <span class="k">def</span> <span class="nf">brief</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -228,16 +244,23 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DETAIL_NONE</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tracking_initialized</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="bp">self</span></div>
-    
-<div class="viewcode-block" id="Track.print_line"><a class="viewcode-back" href="../../docsource/api/runningtrack.html#runningtrack.track.Track.print_line">[docs]</a>    <span class="k">def</span> <span class="nf">print_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Track.print_line"><a class="viewcode-back" href="../../docsource/api/runningtrack.html#runningtrack.track.Track.print_line">[docs]</a>    <span class="k">def</span> <span class="nf">print_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">:</span>
             <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_time</span><span class="p">:</span>
+            <span class="c1"># Initial push-down. Push-downs are needed for Mac&#39;s Terminal.</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\033</span><span class="s1">[1A&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">first_time</span> <span class="o">=</span> <span class="kc">False</span>
+            
         <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">push_down</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_owners</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">total_lines</span> <span class="o">+=</span> <span class="mi">1</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">line_owners</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_lines</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">last_text</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="n">push_down</span> <span class="o">=</span> <span class="kc">True</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_text</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">!=</span> <span class="n">text</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">last_text</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">text</span>
@@ -247,16 +270,18 @@
                 <span class="k">elif</span> <span class="n">difference</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[</span><span class="si">{}</span><span class="s1">B&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">-</span><span class="n">difference</span><span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">current_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_owners</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">push_down</span><span class="p">:</span>
+                    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\033</span><span class="s1">[1A&#39;</span><span class="p">)</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r\033</span><span class="s1">[K</span><span class="se">\033</span><span class="s1">[0m&#39;</span> <span class="o">+</span> <span class="n">text</span><span class="p">)</span>
-                <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">total_lines</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="n">difference</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_line</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_lines</span>
             <span class="k">if</span> <span class="n">difference</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[</span><span class="si">{}</span><span class="s1">B&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">-</span><span class="n">difference</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">current_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_lines</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r\033</span><span class="s1">[K</span><span class="se">\033</span><span class="s1">[0m&#39;</span> <span class="o">+</span> <span class="n">text</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span></div>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\033</span><span class="s1">[1A</span><span class="se">\r\033</span><span class="s1">[K</span><span class="se">\033</span><span class="s1">[0m&#39;</span> <span class="o">+</span> <span class="n">text</span><span class="p">)</span>
+
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Track.percentage_bar"><a class="viewcode-back" href="../../docsource/api/runningtrack.html#runningtrack.track.Track.percentage_bar">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">percentage_bar</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
@@ -276,89 +301,14 @@
             <span class="n">ratio</span> <span class="o">=</span> <span class="mf">100.0</span> <span class="o">/</span> <span class="n">length</span>
             <span class="n">complete</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span> <span class="o">//</span> <span class="n">ratio</span><span class="p">)</span>
             <span class="n">remaining</span> <span class="o">=</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">complete</span>
-            <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">USING_UTF</span><span class="p">:</span>
-                <span class="n">middle</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">9612</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">%</span> <span class="n">ratio</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">ratio</span> <span class="o">/</span> <span class="mf">2.0</span>  <span class="k">else</span> <span class="s1">&#39; &#39;</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">middle</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
             <span class="c1"># Cyan over Blue</span>
-            <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[46m&#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">*</span><span class="n">complete</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[36;44m&#39;</span> <span class="o">+</span> <span class="n">middle</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">*</span><span class="n">remaining</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0m&#39;</span>        </div></div>
+            <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[46m&#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">*</span><span class="n">complete</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[36;44m &#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">*</span><span class="n">remaining</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0m&#39;</span>        </div></div>
 
 
-<span class="c1"># These can be overidden by environment variables:</span>
+<span class="c1"># This can be overidden by an environment variable:</span>
 <span class="n">track</span> <span class="o">=</span> <span class="n">Track</span><span class="p">(</span>
     <span class="n">TRACK_DETAIL</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
 <span class="p">)</span>
-
-<span class="c1"># These cannot:</span>
-<span class="n">track</span><span class="o">.</span><span class="n">USING_UTF</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">encoding</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;utf&#39;</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span><span class="p">:</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">colorama</span> <span class="k">import</span> <span class="n">init</span>
-        <span class="n">init</span><span class="p">()</span>
-        <span class="n">track</span><span class="o">.</span><span class="n">USING_ANSI</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="n">track</span><span class="o">.</span><span class="n">USING_ANSI</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">track</span><span class="o">.</span><span class="n">USING_ANSI</span> <span class="o">=</span> <span class="kc">True</span>
-
-<span class="c1"># current_line = 0</span>
-<span class="c1"># total_lines = 0</span>
-<span class="c1"># line_owners = dict()</span>
-<span class="c1"># last_text = dict()</span>
-
-<span class="c1"># def print_line(text, name=None):</span>
-<span class="c1">#     global current_line, total_lines</span>
-
-<span class="c1">#     if name:</span>
-<span class="c1">#         if name not in line_owners:</span>
-<span class="c1">#             total_lines += 1</span>
-<span class="c1">#             line_owners[name] = total_lines</span>
-<span class="c1">#             last_text[name] = &#39;&#39;</span>
-
-<span class="c1">#         if last_text[name] != text or not text:</span>
-<span class="c1">#             last_text[name] = text</span>
-<span class="c1">#             difference = current_line - line_owners[name]</span>
-<span class="c1">#             if difference &gt; 0:</span>
-<span class="c1">#                 sys.stdout.write(&#39;\033[{}A&#39;.format(difference))</span>
-<span class="c1">#             elif difference &lt; 0:</span>
-<span class="c1">#                 sys.stdout.write(&#39;\033[{}B&#39;.format(-difference))</span>
-<span class="c1">#             current_line = line_owners[name]</span>
-<span class="c1">#             sys.stdout.write(&#39;\r\033[K\033[0m&#39; + text)</span>
-<span class="c1">#             sys.stdout.flush()</span>
-<span class="c1">#     else:</span>
-<span class="c1">#         total_lines += 1</span>
-<span class="c1">#         difference = current_line - total_lines</span>
-<span class="c1">#         if difference &lt; 0:</span>
-<span class="c1">#             sys.stdout.write(&#39;\033[{}B&#39;.format(-difference))</span>
-<span class="c1">#         current_line = total_lines</span>
-<span class="c1">#         sys.stdout.write(&#39;\r\033[K\033[0m&#39; + text)</span>
-<span class="c1">#         sys.stdout.flush()</span>
-
-
-<span class="c1"># def percentage_bar(value, length=50):</span>
-<span class="c1">#     if value &gt; 102:</span>
-<span class="c1">#         # Red</span>
-<span class="c1">#         return &#39;\033[41m&#39; + &#39; &#39;*length + &#39;\033[0m&#39;</span>
-<span class="c1">#     elif value == 102:</span>
-<span class="c1">#         # Yellow</span>
-<span class="c1">#         return &#39;\033[43m&#39; + &#39; &#39;*length + &#39;\033[0m&#39;</span>
-<span class="c1">#     elif value == 101:</span>
-<span class="c1">#         # Green</span>
-<span class="c1">#         return &#39;\033[42m&#39; + &#39; &#39;*length + &#39;\033[0m&#39;</span>
-<span class="c1">#     elif value == 100:</span>
-<span class="c1">#         # Cyan</span>
-<span class="c1">#         return &#39;\033[46m&#39; + &#39; &#39;*length + &#39;\033[0m&#39;</span>
-<span class="c1">#     else:</span>
-<span class="c1">#         ratio = 100.0 / length</span>
-<span class="c1">#         complete = int(value // ratio)</span>
-<span class="c1">#         remaining = length - 1 - complete</span>
-<span class="c1">#         if track.USING_UTF:</span>
-<span class="c1">#             middle = chr(9612) if (value % ratio) &gt; ratio / 2.0  else &#39; &#39;</span>
-<span class="c1">#         else:</span>
-<span class="c1">#             middle = &#39; &#39;</span>
-<span class="c1">#         # Cyan over Blue</span>
-<span class="c1">#         return &#39;\033[46m&#39; + &#39; &#39;*complete + &#39;\033[36;44m&#39; + middle + &#39; &#39;*remaining + &#39;\033[0m&#39;        </span>
 </pre></div>
 
            </div>
