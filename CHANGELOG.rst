@@ -9,6 +9,7 @@ Changes:
 ~~~~~~~~
 
 - Update dev dependencies with doc8 and twine
+- Track print_line and percentage_bar corrections for the Mac
 
 ------------------------------------------------------
 

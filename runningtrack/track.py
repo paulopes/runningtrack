@@ -7,6 +7,14 @@ import sys
 from .const import Const
 
 
+if os.name == 'nt':
+    try:
+        from colorama import init
+        init()
+    except:
+        pass
+
+
 class Track(Const):
     DETAIL_NONE = 0
     DETAIL_BRIEF = 1
@@ -19,6 +27,7 @@ class Track(Const):
         self.line_owners = dict()
         self.last_text = dict()
         self.tracking_initialized = False
+        self.first_time = True
         super(Track, self).__init__(*args, **kargs)
 
     def brief(self):
@@ -42,16 +51,23 @@ class Track(Const):
                 self.DETAIL = self.DETAIL_NONE
             self.tracking_initialized = True
         return self
-    
-    def print_line(self, text, name=None):
+
+    def print_line(self, text=None, name=None):
         if type(text) is not str:
             text = ''
 
+        if self.first_time:
+            # Initial push-down. Push-downs are needed for Mac's Terminal.
+            sys.stdout.write('\n\033[1A')
+            self.first_time = False
+            
         if name:
+            push_down = False
             if name not in self.line_owners:
                 self.total_lines += 1
                 self.line_owners[name] = self.total_lines
                 self.last_text[name] = ''
+                push_down = True
 
             if self.last_text[name] != text or not text:
                 self.last_text[name] = text
@@ -61,16 +77,18 @@ class Track(Const):
                 elif difference < 0:
                     sys.stdout.write('\033[{}B'.format(-difference))
                 self.current_line = self.line_owners[name]
+                if push_down:
+                    sys.stdout.write('\n\033[1A')
                 sys.stdout.write('\r\033[K\033[0m' + text)
-                sys.stdout.flush()
         else:
             self.total_lines += 1
             difference = self.current_line - self.total_lines
             if difference < 0:
                 sys.stdout.write('\033[{}B'.format(-difference))
             self.current_line = self.total_lines
-            sys.stdout.write('\r\033[K\033[0m' + text)
-            sys.stdout.flush()
+            sys.stdout.write('\n\033[1A\r\033[K\033[0m' + text)
+
+        sys.stdout.flush()
 
     @staticmethod
     def percentage_bar(value, length=50):
@@ -90,86 +108,11 @@ class Track(Const):
             ratio = 100.0 / length
             complete = int(value // ratio)
             remaining = length - 1 - complete
-            if track.USING_UTF:
-                middle = chr(9612) if (value % ratio) > ratio / 2.0  else ' '
-            else:
-                middle = ' '
             # Cyan over Blue
-            return '\033[46m' + ' '*complete + '\033[36;44m' + middle + ' '*remaining + '\033[0m'        
+            return '\033[46m' + ' '*complete + '\033[36;44m ' + ' '*remaining + '\033[0m'        
 
 
-# These can be overidden by environment variables:
+# This can be overidden by an environment variable:
 track = Track(
     TRACK_DETAIL='',
 )
-
-# These cannot:
-track.USING_UTF = sys.stdout.encoding.lower().startswith('utf')
-
-if os.name == 'nt':
-    try:
-        from colorama import init
-        init()
-        track.USING_ANSI = True
-    except:
-        track.USING_ANSI = False
-else:
-    track.USING_ANSI = True
-
-# current_line = 0
-# total_lines = 0
-# line_owners = dict()
-# last_text = dict()
-
-# def print_line(text, name=None):
-#     global current_line, total_lines
-
-#     if name:
-#         if name not in line_owners:
-#             total_lines += 1
-#             line_owners[name] = total_lines
-#             last_text[name] = ''
-
-#         if last_text[name] != text or not text:
-#             last_text[name] = text
-#             difference = current_line - line_owners[name]
-#             if difference > 0:
-#                 sys.stdout.write('\033[{}A'.format(difference))
-#             elif difference < 0:
-#                 sys.stdout.write('\033[{}B'.format(-difference))
-#             current_line = line_owners[name]
-#             sys.stdout.write('\r\033[K\033[0m' + text)
-#             sys.stdout.flush()
-#     else:
-#         total_lines += 1
-#         difference = current_line - total_lines
-#         if difference < 0:
-#             sys.stdout.write('\033[{}B'.format(-difference))
-#         current_line = total_lines
-#         sys.stdout.write('\r\033[K\033[0m' + text)
-#         sys.stdout.flush()
-
-
-# def percentage_bar(value, length=50):
-#     if value > 102:
-#         # Red
-#         return '\033[41m' + ' '*length + '\033[0m'
-#     elif value == 102:
-#         # Yellow
-#         return '\033[43m' + ' '*length + '\033[0m'
-#     elif value == 101:
-#         # Green
-#         return '\033[42m' + ' '*length + '\033[0m'
-#     elif value == 100:
-#         # Cyan
-#         return '\033[46m' + ' '*length + '\033[0m'
-#     else:
-#         ratio = 100.0 / length
-#         complete = int(value // ratio)
-#         remaining = length - 1 - complete
-#         if track.USING_UTF:
-#             middle = chr(9612) if (value % ratio) > ratio / 2.0  else ' '
-#         else:
-#             middle = ' '
-#         # Cyan over Blue
-#         return '\033[46m' + ' '*complete + '\033[36;44m' + middle + ' '*remaining + '\033[0m'        

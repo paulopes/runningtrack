@@ -65,7 +65,7 @@ else:
     kbhit = getch = lambda : ''
     const.USING_WINDOWS = False
 
-const.PROGRESS_BAR_LENGTH = 15
+const.PROGRESS_BAR_LENGTH = 20
 const.MAX_LABEL_LENGTH = 66
 const.BRIEF_PROGRESS_MESSAGE = '{} {}%  '
 
@@ -416,7 +416,7 @@ class Group(object):
                                 self._runners_progress_bars_previous_value[runner_name] = value
                                 self._runners_progress_bars_previous_label[runner_name] = label
 
-                        track.print_line('', '_lastline')  # Park cursor at the bottom
+                        track.print_line(name='_lastline')  # Park cursor at the bottom
 
             no_processes_running = True
             timeout = self._timeoutSetting
@@ -794,7 +794,7 @@ class Group(object):
                 display(progress_bar)
 
             if track.DETAIL == track.DETAIL_FULL:
-                track.print_line('')  # Empty separating line
+                track.print_line()  # Empty separating line
                 track.print_line(other_group._groupName)
 
                 for runner_name in other_group._runners:
@@ -812,30 +812,28 @@ class Group(object):
                     progress[other_group._groupName])
 
         if track.DETAIL == track.DETAIL_FULL:
-            track.print_line('')  # Empty line above
+            track.print_line()  # Empty line above
             track.print_line('Group Progress')
-            track.print_line('  {} {} {}%'.format(
+            track.print_line('  {} {}'.format(
                     text_fix(
                         self._groupName,
                         self._max_group_name_length),
                     track.percentage_bar(progress[self._groupName],
-                                length=const.PROGRESS_BAR_LENGTH),
-                    progress[self._groupName]),
+                                length=const.PROGRESS_BAR_LENGTH)),
                 self._groupName)
             for other_group in self._other_groups:
-                track.print_line('  {} {} {}%'.format(
+                track.print_line('  {} {}'.format(
                         text_fix(
                             other_group._groupName,
                             self._max_group_name_length),
                         track.percentage_bar(progress[other_group._groupName],
-                                    length=const.PROGRESS_BAR_LENGTH),
-                        progress[other_group._groupName]),
+                                    length=const.PROGRESS_BAR_LENGTH)),
                     other_group._groupName)                
 
         if not const.IS_A_JUPYTER_NOTEBOOK:
             if track.DETAIL == track.DETAIL_FULL:
-                track.print_line('')  # Empty line above
-                track.print_line('', '_lastline')
+                track.print_line()  # Empty line above
+                track.print_line(name='_lastline')
             if track.DETAIL == track.DETAIL_BRIEF:
                 sys.stdout.write(previous_progress_message)
                 sys.stdout.flush()
@@ -913,7 +911,7 @@ class Group(object):
                         self._runners_progress_bars_previous_value[runner_name] = value
                         self._runners_progress_bars_previous_label[runner_name] = label
 
-                track.print_line('', '_lastline')  # Park cursor at the bottom
+                track.print_line(name='_lastline')  # Park cursor at the bottom
 
     def wait(self, *other_groups):
         self._other_groups = other_groups
@@ -999,13 +997,12 @@ class Group(object):
                     progress_bars[self._groupName].value = min(
                         progress_value, 100)
                 elif track.DETAIL == track.DETAIL_FULL:
-                    track.print_line('  {} {} {}%'.format(
+                    track.print_line('  {} {}'.format(
                             text_fix(
                                 self._groupName,
                                 self._max_group_name_length),
                             track.percentage_bar(progress_value,
-                                length=const.PROGRESS_BAR_LENGTH),
-                            min(progress_value, 100)),
+                                length=const.PROGRESS_BAR_LENGTH)),
                         self._groupName)
 
         if track.DETAIL == track.DETAIL_BRIEF:
@@ -1023,11 +1020,10 @@ class Group(object):
         #             if const.IS_A_JUPYTER_NOTEBOOK:
         #                 progress_bars[other_group._groupName].value = progress_value
         #             elif track.DETAIL == track.DETAIL_FULL:
-        #                 track.print_line('  {} {} {}%'.format(
+        #                 track.print_line('  {} {}'.format(
         #                                 text_fix(other_group._groupName, self._max_group_name_length),
         #                                 track.percentage_bar(progress_value,
-        #                                     length=const.PROGRESS_BAR_LENGTH),
-        #                                 progress_value),
+        #                                     length=const.PROGRESS_BAR_LENGTH)),
         #                         other_group._groupName)
 
         #     if track.DETAIL == track.DETAIL_BRIEF:
@@ -1041,7 +1037,7 @@ class Group(object):
             sys.stdout.flush()
             previous_progress_message = progress_message
 
-        track.print_line('', '_lastline')  # Park cursor at the bottom
+        track.print_line(name='_lastline')  # Park cursor at the bottom
 
         return progress_message
 
@@ -1077,7 +1073,7 @@ class Group(object):
                 previous_progress_message = progress_message
 
             if track.DETAIL == track.DETAIL_FULL:
-                track.print_line('', '_lastline')  # Park cursor at the bottom
+                track.print_line(name='_lastline')  # Park cursor at the bottom
 
             while len(self.runs_to_delete) > 0:
                 run_id = self.runs_to_delete.pop()
@@ -1114,6 +1110,7 @@ class Group(object):
 
         if track.DETAIL == track.DETAIL_FULL:
             track.print_line('Ending immediate run.')
+            track.print_line()
         else:
             print('Ending immediate run.')
         log.close()
