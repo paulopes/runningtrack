@@ -54,16 +54,28 @@ except NameError:
     display = HTML = lambda a: None
     FloatProgress = lambda value, min, max, description: { "value": value }
 
+
 if os.name == 'nt':
-    try:
-        from msvcrt import kbhit, getch
-        const.USING_WINDOWS = True
-    except NameError:
-        kbhit = getch = lambda : ''
-        const.USING_WINDOWS = False
+    from msvcrt import getch, kbhit
+
+    def wait_for_enter_with_timeout(timeout=0):
+        sleep(timeout)
+        if kbhit():
+            if getch() == b'\r':
+                return True
+        return False
+
 else:
-    kbhit = getch = lambda : ''
-    const.USING_WINDOWS = False
+    import select
+
+    def wait_for_enter_with_timeout(timeout=0):
+        i, o, e = select.select([sys.stdin], [], [], timeout)
+        if i:
+            sys.stdin.readline()
+            return True
+        else:
+            return False
+
 
 const.PROGRESS_BAR_LENGTH = 20
 const.MAX_LABEL_LENGTH = 66
@@ -501,7 +513,7 @@ class Group(object):
 
         return self
 
-    def _scheduled(self):  #, progress, progress_bars, previous_progress_message):
+    def _scheduled(self):
 
         def normalized_time(moment):
             pm_delta = 0
@@ -922,60 +934,43 @@ class Group(object):
         progress, progress_bars, previous_progress_message = self._setup_progress_indicators()
 
         if not const.IS_A_JUPYTER_NOTEBOOK:
-            if const.USING_WINDOWS:
-                if track.DETAIL == track.DETAIL_FULL:
-                    track.print_line('Press Q to stop scheduled runs.')
-                else:
-                    print('Press Q to stop scheduled runs.')
+            if track.DETAIL == track.DETAIL_FULL:
+                track.print_line('Press ENTER to stop scheduled runs.')
             else:
-                if track.DETAIL == track.DETAIL_FULL:
-                    track.print_line('Press Ctrl+C to stop scheduled runs.')
-                else:
-                    print('Press Ctrl+C to stop scheduled runs.')
+                print('Press ENTER to stop scheduled runs.')
 
         self._start()
         for other_group in other_groups:
             other_group._start()
-            # other_group._awaitThread.join()
-        try:
-            while True:
-                progress_message = ''
-                progress_message = self._follow_groups_progress(progress, progress_message, progress_bars, previous_progress_message)
-                self._follow_runners_progress()
 
-                for other_group in other_groups:
-                    progress_message = other_group._follow_groups_progress(progress, progress_message, progress_bars, previous_progress_message)
-                    other_group._follow_runners_progress()
+        while True:
+            progress_message = ''
+            progress_message = self._follow_groups_progress(progress, progress_message, progress_bars, previous_progress_message)
+            self._follow_runners_progress()
 
-                while len(self.runs_to_delete) > 0:
-                    run_id = self.runs_to_delete.pop()
-                    if run_id in self._runs:
-                        logger.debug('Ending {} run {}'.format(self._groupName, run_id))
-                        self._runs[run_id]["log_queue"].put(None)
-                        del self._runs[run_id]["timestamp"]
-                        del self._runs[run_id]["log_queue"]
-                        del self._runs[run_id]["process_info"]
-                        del self._runs[run_id]["runners_processes"]
-                        del self._runs[run_id]["runners_progress"]
-                        del self._runs[run_id]["log_thread"]
-                        del self._runs[run_id]
+            for other_group in other_groups:
+                progress_message = other_group._follow_groups_progress(progress, progress_message, progress_bars, previous_progress_message)
+                other_group._follow_runners_progress()
 
-                # After .1 seconds check if there was an interruption.
-                sleep(0.1)
-                if kbhit():
-                    # Handle an interruption in Windows
-                    pressed = getch()
-                    if pressed == b'Q' or pressed == b'q':
-                        break
+            while len(self.runs_to_delete) > 0:
+                run_id = self.runs_to_delete.pop()
+                if run_id in self._runs:
+                    logger.debug('Ending {} run {}'.format(self._groupName, run_id))
+                    self._runs[run_id]["log_queue"].put(None)
+                    del self._runs[run_id]["timestamp"]
+                    del self._runs[run_id]["log_queue"]
+                    del self._runs[run_id]["process_info"]
+                    del self._runs[run_id]["runners_processes"]
+                    del self._runs[run_id]["runners_progress"]
+                    del self._runs[run_id]["log_thread"]
+                    del self._runs[run_id]
 
-            # self._awaitThread.join()
-
-        except KeyboardInterrupt:
-            # Handle an interruption not in Windows or with Ctrl+Break.
-            pass  # This would be an expected exception that should not be raised.
+            if wait_for_enter_with_timeout(0.1):
+                break
 
         if track.DETAIL == track.DETAIL_FULL:
             track.print_line('Stopping all scheduled runs.')
+            track.print_line()
         else:
             print('Stopping all scheduled runs.')
 
@@ -1009,35 +1004,10 @@ class Group(object):
             progress_message = const.BRIEF_PROGRESS_MESSAGE.format(
                 self._groupName,
                 progress[self._groupName])
-
-        # for other_group in self._other_groups:
-        #     if len(other_group._runs) > 0: other_group._timeoutRuns()
-
-        #     if other_group._progressQueue and not other_group._progressQueue.empty():
-        #         while not other_group._progressQueue.empty():
-        #             run_id, progress_value = other_group._progressQueue.get()
-        #             progress[other_group._groupName] = progress_value
-        #             if const.IS_A_JUPYTER_NOTEBOOK:
-        #                 progress_bars[other_group._groupName].value = progress_value
-        #             elif track.DETAIL == track.DETAIL_FULL:
-        #                 track.print_line('  {} {}'.format(
-        #                                 text_fix(other_group._groupName, self._max_group_name_length),
-        #                                 track.percentage_bar(progress_value,
-        #                                     length=const.PROGRESS_BAR_LENGTH)),
-        #                         other_group._groupName)
-
-        #     if track.DETAIL == track.DETAIL_BRIEF:
-        #         progress_message += const.BRIEF_PROGRESS_MESSAGE.format(
-        #             other_group._groupName,
-        #             progress[other_group._groupName])
-
-        if track.DETAIL == track.DETAIL_BRIEF:
             sys.stdout.write('\b' * len(previous_progress_message) +
                                 progress_message)
             sys.stdout.flush()
             previous_progress_message = progress_message
-
-        track.print_line(name='_lastline')  # Park cursor at the bottom
 
         return progress_message
 
