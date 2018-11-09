@@ -2,6 +2,16 @@ Changelog
 =========
 
 
+0.4.3
+-----
+
+Changes:
+~~~~~~~~
+
+- Change setup.py not to use external files (due to issue in python2)
+
+------------------------------------------------------
+
 0.4.2
 -----
 

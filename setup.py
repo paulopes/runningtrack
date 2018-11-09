@@ -9,8 +9,7 @@ from __future__ import print_function, division
 from setuptools import setup, find_packages
 
 
-VERSION = open('VERSION').read().splitlines()[0].strip()
-README = open('README.rst').read().strip()
+VERSION = '0.4.3'
 
 setup(
     name='runningtrack',
@@ -18,12 +17,12 @@ setup(
     author='Paulo Lopes',
     author_email='palopes@cisco.com',
     url='https://paulopes.github.io/running/',
-    description='''
+    description='Runs functions in the background and tracks them',
+    long_description='''
 Runs functions concurrently in the background,
 scheduled and with timeout/retries if they get
 stuck.
 ''',
-    long_description=README,
     packages=find_packages(exclude=[
         "*.tests", "*.tests.*", "tests.*", "tests"]),
     install_requires=[
