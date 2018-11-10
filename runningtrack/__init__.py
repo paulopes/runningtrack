@@ -1179,7 +1179,7 @@ class Group(object):
 
         return self
 
-    def at(self, times):
+    def daily(self, times):
         if "schedule" not in self._override:
             self._override["schedule"] = dict()
         self._override["schedule"]["sunday"] = str(times)
