@@ -8,7 +8,7 @@ Changelog
 Changes:
 ~~~~~~~~
 
-- 
+- Make Jupyter runners progressbars only appear in full detail tracking
 
 ------------------------------------------------------
 

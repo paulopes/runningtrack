@@ -48,7 +48,7 @@ class Track(Const):
                 self.DETAIL = self.override if self.override else (
                     detail_levels[self.TRACK_DETAIL.strip().upper()])
             except:
-                self.DETAIL = self.DETAIL_NONE
+                self.DETAIL = self.DETAIL_BRIEF
             self.tracking_initialized = True
         return self
 

@@ -302,7 +302,7 @@ class Group(object):
             "log_thread": run_log_thread,
         }
 
-        for runner_name in self._runners:
+        for runner_name in self._runners.keys():
             runner = self._runners[runner_name]
             process = Process(target=runner_process,
                               args=(runners_progress_queue,
@@ -319,7 +319,8 @@ class Group(object):
                 process, start_time, start_time, runner, 0)
             self._runs[run_id]["runners_processes"][runner_name] = process
             self._runs[run_id]["runners_progress"][runner_name] = 0
-            if const.IS_A_JUPYTER_NOTEBOOK:
+            if (const.IS_A_JUPYTER_NOTEBOOK and
+                    track.DETAIL == track.DETAIL_FULL):
                 self._runners_progress_bars[runner_name].value = 0
                 self._runners_progress_descriptions[runner_name].value = ''
             self._runners_progress_bars_previous_value[runner_name] = 0
@@ -354,15 +355,17 @@ class Group(object):
                 # of each runner that provided a new progress value
                 # because that means that it is not stuck.
                 for runner_name in progress_updates:
-                    process, start, last_progress_update, runner, timeout = \
-                        self._runs[run_id]["process_info"][runner_name]
-                    self._runs[run_id]["process_info"][runner_name] = \
-                        (process, start, time.time(), runner, timeout)
+                    if runner_name in self._runs[run_id]["process_info"]:
+                        process, start, last_progress_update, runner, timeout = \
+                            self._runs[run_id]["process_info"][runner_name]
+                        self._runs[run_id]["process_info"][runner_name] = \
+                            (process, start, time.time(), runner, timeout)
 
                 # Do this here only if running immediately, not scheduled.
                 if not self._awaitThread:
 
-                    if const.IS_A_JUPYTER_NOTEBOOK:
+                    if (const.IS_A_JUPYTER_NOTEBOOK and
+                            track.DETAIL == track.DETAIL_FULL):
                         for runner_name in progress_updates:
                             if runner_name in self._runners_progress_bars_previous_value:
                                 previous_value = self._runners_progress_bars_previous_value[runner_name]
@@ -389,7 +392,8 @@ class Group(object):
                                 self._runners_progress_descriptions[runner_name].value = ''
                                 self._runners_progress_bars_previous_label[runner_name] = ''
 
-                    elif track.DETAIL == track.DETAIL_FULL:
+                    elif (not const.IS_A_JUPYTER_NOTEBOOK and
+                            track.DETAIL == track.DETAIL_FULL):
                         for runner_name in progress_updates:
                             if runner_name in self._runners_progress_bars_previous_value:
                                 previous_value = self._runners_progress_bars_previous_value[runner_name]
@@ -434,51 +438,57 @@ class Group(object):
             timeout = self._timeoutSetting
             retries = self._retriesSetting
 
-            for runner_name in self._runs[run_id]["process_info"]:
-                process, start, last_progress_update, runner, retry_count = self._runs[run_id]["process_info"][runner_name]
-                runner_progress = self._runs[run_id]["runners_progress"][runner_name]
-                if type(runner_progress) in {list, tuple}:
-                    runner_progress = runner_progress[0]
-                if process.is_alive():
-                    if runner_progress >= 100:
-                        # Rare case when process may still be alive after the
-                        # runner is finished. We give it a second more before
-                        # explicitly terminating it.
-                        if time.time() - last_progress_update > 1:
-                            process.terminate()
+            for runner_name in list(self._runs[run_id]["process_info"].keys()):
+                # This check needs to be done because a runner may terminate
+                # while this for-loop is iterating (due to concurrency):
+                if runner_name in self._runs[run_id]["process_info"]:
+                    process, start, last_progress_update, runner, retry_count = self._runs[run_id]["process_info"][runner_name]
+                    runner_progress = self._runs[run_id]["runners_progress"][runner_name]
+                    if type(runner_progress) in {list, tuple}:
+                        runner_progress = runner_progress[0]
+                    if process.is_alive():
+                        if runner_progress >= 100:
+                            # Rare case when process may still be alive after the
+                            # runner is finished. We give it a second more before
+                            # explicitly terminating it.
+                            if time.time() - last_progress_update > 1:
+                                process.terminate()
 
-                    if time.time() - last_progress_update > timeout > 0:
-                        logger.error('Timeout of {} {} at {} seconds.'.format(self._groupName, runner_name, timeout))
-                        process.terminate()
-                        if retry_count < retries:
-                            new_retry = retry_count + 1
-                            logger.error('Retry number {} of {} {}.'.format(new_retry, self._groupName, runner_name))
-                            run_log_queue = self._runs[run_id]["log_queue"]
-                            new_process = Process(target=runner_process,
-                                                    args=(progress_queue,
-                                                            run_log_queue,
-                                                            self._groupName,
-                                                            self._groupArgs,
-                                                            self._groupKArgs,
-                                                            runner,
-                                                            runner_name,
-                                                            run_id))
-                            new_process.start()
-                            start_time = time.time()
-                            self._runs[run_id]["process_info"][runner_name] = (new_process, start_time, start_time, runner, new_retry)
-                            self._runs[run_id]["runners_processes"][runner_name] = new_process
-                            self._runs[run_id]["runners_progress"][runner_name] = 0
-                            no_processes_running = False
+                        if time.time() - last_progress_update > timeout > 0:
+                            logger.error('Timeout of {} {} at {} seconds.'.format(self._groupName, runner_name, timeout))
+                            process.terminate()
+                            if retry_count < retries:
+                                new_retry = retry_count + 1
+                                logger.error('Retry number {} of {} {}.'.format(new_retry, self._groupName, runner_name))
+                                run_log_queue = self._runs[run_id]["log_queue"]
+                                new_process = Process(target=runner_process,
+                                                        args=(progress_queue,
+                                                                run_log_queue,
+                                                                self._groupName,
+                                                                self._groupArgs,
+                                                                self._groupKArgs,
+                                                                runner,
+                                                                runner_name,
+                                                                run_id))
+                                new_process.start()
+                                start_time = time.time()
+                                self._runs[run_id]["process_info"][runner_name] = (new_process, start_time, start_time, runner, new_retry)
+                                self._runs[run_id]["runners_processes"][runner_name] = new_process
+                                self._runs[run_id]["runners_progress"][runner_name] = 0
+                                no_processes_running = False
+                            else:
+                                logger.error('The {} {} runner was canceled after {} retries.'.format(self._groupName, runner_name, retry_count))
                         else:
-                            logger.error('The {} {} runner was canceled after {} retries.'.format(self._groupName, runner_name, retry_count))
-                    else:
-                        no_processes_running = False
+                            no_processes_running = False
 
             if no_processes_running:
-                for runner_name in self._runs[run_id]["process_info"]:
-                    process, start, last_progress_update, runner, retry_count = self._runs[run_id]["process_info"][runner_name]
-                    process.join()
-                    self.runs_to_delete.append(run_id)
+                for runner_name in list(self._runs[run_id]["process_info"].keys()):
+                    # This check needs to be done because a runner may terminate
+                    # while this for-loop is iterating (due to concurrency):
+                    if runner_name in self._runs[run_id]["process_info"]:
+                        process, start, last_progress_update, runner, retry_count = self._runs[run_id]["process_info"][runner_name]
+                        process.join()
+                        self.runs_to_delete.append(run_id)
 
             # Provide progress of this run based on the progress of its runners.
             runner_count = len(self._runs[run_id]["runners_progress"])
@@ -487,7 +497,7 @@ class Group(object):
                 warning_count = 0
                 error_count = 0
                 sum_of_runners_progress = 0
-                for runner_name in self._runs[run_id]["runners_progress"]:
+                for runner_name in self._runs[run_id]["runners_progress"].keys():
                     runner_progress = self._runs[run_id]["runners_progress"][runner_name]
                     if type(runner_progress) in {list, tuple}:
                         runner_progress = runner_progress[0]
@@ -749,6 +759,19 @@ class Group(object):
         progress = {
             self._groupName: 0,
         }
+
+        if (const.IS_A_JUPYTER_NOTEBOOK and
+                track.DETAIL == track.DETAIL_FULL):
+            display(HTML('<br><h4>{}</h4>'.format(self._groupName)))
+            for runner_name in self._runners.keys():
+                progress_bar = FloatProgress(value=0, min=0, max=100)
+                progress_runner_name = Label(runner_name, layout=Layout(width='15em'))
+                progress_description = Label('', layout=Layout(width='65em'))
+                self._runners_progress_bars[runner_name] = progress_bar
+                self._runners_progress_runner_names[runner_name] = progress_runner_name
+                self._runners_progress_descriptions[runner_name] = progress_description
+                display(HBox([progress_runner_name, progress_bar, progress_description]))
+
         if const.IS_A_JUPYTER_NOTEBOOK:
             display(HTML('<br><h4>Group Progress</h4>'))
             progress_bar = FloatProgress(value=0, min=0, max=100, description=self._groupName)
@@ -762,7 +785,7 @@ class Group(object):
         self._max_group_name_length = len(self._groupName)
         self._max_runner_name_length = 0
 
-        for runner_name in self._runners:
+        for runner_name in self._runners.keys():
             self._max_runner_name_length = max(
                 self._max_runner_name_length,
                 len(runner_name))
@@ -770,7 +793,7 @@ class Group(object):
             self._max_group_name_length = max(
                 self._max_group_name_length,
                 len(other_group._groupName))
-            for runner_name in other_group._runners:
+            for runner_name in other_group._runners.keys():
                 self._max_runner_name_length = max(
                     self._max_runner_name_length,
                     len(runner_name))
@@ -779,9 +802,10 @@ class Group(object):
             other_group._max_group_name_length = self._max_group_name_length
             other_group._max_runner_name_length = self._max_runner_name_length
         
-        if track.DETAIL == track.DETAIL_FULL:
+        if (not const.IS_A_JUPYTER_NOTEBOOK and
+                track.DETAIL == track.DETAIL_FULL):
             track.print_line(self._groupName)
-            for runner_name in self._runners:
+            for runner_name in self._runners.keys():
                 name = self._groupName + runner_name
                 track.print_line('  {} {}'.format(
                         text_fix(
@@ -790,12 +814,13 @@ class Group(object):
                         track.percentage_bar(0, const.PROGRESS_BAR_LENGTH)),
                     name)
 
-        if track.DETAIL == track.DETAIL_BRIEF:
-            previous_progress_message = const.BRIEF_PROGRESS_MESSAGE.format(
-                self._groupName,
-                progress[self._groupName])
-        else:
-            previous_progress_message = ''
+        # if (not const.IS_A_JUPYTER_NOTEBOOK and
+        #         track.DETAIL == track.DETAIL_BRIEF):
+        #     previous_progress_message = const.BRIEF_PROGRESS_MESSAGE.format(
+        #         self._groupName,
+        #         progress[self._groupName])
+        # else:
+        #     previous_progress_message = ''
 
         for other_group in self._other_groups:
             progress[other_group._groupName] = 0
@@ -805,11 +830,12 @@ class Group(object):
                 progress_bars[other_group._groupName] = progress_bar
                 display(progress_bar)
 
-            if track.DETAIL == track.DETAIL_FULL:
+            if (not const.IS_A_JUPYTER_NOTEBOOK and
+                    track.DETAIL == track.DETAIL_FULL):
                 track.print_line()  # Empty separating line
                 track.print_line(other_group._groupName)
 
-                for runner_name in other_group._runners:
+                for runner_name in other_group._runners.keys():
                     name = other_group._groupName + runner_name
                     track.print_line('  {} {}'.format(
                             text_fix(
@@ -818,12 +844,14 @@ class Group(object):
                             track.percentage_bar(0, const.PROGRESS_BAR_LENGTH)),
                         name)
 
-            if track.DETAIL == track.DETAIL_BRIEF:
+            if (not const.IS_A_JUPYTER_NOTEBOOK and
+                    track.DETAIL == track.DETAIL_BRIEF):
                 previous_progress_message += const.BRIEF_PROGRESS_MESSAGE.format(
                     other_group._groupName,
                     progress[other_group._groupName])
 
-        if track.DETAIL == track.DETAIL_FULL:
+        if (not const.IS_A_JUPYTER_NOTEBOOK and
+                track.DETAIL == track.DETAIL_FULL):
             track.print_line()  # Empty line above
             track.print_line('Group Progress')
             track.print_line('  {} {}'.format(
@@ -842,22 +870,24 @@ class Group(object):
                                     length=const.PROGRESS_BAR_LENGTH)),
                     other_group._groupName)                
 
-        if not const.IS_A_JUPYTER_NOTEBOOK:
-            if track.DETAIL == track.DETAIL_FULL:
-                track.print_line()  # Empty line above
-                track.print_line(name='_lastline')
-            if track.DETAIL == track.DETAIL_BRIEF:
-                sys.stdout.write(previous_progress_message)
-                sys.stdout.flush()
+        if (not const.IS_A_JUPYTER_NOTEBOOK and
+                track.DETAIL == track.DETAIL_FULL):
+            track.print_line()  # Empty line above
+            track.print_line(name='_lastline')
+        # if (not const.IS_A_JUPYTER_NOTEBOOK and
+        #         track.DETAIL == track.DETAIL_BRIEF):
+        #     sys.stdout.write(previous_progress_message)
+        #     sys.stdout.flush()
 
-        return progress, progress_bars, previous_progress_message
+        return progress, progress_bars
 
     def _follow_runners_progress(self):
         for run_id in self._runs:
             progress_updates = self._runs[run_id]["runners_progress"]
 
-            if const.IS_A_JUPYTER_NOTEBOOK:
-                for runner_name in progress_updates:
+            if (const.IS_A_JUPYTER_NOTEBOOK and
+                    track.DETAIL == track.DETAIL_FULL):
+                for runner_name in list(progress_updates.keys()):
                     if runner_name in self._runners_progress_bars_previous_value:
                         previous_value = self._runners_progress_bars_previous_value[runner_name]
                     else:
@@ -885,7 +915,7 @@ class Group(object):
                         self._runners_progress_bars_previous_label[runner_name] = ''
 
             elif track.DETAIL == track.DETAIL_FULL:
-                for runner_name in progress_updates:
+                for runner_name in list(progress_updates.keys()):
                     if runner_name in self._runners_progress_bars_previous_value:
                         previous_value = self._runners_progress_bars_previous_value[runner_name]
                     else:
@@ -931,26 +961,38 @@ class Group(object):
         track.kickoff_tracking()
         log.kickoff_logging()
 
-        progress, progress_bars, previous_progress_message = self._setup_progress_indicators()
+        if not const.IS_A_JUPYTER_NOTEBOOK:
+            if track.DETAIL != track.DETAIL_FULL:
+                print('Press ENTER to stop scheduled runs.')
+
+        progress, progress_bars = self._setup_progress_indicators()
 
         if not const.IS_A_JUPYTER_NOTEBOOK:
             if track.DETAIL == track.DETAIL_FULL:
                 track.print_line('Press ENTER to stop scheduled runs.')
-            else:
-                print('Press ENTER to stop scheduled runs.')
 
         self._start()
         for other_group in other_groups:
             other_group._start()
 
+        previous_progress_message = ''
+
         while True:
             progress_message = ''
-            progress_message = self._follow_groups_progress(progress, progress_message, progress_bars, previous_progress_message)
+
+            progress_message = self._follow_groups_progress(progress, progress_message, progress_bars)
             self._follow_runners_progress()
 
             for other_group in other_groups:
-                progress_message = other_group._follow_groups_progress(progress, progress_message, progress_bars, previous_progress_message)
+                progress_message = other_group._follow_groups_progress(progress, progress_message, progress_bars)
                 other_group._follow_runners_progress()
+
+            if (not const.IS_A_JUPYTER_NOTEBOOK and
+                    track.DETAIL != track.DETAIL_FULL):
+                sys.stdout.write('\b' * len(previous_progress_message) +
+                                    progress_message)
+                sys.stdout.flush()
+                previous_progress_message = progress_message
 
             while len(self.runs_to_delete) > 0:
                 run_id = self.runs_to_delete.pop()
@@ -965,10 +1007,13 @@ class Group(object):
                     del self._runs[run_id]["log_thread"]
                     del self._runs[run_id]
 
-            if wait_for_enter_with_timeout(0.1):
+            if const.IS_A_JUPYTER_NOTEBOOK:
+                sleep(0.1)
+            elif wait_for_enter_with_timeout(0.1):
                 break
 
-        if track.DETAIL == track.DETAIL_FULL:
+        if (not const.IS_A_JUPYTER_NOTEBOOK and
+                track.DETAIL == track.DETAIL_FULL):
             track.print_line('Stopping all scheduled runs.')
             track.print_line()
         else:
@@ -980,7 +1025,7 @@ class Group(object):
         log.close()
         return self
 
-    def _follow_groups_progress(self, progress, progress_message, progress_bars, previous_progress_message):
+    def _follow_groups_progress(self, progress, progress_message, progress_bars):
         if len(self._runs) > 0:
             self._timeoutRuns()
         
@@ -1000,14 +1045,19 @@ class Group(object):
                                 length=const.PROGRESS_BAR_LENGTH)),
                         self._groupName)
 
-        if track.DETAIL == track.DETAIL_BRIEF:
-            progress_message = const.BRIEF_PROGRESS_MESSAGE.format(
+        if (not const.IS_A_JUPYTER_NOTEBOOK and
+                track.DETAIL == track.DETAIL_FULL):
+            track.print_line(name='_lastline')  # Park cursor at the bottom
+
+        if (not const.IS_A_JUPYTER_NOTEBOOK and
+                track.DETAIL != track.DETAIL_FULL):
+            progress_message += const.BRIEF_PROGRESS_MESSAGE.format(
                 self._groupName,
-                progress[self._groupName])
-            sys.stdout.write('\b' * len(previous_progress_message) +
-                                progress_message)
-            sys.stdout.flush()
-            previous_progress_message = progress_message
+                min(progress[self._groupName], 100))
+            # sys.stdout.write('\b' * len(previous_progress_message) +
+            #                     progress_message)
+            # sys.stdout.flush()
+            # previous_progress_message = progress_message
 
         return progress_message
 
@@ -1018,9 +1068,9 @@ class Group(object):
         track.kickoff_tracking()
         log.kickoff_logging()
 
-        self._run('Immediate {} run.'.format(self._groupName))
+        progress, progress_bars = self._setup_progress_indicators()
 
-        progress, progress_bars, previous_progress_message = self._setup_progress_indicators()
+        self._run('Immediate {} run.'.format(self._groupName))
 
         run_count = len(self._runs)
         for other_group in other_groups:
@@ -1028,21 +1078,25 @@ class Group(object):
             other_group._run('Immediate {} run.'.format(other_group._groupName))
             run_count += len(other_group._runs)
 
+        previous_progress_message = ''
+
         while run_count > 0:
             progress_message = ''
 
-            progress_message = self._follow_groups_progress(progress, progress_message, progress_bars, previous_progress_message)
+            progress_message = self._follow_groups_progress(progress, progress_message, progress_bars)
 
             for other_group in other_groups:
-                progress_message = other_group._follow_groups_progress(progress, progress_message, progress_bars, previous_progress_message)
+                progress_message = other_group._follow_groups_progress(progress, progress_message, progress_bars)
 
-            if track.DETAIL == track.DETAIL_BRIEF:
+            if (not const.IS_A_JUPYTER_NOTEBOOK and
+                    track.DETAIL != track.DETAIL_FULL):
                 sys.stdout.write('\b' * len(previous_progress_message) +
                                     progress_message)
                 sys.stdout.flush()
                 previous_progress_message = progress_message
 
-            if track.DETAIL == track.DETAIL_FULL:
+            if (not const.IS_A_JUPYTER_NOTEBOOK and
+                    track.DETAIL == track.DETAIL_FULL):
                 track.print_line(name='_lastline')  # Park cursor at the bottom
 
             while len(self.runs_to_delete) > 0:
@@ -1078,11 +1132,13 @@ class Group(object):
             for other_group in other_groups:
                 run_count += len(other_group._runs)
 
-        if track.DETAIL == track.DETAIL_FULL:
-            track.print_line('Ending immediate run.')
-            track.print_line()
-        else:
-            print('Ending immediate run.')
+        if not const.IS_A_JUPYTER_NOTEBOOK:
+            if track.DETAIL == track.DETAIL_FULL:
+                track.print_line('Ending immediate run.')
+                track.print_line()
+            else:
+                print('Ending immediate run.')
+        
         log.close()
         return self
 
@@ -1116,17 +1172,6 @@ class Group(object):
             self._runners[runner_name] = runners_by_name[runner_name]
             self._runners_progress_bars_previous_value[runner_name] = 0
             self._runners_progress_bars_previous_label[runner_name] = ''
-
-        if const.IS_A_JUPYTER_NOTEBOOK:
-            display(HTML('<br><h4>{}</h4>'.format(self._groupName)))
-            for runner_name in self._runners:
-                progress_bar = FloatProgress(value=0, min=0, max=100)
-                progress_runner_name = Label(runner_name, layout=Layout(width='15em'))
-                progress_description = Label('', layout=Layout(width='65em'))
-                self._runners_progress_bars[runner_name] = progress_bar
-                self._runners_progress_runner_names[runner_name] = progress_runner_name
-                self._runners_progress_descriptions[runner_name] = progress_description
-                display(HBox([progress_runner_name, progress_bar, progress_description]))
 
         return self
 
