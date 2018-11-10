@@ -9,6 +9,7 @@ Changes:
 ~~~~~~~~
 
 - Make Jupyter runners progressbars only appear in full detail tracking
+- Fixed issue #1 - Group progress at end of immediate runs often less than 100%
 
 ------------------------------------------------------
 

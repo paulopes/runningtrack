@@ -760,46 +760,37 @@ class Group(object):
             self._groupName: 0,
         }
 
-        if (const.IS_A_JUPYTER_NOTEBOOK and
-                track.DETAIL == track.DETAIL_FULL):
-            display(HTML('<br><h4>{}</h4>'.format(self._groupName)))
-            for runner_name in self._runners.keys():
-                progress_bar = FloatProgress(value=0, min=0, max=100)
-                progress_runner_name = Label(runner_name, layout=Layout(width='15em'))
-                progress_description = Label('', layout=Layout(width='65em'))
-                self._runners_progress_bars[runner_name] = progress_bar
-                self._runners_progress_runner_names[runner_name] = progress_runner_name
-                self._runners_progress_descriptions[runner_name] = progress_description
-                display(HBox([progress_runner_name, progress_bar, progress_description]))
+        groups = [self] + list(self._other_groups)
 
+        for group in groups:
+
+            if (const.IS_A_JUPYTER_NOTEBOOK and
+                    track.DETAIL == track.DETAIL_FULL):
+                display(HTML('<br><h4>{}</h4>'.format(group._groupName)))
+                for runner_name in group._runners.keys():
+                    progress_bar = FloatProgress(value=0, min=0, max=100)
+                    progress_runner_name = Label(runner_name, layout=Layout(width='15em'))
+                    progress_description = Label('', layout=Layout(width='65em'))
+                    group._runners_progress_bars[runner_name] = progress_bar
+                    group._runners_progress_runner_names[runner_name] = progress_runner_name
+                    group._runners_progress_descriptions[runner_name] = progress_description
+                    display(HBox([progress_runner_name, progress_bar, progress_description]))
+
+        progress_bars = dict()
         if const.IS_A_JUPYTER_NOTEBOOK:
             display(HTML('<br><h4>Group Progress</h4>'))
             progress_bar = FloatProgress(value=0, min=0, max=100, description=self._groupName)
-            progress_bars = {
-                self._groupName: progress_bar,
-            }
+            progress_bars[self._groupName] = progress_bar
             display(progress_bar)
-        else:
-            progress_bars = dict()
 
-        self._max_group_name_length = len(self._groupName)
         self._max_runner_name_length = 0
 
-        for runner_name in self._runners.keys():
-            self._max_runner_name_length = max(
-                self._max_runner_name_length,
-                len(runner_name))
-        for other_group in self._other_groups:
-            self._max_group_name_length = max(
-                self._max_group_name_length,
-                len(other_group._groupName))
-            for runner_name in other_group._runners.keys():
+        for group in groups:
+            for runner_name in group._runners.keys():
                 self._max_runner_name_length = max(
                     self._max_runner_name_length,
                     len(runner_name))
-
         for other_group in self._other_groups:
-            other_group._max_group_name_length = self._max_group_name_length
             other_group._max_runner_name_length = self._max_runner_name_length
         
         if (not const.IS_A_JUPYTER_NOTEBOOK and
@@ -813,14 +804,6 @@ class Group(object):
                             self._max_runner_name_length),
                         track.percentage_bar(0, const.PROGRESS_BAR_LENGTH)),
                     name)
-
-        # if (not const.IS_A_JUPYTER_NOTEBOOK and
-        #         track.DETAIL == track.DETAIL_BRIEF):
-        #     previous_progress_message = const.BRIEF_PROGRESS_MESSAGE.format(
-        #         self._groupName,
-        #         progress[self._groupName])
-        # else:
-        #     previous_progress_message = ''
 
         for other_group in self._other_groups:
             progress[other_group._groupName] = 0
@@ -855,17 +838,13 @@ class Group(object):
             track.print_line()  # Empty line above
             track.print_line('Group Progress')
             track.print_line('  {} {}'.format(
-                    text_fix(
-                        self._groupName,
-                        self._max_group_name_length),
+                    self._groupName.rjust(self._max_runner_name_length),
                     track.percentage_bar(progress[self._groupName],
                                 length=const.PROGRESS_BAR_LENGTH)),
                 self._groupName)
             for other_group in self._other_groups:
                 track.print_line('  {} {}'.format(
-                        text_fix(
-                            other_group._groupName,
-                            self._max_group_name_length),
+                        other_group._groupName.rjust(self._max_runner_name_length),
                         track.percentage_bar(progress[other_group._groupName],
                                     length=const.PROGRESS_BAR_LENGTH)),
                     other_group._groupName)                
@@ -874,10 +853,6 @@ class Group(object):
                 track.DETAIL == track.DETAIL_FULL):
             track.print_line()  # Empty line above
             track.print_line(name='_lastline')
-        # if (not const.IS_A_JUPYTER_NOTEBOOK and
-        #         track.DETAIL == track.DETAIL_BRIEF):
-        #     sys.stdout.write(previous_progress_message)
-        #     sys.stdout.flush()
 
         return progress, progress_bars
 
@@ -980,11 +955,11 @@ class Group(object):
         while True:
             progress_message = ''
 
-            progress_message = self._follow_groups_progress(progress, progress_message, progress_bars)
+            progress_message = self._follow_group_progress(progress, progress_message, progress_bars)
             self._follow_runners_progress()
 
             for other_group in other_groups:
-                progress_message = other_group._follow_groups_progress(progress, progress_message, progress_bars)
+                progress_message = other_group._follow_group_progress(progress, progress_message, progress_bars)
                 other_group._follow_runners_progress()
 
             if (not const.IS_A_JUPYTER_NOTEBOOK and
@@ -1025,7 +1000,7 @@ class Group(object):
         log.close()
         return self
 
-    def _follow_groups_progress(self, progress, progress_message, progress_bars):
+    def _follow_group_progress(self, progress, progress_message, progress_bars):
         if len(self._runs) > 0:
             self._timeoutRuns()
         
@@ -1038,9 +1013,7 @@ class Group(object):
                         progress_value, 100)
                 elif track.DETAIL == track.DETAIL_FULL:
                     track.print_line('  {} {}'.format(
-                            text_fix(
-                                self._groupName,
-                                self._max_group_name_length),
+                            self._groupName.rjust(self._max_runner_name_length),
                             track.percentage_bar(progress_value,
                                 length=const.PROGRESS_BAR_LENGTH)),
                         self._groupName)
@@ -1054,12 +1027,30 @@ class Group(object):
             progress_message += const.BRIEF_PROGRESS_MESSAGE.format(
                 self._groupName,
                 min(progress[self._groupName], 100))
-            # sys.stdout.write('\b' * len(previous_progress_message) +
-            #                     progress_message)
-            # sys.stdout.flush()
-            # previous_progress_message = progress_message
 
         return progress_message
+
+    def _follow_all_groups_progress(self,
+            progress, previous_progress_message, progress_bars):
+        progress_message = ''
+
+        progress_message = self._follow_group_progress(progress, progress_message, progress_bars)
+
+        for other_group in self._other_groups:
+            progress_message = other_group._follow_group_progress(progress, progress_message, progress_bars)
+
+        if (not const.IS_A_JUPYTER_NOTEBOOK and
+                track.DETAIL != track.DETAIL_FULL):
+            sys.stdout.write('\b' * len(previous_progress_message) +
+                                progress_message)
+            sys.stdout.flush()
+            previous_progress_message = progress_message
+
+        if (not const.IS_A_JUPYTER_NOTEBOOK and
+                track.DETAIL == track.DETAIL_FULL):
+            track.print_line(name='_lastline')  # Park cursor at the bottom
+        
+        return previous_progress_message
 
     def now(self, *other_groups):
         self._other_groups = other_groups
@@ -1081,23 +1072,8 @@ class Group(object):
         previous_progress_message = ''
 
         while run_count > 0:
-            progress_message = ''
-
-            progress_message = self._follow_groups_progress(progress, progress_message, progress_bars)
-
-            for other_group in other_groups:
-                progress_message = other_group._follow_groups_progress(progress, progress_message, progress_bars)
-
-            if (not const.IS_A_JUPYTER_NOTEBOOK and
-                    track.DETAIL != track.DETAIL_FULL):
-                sys.stdout.write('\b' * len(previous_progress_message) +
-                                    progress_message)
-                sys.stdout.flush()
-                previous_progress_message = progress_message
-
-            if (not const.IS_A_JUPYTER_NOTEBOOK and
-                    track.DETAIL == track.DETAIL_FULL):
-                track.print_line(name='_lastline')  # Park cursor at the bottom
+            previous_progress_message = self._follow_all_groups_progress(
+                progress, previous_progress_message, progress_bars)
 
             while len(self.runs_to_delete) > 0:
                 run_id = self.runs_to_delete.pop()
@@ -1131,6 +1107,11 @@ class Group(object):
             run_count = len(self._runs)
             for other_group in other_groups:
                 run_count += len(other_group._runs)
+
+        # Final group progress update to address issue #1 - Group progress
+        # at the end of immediate runs sometimes is less than 100%.
+        previous_progress_message = self._follow_all_groups_progress(
+            progress, previous_progress_message, progress_bars)
 
         if not const.IS_A_JUPYTER_NOTEBOOK:
             if track.DETAIL == track.DETAIL_FULL:
@@ -1290,7 +1271,6 @@ class Group(object):
         self._runners_progress_bars_previous_label = dict()
         self._runners_progress_runner_names = dict()
         self._runners_progress_descriptions = dict()
-        self._max_group_name_length = 0
         self._max_runner_name_length = 0
         self._plugins = dict()
         self._pluginsConfigName = dict()
