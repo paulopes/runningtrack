@@ -108,9 +108,8 @@ class Track(Const):
             ratio = 100.0 / length
             complete = int(value // ratio)
             remaining = length - 1 - complete
-            # Cyan over Blue
-            return '\033[46m' + ' '*complete + '\033[36;44m ' + ' '*remaining + '\033[0m'        
-
+            # Cyan over Grey
+            return '\033[46m' + ' '*complete + '\033[36;47m ' + ' '*remaining + '\033[0m'
 
 # This can be overidden by an environment variable:
 track = Track(

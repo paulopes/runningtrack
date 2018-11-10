@@ -10,6 +10,7 @@ Changes:
 
 - Make Jupyter runners progressbars only appear in full detail tracking
 - Fixed issue #1 - Group progress at end of immediate runs often less than 100%
+- Fixed issue #2 - Jupyter notebook progress bars always blue at 100%
 
 ------------------------------------------------------
 

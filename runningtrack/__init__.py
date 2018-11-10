@@ -321,7 +321,8 @@ class Group(object):
             self._runs[run_id]["runners_progress"][runner_name] = 0
             if (const.IS_A_JUPYTER_NOTEBOOK and
                     track.DETAIL == track.DETAIL_FULL):
-                self._runners_progress_bars[runner_name].value = 0
+                self._update_ipy_progress_bar(
+                    self._runners_progress_bars[runner_name], 0)
                 self._runners_progress_descriptions[runner_name].value = ''
             self._runners_progress_bars_previous_value[runner_name] = 0
             self._runners_progress_bars_previous_label[runner_name] = ''
@@ -376,18 +377,20 @@ class Group(object):
                             else:
                                 previous_label = ''
                             if type(progress_updates[runner_name]) in {list, tuple}:
-                                value = min(progress_updates[runner_name][0], 100)
+                                value = progress_updates[runner_name][0]
                                 if value != previous_value:
-                                    self._runners_progress_bars[runner_name].value = value
+                                    self._update_ipy_progress_bar(
+                                        self._runners_progress_bars[runner_name], value)
                                     self._runners_progress_bars_previous_value[runner_name] = value
                                 label = progress_updates[runner_name][1]
                                 if label != previous_label:
                                     self._runners_progress_descriptions[runner_name].value = label
                                     self._runners_progress_bars_previous_label[runner_name] = label
                             else:
-                                value = min(progress_updates[runner_name], 100)
+                                value = progress_updates[runner_name]
                                 if value != previous_value:
-                                    self._runners_progress_bars[runner_name].value = value
+                                    self._update_ipy_progress_bar(
+                                        self._runners_progress_bars[runner_name], value)
                                     self._runners_progress_bars_previous_value[runner_name] = value
                                 self._runners_progress_descriptions[runner_name].value = ''
                                 self._runners_progress_bars_previous_label[runner_name] = ''
@@ -872,18 +875,20 @@ class Group(object):
                     else:
                         previous_label = ''
                     if type(progress_updates[runner_name]) in {list, tuple}:
-                        value = min(progress_updates[runner_name][0], 100)
+                        value = progress_updates[runner_name][0]
                         if value != previous_value:
-                            self._runners_progress_bars[runner_name].value = value
+                            self._update_ipy_progress_bar(
+                                self._runners_progress_bars[runner_name], value)
                             self._runners_progress_bars_previous_value[runner_name] = value
                         label = progress_updates[runner_name][1]
                         if label != previous_label:
                             self._runners_progress_descriptions[runner_name].value = label
                             self._runners_progress_bars_previous_label[runner_name] = label
                     else:
-                        value = min(progress_updates[runner_name], 100)
+                        value = progress_updates[runner_name]
                         if value != previous_value:
-                            self._runners_progress_bars[runner_name].value = value
+                            self._update_ipy_progress_bar(
+                                self._runners_progress_bars[runner_name], value)
                             self._runners_progress_bars_previous_value[runner_name] = value
                         if value >= 100:
                             self._runners_progress_descriptions[runner_name].value = ''
@@ -1000,6 +1005,24 @@ class Group(object):
         log.close()
         return self
 
+    @staticmethod
+    def _update_ipy_progress_bar(progress_bar, progress_value):
+
+        progress_bar.value = min(progress_value, 100)
+
+        if progress_value > 102:
+            # Red
+            progress_bar.bar_style = 'danger'
+        elif progress_value == 102:
+            # Yellow
+            progress_bar.bar_style = 'warning'
+        elif progress_value == 101:
+            # Green
+            progress_bar.bar_style = 'success'
+        else:
+            # Cyan
+            progress_bar.bar_style = 'info'
+
     def _follow_group_progress(self, progress, progress_message, progress_bars):
         if len(self._runs) > 0:
             self._timeoutRuns()
@@ -1009,8 +1032,8 @@ class Group(object):
                 run_id, progress_value = self._progressQueue.get()
                 progress[self._groupName] = progress_value
                 if const.IS_A_JUPYTER_NOTEBOOK:
-                    progress_bars[self._groupName].value = min(
-                        progress_value, 100)
+                    self._update_ipy_progress_bar(
+                        progress_bars[self._groupName], progress_value)
                 elif track.DETAIL == track.DETAIL_FULL:
                     track.print_line('  {} {}'.format(
                             self._groupName.rjust(self._max_runner_name_length),
