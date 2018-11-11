@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>runningtrack.track &mdash; Running Track 0.4.3 documentation</title>
+  <title>runningtrack.track &mdash; Running Track 0.4.4 documentation</title>
   
 
   
@@ -82,36 +82,40 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id1">0.4.3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id1">0.4.4</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#changes">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id2">0.4.2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id2">0.4.3</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id3">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id4">0.4.1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id4">0.4.2</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id5">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id6">0.4.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id6">0.4.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id7">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id8">0.3.1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id8">0.4.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id9">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id10">0.3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id10">0.3.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id11">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id12">0.2.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id12">0.3.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id13">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id14">0.1.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id14">0.2.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id15">Changes:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id16">0.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id17">Changes:</a></li>
 </ul>
 </li>
 </ul>
@@ -245,7 +249,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">override</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">override</span> <span class="k">else</span> <span class="p">(</span>
                     <span class="n">detail_levels</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TRACK_DETAIL</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()])</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DETAIL_NONE</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DETAIL_BRIEF</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tracking_initialized</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
@@ -305,9 +309,8 @@
             <span class="n">ratio</span> <span class="o">=</span> <span class="mf">100.0</span> <span class="o">/</span> <span class="n">length</span>
             <span class="n">complete</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span> <span class="o">//</span> <span class="n">ratio</span><span class="p">)</span>
             <span class="n">remaining</span> <span class="o">=</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">complete</span>
-            <span class="c1"># Cyan over Blue</span>
-            <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[46m&#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">*</span><span class="n">complete</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[36;44m &#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">*</span><span class="n">remaining</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0m&#39;</span>        </div></div>
-
+            <span class="c1"># Cyan over Grey</span>
+            <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[46m&#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">*</span><span class="n">complete</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[36;47m &#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">*</span><span class="n">remaining</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0m&#39;</span></div></div>
 
 <span class="c1"># This can be overidden by an environment variable:</span>
 <span class="n">track</span> <span class="o">=</span> <span class="n">Track</span><span class="p">(</span>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>runningtrack &mdash; Running Track 0.4.3 documentation</title>
+  <title>runningtrack &mdash; Running Track 0.4.4 documentation</title>
   
 
   
@@ -82,36 +82,40 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id1">0.4.3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id1">0.4.4</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#changes">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id2">0.4.2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id2">0.4.3</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id3">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id4">0.4.1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id4">0.4.2</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id5">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id6">0.4.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id6">0.4.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id7">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id8">0.3.1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id8">0.4.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id9">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id10">0.3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id10">0.3.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id11">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id12">0.2.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id12">0.3.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id13">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id14">0.1.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id14">0.2.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id15">Changes:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../CHANGELOG.html#id16">0.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CHANGELOG.html#id17">Changes:</a></li>
 </ul>
 </li>
 </ul>
@@ -497,7 +501,7 @@
             <span class="s2">&quot;log_thread&quot;</span><span class="p">:</span> <span class="n">run_log_thread</span><span class="p">,</span>
         <span class="p">}</span>
 
-        <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runners</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runners</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">runner</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runners</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span>
             <span class="n">process</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">runner_process</span><span class="p">,</span>
                               <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">runners_progress_queue</span><span class="p">,</span>
@@ -514,8 +518,10 @@
                 <span class="n">process</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">runner</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_processes&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">process</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_progress&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">if</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span> <span class="ow">and</span>
+                    <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_ipy_progress_bar</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars</span><span class="p">[</span><span class="n">runner_name</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_descriptions</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_value</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_label</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -549,15 +555,17 @@
                 <span class="c1"># of each runner that provided a new progress value</span>
                 <span class="c1"># because that means that it is not stuck.</span>
                 <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="n">progress_updates</span><span class="p">:</span>
-                    <span class="n">process</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">last_progress_update</span><span class="p">,</span> <span class="n">runner</span><span class="p">,</span> <span class="n">timeout</span> <span class="o">=</span> \
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> \
-                        <span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">(),</span> <span class="n">runner</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">]:</span>
+                        <span class="n">process</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">last_progress_update</span><span class="p">,</span> <span class="n">runner</span><span class="p">,</span> <span class="n">timeout</span> <span class="o">=</span> \
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> \
+                            <span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">(),</span> <span class="n">runner</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
 
                 <span class="c1"># Do this here only if running immediately, not scheduled.</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_awaitThread</span><span class="p">:</span>
 
-                    <span class="k">if</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span> <span class="ow">and</span>
+                            <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">):</span>
                         <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="n">progress_updates</span><span class="p">:</span>
                             <span class="k">if</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_value</span><span class="p">:</span>
                                 <span class="n">previous_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_value</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span>
@@ -568,23 +576,26 @@
                             <span class="k">else</span><span class="p">:</span>
                                 <span class="n">previous_label</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
                             <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">progress_updates</span><span class="p">[</span><span class="n">runner_name</span><span class="p">])</span> <span class="ow">in</span> <span class="p">{</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">}:</span>
-                                <span class="n">value</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">progress_updates</span><span class="p">[</span><span class="n">runner_name</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mi">100</span><span class="p">)</span>
+                                <span class="n">value</span> <span class="o">=</span> <span class="n">progress_updates</span><span class="p">[</span><span class="n">runner_name</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
                                 <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">previous_value</span><span class="p">:</span>
-                                    <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">_update_ipy_progress_bar</span><span class="p">(</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars</span><span class="p">[</span><span class="n">runner_name</span><span class="p">],</span> <span class="n">value</span><span class="p">)</span>
                                     <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_value</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
                                 <span class="n">label</span> <span class="o">=</span> <span class="n">progress_updates</span><span class="p">[</span><span class="n">runner_name</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
                                 <span class="k">if</span> <span class="n">label</span> <span class="o">!=</span> <span class="n">previous_label</span><span class="p">:</span>
                                     <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_descriptions</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">label</span>
                                     <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_label</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span>
                             <span class="k">else</span><span class="p">:</span>
-                                <span class="n">value</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">progress_updates</span><span class="p">[</span><span class="n">runner_name</span><span class="p">],</span> <span class="mi">100</span><span class="p">)</span>
+                                <span class="n">value</span> <span class="o">=</span> <span class="n">progress_updates</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span>
                                 <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">previous_value</span><span class="p">:</span>
-                                    <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">_update_ipy_progress_bar</span><span class="p">(</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars</span><span class="p">[</span><span class="n">runner_name</span><span class="p">],</span> <span class="n">value</span><span class="p">)</span>
                                     <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_value</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_descriptions</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_label</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
-                    <span class="k">elif</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
+                    <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span> <span class="ow">and</span>
+                            <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">):</span>
                         <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="n">progress_updates</span><span class="p">:</span>
                             <span class="k">if</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_value</span><span class="p">:</span>
                                 <span class="n">previous_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_value</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span>
@@ -629,51 +640,57 @@
             <span class="n">timeout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeoutSetting</span>
             <span class="n">retries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retriesSetting</span>
 
-            <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">]:</span>
-                <span class="n">process</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">last_progress_update</span><span class="p">,</span> <span class="n">runner</span><span class="p">,</span> <span class="n">retry_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span>
-                <span class="n">runner_progress</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_progress&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span>
-                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">runner_progress</span><span class="p">)</span> <span class="ow">in</span> <span class="p">{</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">}:</span>
-                    <span class="n">runner_progress</span> <span class="o">=</span> <span class="n">runner_progress</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">is_alive</span><span class="p">():</span>
-                    <span class="k">if</span> <span class="n">runner_progress</span> <span class="o">&gt;=</span> <span class="mi">100</span><span class="p">:</span>
-                        <span class="c1"># Rare case when process may still be alive after the</span>
-                        <span class="c1"># runner is finished. We give it a second more before</span>
-                        <span class="c1"># explicitly terminating it.</span>
-                        <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">last_progress_update</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                            <span class="n">process</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                <span class="c1"># This check needs to be done because a runner may terminate</span>
+                <span class="c1"># while this for-loop is iterating (due to concurrency):</span>
+                <span class="k">if</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">]:</span>
+                    <span class="n">process</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">last_progress_update</span><span class="p">,</span> <span class="n">runner</span><span class="p">,</span> <span class="n">retry_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span>
+                    <span class="n">runner_progress</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_progress&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">runner_progress</span><span class="p">)</span> <span class="ow">in</span> <span class="p">{</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">}:</span>
+                        <span class="n">runner_progress</span> <span class="o">=</span> <span class="n">runner_progress</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">is_alive</span><span class="p">():</span>
+                        <span class="k">if</span> <span class="n">runner_progress</span> <span class="o">&gt;=</span> <span class="mi">100</span><span class="p">:</span>
+                            <span class="c1"># Rare case when process may still be alive after the</span>
+                            <span class="c1"># runner is finished. We give it a second more before</span>
+                            <span class="c1"># explicitly terminating it.</span>
+                            <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">last_progress_update</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                                <span class="n">process</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
 
-                    <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">last_progress_update</span> <span class="o">&gt;</span> <span class="n">timeout</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Timeout of </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> at </span><span class="si">{}</span><span class="s1"> seconds.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span> <span class="n">runner_name</span><span class="p">,</span> <span class="n">timeout</span><span class="p">))</span>
-                        <span class="n">process</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
-                        <span class="k">if</span> <span class="n">retry_count</span> <span class="o">&lt;</span> <span class="n">retries</span><span class="p">:</span>
-                            <span class="n">new_retry</span> <span class="o">=</span> <span class="n">retry_count</span> <span class="o">+</span> <span class="mi">1</span>
-                            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Retry number </span><span class="si">{}</span><span class="s1"> of </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_retry</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span> <span class="n">runner_name</span><span class="p">))</span>
-                            <span class="n">run_log_queue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;log_queue&quot;</span><span class="p">]</span>
-                            <span class="n">new_process</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">runner_process</span><span class="p">,</span>
-                                                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">progress_queue</span><span class="p">,</span>
-                                                            <span class="n">run_log_queue</span><span class="p">,</span>
-                                                            <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span>
-                                                            <span class="bp">self</span><span class="o">.</span><span class="n">_groupArgs</span><span class="p">,</span>
-                                                            <span class="bp">self</span><span class="o">.</span><span class="n">_groupKArgs</span><span class="p">,</span>
-                                                            <span class="n">runner</span><span class="p">,</span>
-                                                            <span class="n">runner_name</span><span class="p">,</span>
-                                                            <span class="n">run_id</span><span class="p">))</span>
-                            <span class="n">new_process</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-                            <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">new_process</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">runner</span><span class="p">,</span> <span class="n">new_retry</span><span class="p">)</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_processes&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_process</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_progress&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-                            <span class="n">no_processes_running</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">last_progress_update</span> <span class="o">&gt;</span> <span class="n">timeout</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Timeout of </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> at </span><span class="si">{}</span><span class="s1"> seconds.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span> <span class="n">runner_name</span><span class="p">,</span> <span class="n">timeout</span><span class="p">))</span>
+                            <span class="n">process</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+                            <span class="k">if</span> <span class="n">retry_count</span> <span class="o">&lt;</span> <span class="n">retries</span><span class="p">:</span>
+                                <span class="n">new_retry</span> <span class="o">=</span> <span class="n">retry_count</span> <span class="o">+</span> <span class="mi">1</span>
+                                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Retry number </span><span class="si">{}</span><span class="s1"> of </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_retry</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span> <span class="n">runner_name</span><span class="p">))</span>
+                                <span class="n">run_log_queue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;log_queue&quot;</span><span class="p">]</span>
+                                <span class="n">new_process</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">runner_process</span><span class="p">,</span>
+                                                        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">progress_queue</span><span class="p">,</span>
+                                                                <span class="n">run_log_queue</span><span class="p">,</span>
+                                                                <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span>
+                                                                <span class="bp">self</span><span class="o">.</span><span class="n">_groupArgs</span><span class="p">,</span>
+                                                                <span class="bp">self</span><span class="o">.</span><span class="n">_groupKArgs</span><span class="p">,</span>
+                                                                <span class="n">runner</span><span class="p">,</span>
+                                                                <span class="n">runner_name</span><span class="p">,</span>
+                                                                <span class="n">run_id</span><span class="p">))</span>
+                                <span class="n">new_process</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                                <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">new_process</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">runner</span><span class="p">,</span> <span class="n">new_retry</span><span class="p">)</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_processes&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_process</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_progress&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                                <span class="n">no_processes_running</span> <span class="o">=</span> <span class="kc">False</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;The </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> runner was canceled after </span><span class="si">{}</span><span class="s1"> retries.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span> <span class="n">runner_name</span><span class="p">,</span> <span class="n">retry_count</span><span class="p">))</span>
                         <span class="k">else</span><span class="p">:</span>
-                            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;The </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> runner was canceled after </span><span class="si">{}</span><span class="s1"> retries.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span> <span class="n">runner_name</span><span class="p">,</span> <span class="n">retry_count</span><span class="p">))</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">no_processes_running</span> <span class="o">=</span> <span class="kc">False</span>
+                            <span class="n">no_processes_running</span> <span class="o">=</span> <span class="kc">False</span>
 
             <span class="k">if</span> <span class="n">no_processes_running</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">]:</span>
-                    <span class="n">process</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">last_progress_update</span><span class="p">,</span> <span class="n">runner</span><span class="p">,</span> <span class="n">retry_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span>
-                    <span class="n">process</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">runs_to_delete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">run_id</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                    <span class="c1"># This check needs to be done because a runner may terminate</span>
+                    <span class="c1"># while this for-loop is iterating (due to concurrency):</span>
+                    <span class="k">if</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">]:</span>
+                        <span class="n">process</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">last_progress_update</span><span class="p">,</span> <span class="n">runner</span><span class="p">,</span> <span class="n">retry_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;process_info&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span>
+                        <span class="n">process</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">runs_to_delete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">run_id</span><span class="p">)</span>
 
             <span class="c1"># Provide progress of this run based on the progress of its runners.</span>
             <span class="n">runner_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_progress&quot;</span><span class="p">])</span>
@@ -682,7 +699,7 @@
                 <span class="n">warning_count</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="n">error_count</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="n">sum_of_runners_progress</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_progress&quot;</span><span class="p">]:</span>
+                <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_progress&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                     <span class="n">runner_progress</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_progress&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span>
                     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">runner_progress</span><span class="p">)</span> <span class="ow">in</span> <span class="p">{</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">}:</span>
                         <span class="n">runner_progress</span> <span class="o">=</span> <span class="n">runner_progress</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -944,39 +961,44 @@
         <span class="n">progress</span> <span class="o">=</span> <span class="p">{</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="p">}</span>
+
+        <span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_other_groups</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span> <span class="ow">and</span>
+                    <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">):</span>
+                <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&lt;br&gt;&lt;h4&gt;</span><span class="si">{}</span><span class="s1">&lt;/h4&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">)))</span>
+                <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">_runners</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">progress_bar</span> <span class="o">=</span> <span class="n">FloatProgress</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+                    <span class="n">progress_runner_name</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">runner_name</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;15em&#39;</span><span class="p">))</span>
+                    <span class="n">progress_description</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;65em&#39;</span><span class="p">))</span>
+                    <span class="n">group</span><span class="o">.</span><span class="n">_runners_progress_bars</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">progress_bar</span>
+                    <span class="n">group</span><span class="o">.</span><span class="n">_runners_progress_runner_names</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">progress_runner_name</span>
+                    <span class="n">group</span><span class="o">.</span><span class="n">_runners_progress_descriptions</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">progress_description</span>
+                    <span class="n">display</span><span class="p">(</span><span class="n">HBox</span><span class="p">([</span><span class="n">progress_runner_name</span><span class="p">,</span> <span class="n">progress_bar</span><span class="p">,</span> <span class="n">progress_description</span><span class="p">]))</span>
+
+        <span class="n">progress_bars</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span><span class="p">:</span>
             <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&lt;br&gt;&lt;h4&gt;Group Progress&lt;/h4&gt;&#39;</span><span class="p">))</span>
             <span class="n">progress_bar</span> <span class="o">=</span> <span class="n">FloatProgress</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">)</span>
-            <span class="n">progress_bars</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">:</span> <span class="n">progress_bar</span><span class="p">,</span>
-            <span class="p">}</span>
+            <span class="n">progress_bars</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">]</span> <span class="o">=</span> <span class="n">progress_bar</span>
             <span class="n">display</span><span class="p">(</span><span class="n">progress_bar</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">progress_bars</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_max_group_name_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_max_runner_name_length</span> <span class="o">=</span> <span class="mi">0</span>
 
-        <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runners</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_max_runner_name_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_max_runner_name_length</span><span class="p">,</span>
-                <span class="nb">len</span><span class="p">(</span><span class="n">runner_name</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">other_group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_other_groups</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_max_group_name_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_max_group_name_length</span><span class="p">,</span>
-                <span class="nb">len</span><span class="p">(</span><span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">))</span>
-            <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="n">other_group</span><span class="o">.</span><span class="n">_runners</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">_runners</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_max_runner_name_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_max_runner_name_length</span><span class="p">,</span>
                     <span class="nb">len</span><span class="p">(</span><span class="n">runner_name</span><span class="p">))</span>
-
         <span class="k">for</span> <span class="n">other_group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_other_groups</span><span class="p">:</span>
-            <span class="n">other_group</span><span class="o">.</span><span class="n">_max_group_name_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_group_name_length</span>
             <span class="n">other_group</span><span class="o">.</span><span class="n">_max_runner_name_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_runner_name_length</span>
         
-        <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span> <span class="ow">and</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">):</span>
             <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runners</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runners</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span> <span class="o">+</span> <span class="n">runner_name</span>
                 <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;  </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">text_fix</span><span class="p">(</span>
@@ -984,13 +1006,6 @@
                             <span class="bp">self</span><span class="o">.</span><span class="n">_max_runner_name_length</span><span class="p">),</span>
                         <span class="n">track</span><span class="o">.</span><span class="n">percentage_bar</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">const</span><span class="o">.</span><span class="n">PROGRESS_BAR_LENGTH</span><span class="p">)),</span>
                     <span class="n">name</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_BRIEF</span><span class="p">:</span>
-            <span class="n">previous_progress_message</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">BRIEF_PROGRESS_MESSAGE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span>
-                <span class="n">progress</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">previous_progress_message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
         <span class="k">for</span> <span class="n">other_group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_other_groups</span><span class="p">:</span>
             <span class="n">progress</span><span class="p">[</span><span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1000,11 +1015,12 @@
                 <span class="n">progress_bars</span><span class="p">[</span><span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">]</span> <span class="o">=</span> <span class="n">progress_bar</span>
                 <span class="n">display</span><span class="p">(</span><span class="n">progress_bar</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span> <span class="ow">and</span>
+                    <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">):</span>
                 <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">()</span>  <span class="c1"># Empty separating line</span>
                 <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">)</span>
 
-                <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="n">other_group</span><span class="o">.</span><span class="n">_runners</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="n">other_group</span><span class="o">.</span><span class="n">_runners</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                     <span class="n">name</span> <span class="o">=</span> <span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span> <span class="o">+</span> <span class="n">runner_name</span>
                     <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;  </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">text_fix</span><span class="p">(</span>
@@ -1013,46 +1029,42 @@
                             <span class="n">track</span><span class="o">.</span><span class="n">percentage_bar</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">const</span><span class="o">.</span><span class="n">PROGRESS_BAR_LENGTH</span><span class="p">)),</span>
                         <span class="n">name</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_BRIEF</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span> <span class="ow">and</span>
+                    <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_BRIEF</span><span class="p">):</span>
                 <span class="n">previous_progress_message</span> <span class="o">+=</span> <span class="n">const</span><span class="o">.</span><span class="n">BRIEF_PROGRESS_MESSAGE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span>
                     <span class="n">progress</span><span class="p">[</span><span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">])</span>
 
-        <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span> <span class="ow">and</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">):</span>
             <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">()</span>  <span class="c1"># Empty line above</span>
             <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;Group Progress&#39;</span><span class="p">)</span>
             <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;  </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">text_fix</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_max_group_name_length</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_runner_name_length</span><span class="p">),</span>
                     <span class="n">track</span><span class="o">.</span><span class="n">percentage_bar</span><span class="p">(</span><span class="n">progress</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">],</span>
                                 <span class="n">length</span><span class="o">=</span><span class="n">const</span><span class="o">.</span><span class="n">PROGRESS_BAR_LENGTH</span><span class="p">)),</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">other_group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_other_groups</span><span class="p">:</span>
                 <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;  </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">text_fix</span><span class="p">(</span>
-                            <span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">_max_group_name_length</span><span class="p">),</span>
+                        <span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_runner_name_length</span><span class="p">),</span>
                         <span class="n">track</span><span class="o">.</span><span class="n">percentage_bar</span><span class="p">(</span><span class="n">progress</span><span class="p">[</span><span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">],</span>
                                     <span class="n">length</span><span class="o">=</span><span class="n">const</span><span class="o">.</span><span class="n">PROGRESS_BAR_LENGTH</span><span class="p">)),</span>
                     <span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">)</span>                
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
-                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">()</span>  <span class="c1"># Empty line above</span>
-                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;_lastline&#39;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_BRIEF</span><span class="p">:</span>
-                <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">previous_progress_message</span><span class="p">)</span>
-                <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span> <span class="ow">and</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">):</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">()</span>  <span class="c1"># Empty line above</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;_lastline&#39;</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">progress</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">,</span> <span class="n">previous_progress_message</span>
+        <span class="k">return</span> <span class="n">progress</span><span class="p">,</span> <span class="n">progress_bars</span>
 
     <span class="k">def</span> <span class="nf">_follow_runners_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">run_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">:</span>
             <span class="n">progress_updates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;runners_progress&quot;</span><span class="p">]</span>
 
-            <span class="k">if</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="n">progress_updates</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span> <span class="ow">and</span>
+                    <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">progress_updates</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
                     <span class="k">if</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_value</span><span class="p">:</span>
                         <span class="n">previous_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_value</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span>
                     <span class="k">else</span><span class="p">:</span>
@@ -1062,25 +1074,27 @@
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">previous_label</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
                     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">progress_updates</span><span class="p">[</span><span class="n">runner_name</span><span class="p">])</span> <span class="ow">in</span> <span class="p">{</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">}:</span>
-                        <span class="n">value</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">progress_updates</span><span class="p">[</span><span class="n">runner_name</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mi">100</span><span class="p">)</span>
+                        <span class="n">value</span> <span class="o">=</span> <span class="n">progress_updates</span><span class="p">[</span><span class="n">runner_name</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
                         <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">previous_value</span><span class="p">:</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_update_ipy_progress_bar</span><span class="p">(</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars</span><span class="p">[</span><span class="n">runner_name</span><span class="p">],</span> <span class="n">value</span><span class="p">)</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_value</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
                         <span class="n">label</span> <span class="o">=</span> <span class="n">progress_updates</span><span class="p">[</span><span class="n">runner_name</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
                         <span class="k">if</span> <span class="n">label</span> <span class="o">!=</span> <span class="n">previous_label</span><span class="p">:</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_descriptions</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">label</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_label</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">value</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">progress_updates</span><span class="p">[</span><span class="n">runner_name</span><span class="p">],</span> <span class="mi">100</span><span class="p">)</span>
+                        <span class="n">value</span> <span class="o">=</span> <span class="n">progress_updates</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span>
                         <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">previous_value</span><span class="p">:</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_update_ipy_progress_bar</span><span class="p">(</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars</span><span class="p">[</span><span class="n">runner_name</span><span class="p">],</span> <span class="n">value</span><span class="p">)</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_value</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
                         <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">100</span><span class="p">:</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_descriptions</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_label</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
             <span class="k">elif</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="n">progress_updates</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">progress_updates</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
                     <span class="k">if</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_value</span><span class="p">:</span>
                         <span class="n">previous_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_value</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span>
                     <span class="k">else</span><span class="p">:</span>
@@ -1126,26 +1140,38 @@
         <span class="n">track</span><span class="o">.</span><span class="n">kickoff_tracking</span><span class="p">()</span>
         <span class="n">log</span><span class="o">.</span><span class="n">kickoff_logging</span><span class="p">()</span>
 
-        <span class="n">progress</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">,</span> <span class="n">previous_progress_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup_progress_indicators</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">!=</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Press ENTER to stop scheduled runs.&#39;</span><span class="p">)</span>
+
+        <span class="n">progress</span><span class="p">,</span> <span class="n">progress_bars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup_progress_indicators</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
                 <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;Press ENTER to stop scheduled runs.&#39;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Press ENTER to stop scheduled runs.&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">other_group</span> <span class="ow">in</span> <span class="n">other_groups</span><span class="p">:</span>
             <span class="n">other_group</span><span class="o">.</span><span class="n">_start</span><span class="p">()</span>
 
+        <span class="n">previous_progress_message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">progress_message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-            <span class="n">progress_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_follow_groups_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">,</span> <span class="n">progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">,</span> <span class="n">previous_progress_message</span><span class="p">)</span>
+
+            <span class="n">progress_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_follow_group_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">,</span> <span class="n">progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_follow_runners_progress</span><span class="p">()</span>
 
             <span class="k">for</span> <span class="n">other_group</span> <span class="ow">in</span> <span class="n">other_groups</span><span class="p">:</span>
-                <span class="n">progress_message</span> <span class="o">=</span> <span class="n">other_group</span><span class="o">.</span><span class="n">_follow_groups_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">,</span> <span class="n">progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">,</span> <span class="n">previous_progress_message</span><span class="p">)</span>
+                <span class="n">progress_message</span> <span class="o">=</span> <span class="n">other_group</span><span class="o">.</span><span class="n">_follow_group_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">,</span> <span class="n">progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">)</span>
                 <span class="n">other_group</span><span class="o">.</span><span class="n">_follow_runners_progress</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span> <span class="ow">and</span>
+                    <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">!=</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">):</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\b</span><span class="s1">&#39;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">previous_progress_message</span><span class="p">)</span> <span class="o">+</span>
+                                    <span class="n">progress_message</span><span class="p">)</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                <span class="n">previous_progress_message</span> <span class="o">=</span> <span class="n">progress_message</span>
 
             <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">runs_to_delete</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">run_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">runs_to_delete</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
@@ -1160,10 +1186,13 @@
                     <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">][</span><span class="s2">&quot;log_thread&quot;</span><span class="p">]</span>
                     <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">[</span><span class="n">run_id</span><span class="p">]</span>
 
-            <span class="k">if</span> <span class="n">wait_for_enter_with_timeout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span><span class="p">:</span>
+                <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">wait_for_enter_with_timeout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">):</span>
                 <span class="k">break</span>
 
-        <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span> <span class="ow">and</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">):</span>
             <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;Stopping all scheduled runs.&#39;</span><span class="p">)</span>
             <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1175,7 +1204,25 @@
         <span class="n">log</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-    <span class="k">def</span> <span class="nf">_follow_groups_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">progress</span><span class="p">,</span> <span class="n">progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">,</span> <span class="n">previous_progress_message</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_update_ipy_progress_bar</span><span class="p">(</span><span class="n">progress_bar</span><span class="p">,</span> <span class="n">progress_value</span><span class="p">):</span>
+
+        <span class="n">progress_bar</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">progress_value</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">progress_value</span> <span class="o">&gt;</span> <span class="mi">102</span><span class="p">:</span>
+            <span class="c1"># Red</span>
+            <span class="n">progress_bar</span><span class="o">.</span><span class="n">bar_style</span> <span class="o">=</span> <span class="s1">&#39;danger&#39;</span>
+        <span class="k">elif</span> <span class="n">progress_value</span> <span class="o">==</span> <span class="mi">102</span><span class="p">:</span>
+            <span class="c1"># Yellow</span>
+            <span class="n">progress_bar</span><span class="o">.</span><span class="n">bar_style</span> <span class="o">=</span> <span class="s1">&#39;warning&#39;</span>
+        <span class="k">elif</span> <span class="n">progress_value</span> <span class="o">==</span> <span class="mi">101</span><span class="p">:</span>
+            <span class="c1"># Green</span>
+            <span class="n">progress_bar</span><span class="o">.</span><span class="n">bar_style</span> <span class="o">=</span> <span class="s1">&#39;success&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Cyan</span>
+            <span class="n">progress_bar</span><span class="o">.</span><span class="n">bar_style</span> <span class="o">=</span> <span class="s1">&#39;info&#39;</span>
+
+    <span class="k">def</span> <span class="nf">_follow_group_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">progress</span><span class="p">,</span> <span class="n">progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_timeoutRuns</span><span class="p">()</span>
         
@@ -1184,27 +1231,48 @@
                 <span class="n">run_id</span><span class="p">,</span> <span class="n">progress_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_progressQueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
                 <span class="n">progress</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">]</span> <span class="o">=</span> <span class="n">progress_value</span>
                 <span class="k">if</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span><span class="p">:</span>
-                    <span class="n">progress_bars</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
-                        <span class="n">progress_value</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_update_ipy_progress_bar</span><span class="p">(</span>
+                        <span class="n">progress_bars</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">],</span> <span class="n">progress_value</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
                     <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;  </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">text_fix</span><span class="p">(</span>
-                                <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span>
-                                <span class="bp">self</span><span class="o">.</span><span class="n">_max_group_name_length</span><span class="p">),</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_runner_name_length</span><span class="p">),</span>
                             <span class="n">track</span><span class="o">.</span><span class="n">percentage_bar</span><span class="p">(</span><span class="n">progress_value</span><span class="p">,</span>
                                 <span class="n">length</span><span class="o">=</span><span class="n">const</span><span class="o">.</span><span class="n">PROGRESS_BAR_LENGTH</span><span class="p">)),</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_BRIEF</span><span class="p">:</span>
-            <span class="n">progress_message</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">BRIEF_PROGRESS_MESSAGE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span> <span class="ow">and</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">):</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;_lastline&#39;</span><span class="p">)</span>  <span class="c1"># Park cursor at the bottom</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span> <span class="ow">and</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">!=</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">):</span>
+            <span class="n">progress_message</span> <span class="o">+=</span> <span class="n">const</span><span class="o">.</span><span class="n">BRIEF_PROGRESS_MESSAGE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">,</span>
-                <span class="n">progress</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">])</span>
+                <span class="nb">min</span><span class="p">(</span><span class="n">progress</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">],</span> <span class="mi">100</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">progress_message</span>
+
+    <span class="k">def</span> <span class="nf">_follow_all_groups_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">progress</span><span class="p">,</span> <span class="n">previous_progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">):</span>
+        <span class="n">progress_message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="n">progress_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_follow_group_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">,</span> <span class="n">progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">other_group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_other_groups</span><span class="p">:</span>
+            <span class="n">progress_message</span> <span class="o">=</span> <span class="n">other_group</span><span class="o">.</span><span class="n">_follow_group_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">,</span> <span class="n">progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span> <span class="ow">and</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">!=</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">):</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\b</span><span class="s1">&#39;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">previous_progress_message</span><span class="p">)</span> <span class="o">+</span>
                                 <span class="n">progress_message</span><span class="p">)</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
             <span class="n">previous_progress_message</span> <span class="o">=</span> <span class="n">progress_message</span>
 
-        <span class="k">return</span> <span class="n">progress_message</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span> <span class="ow">and</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">):</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;_lastline&#39;</span><span class="p">)</span>  <span class="c1"># Park cursor at the bottom</span>
+        
+        <span class="k">return</span> <span class="n">previous_progress_message</span>
 
 <div class="viewcode-block" id="Group.now"><a class="viewcode-back" href="../docsource/api/runningtrack.html#runningtrack.Group.now">[docs]</a>    <span class="k">def</span> <span class="nf">now</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">other_groups</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_other_groups</span> <span class="o">=</span> <span class="n">other_groups</span>
@@ -1213,9 +1281,9 @@
         <span class="n">track</span><span class="o">.</span><span class="n">kickoff_tracking</span><span class="p">()</span>
         <span class="n">log</span><span class="o">.</span><span class="n">kickoff_logging</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">(</span><span class="s1">&#39;Immediate </span><span class="si">{}</span><span class="s1"> run.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">))</span>
+        <span class="n">progress</span><span class="p">,</span> <span class="n">progress_bars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup_progress_indicators</span><span class="p">()</span>
 
-        <span class="n">progress</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">,</span> <span class="n">previous_progress_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup_progress_indicators</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">(</span><span class="s1">&#39;Immediate </span><span class="si">{}</span><span class="s1"> run.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">))</span>
 
         <span class="n">run_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_runs</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">other_group</span> <span class="ow">in</span> <span class="n">other_groups</span><span class="p">:</span>
@@ -1223,22 +1291,11 @@
             <span class="n">other_group</span><span class="o">.</span><span class="n">_run</span><span class="p">(</span><span class="s1">&#39;Immediate </span><span class="si">{}</span><span class="s1"> run.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">other_group</span><span class="o">.</span><span class="n">_groupName</span><span class="p">))</span>
             <span class="n">run_count</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">other_group</span><span class="o">.</span><span class="n">_runs</span><span class="p">)</span>
 
+        <span class="n">previous_progress_message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
         <span class="k">while</span> <span class="n">run_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">progress_message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-
-            <span class="n">progress_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_follow_groups_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">,</span> <span class="n">progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">,</span> <span class="n">previous_progress_message</span><span class="p">)</span>
-
-            <span class="k">for</span> <span class="n">other_group</span> <span class="ow">in</span> <span class="n">other_groups</span><span class="p">:</span>
-                <span class="n">progress_message</span> <span class="o">=</span> <span class="n">other_group</span><span class="o">.</span><span class="n">_follow_groups_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">,</span> <span class="n">progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">,</span> <span class="n">previous_progress_message</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_BRIEF</span><span class="p">:</span>
-                <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\b</span><span class="s1">&#39;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">previous_progress_message</span><span class="p">)</span> <span class="o">+</span>
-                                    <span class="n">progress_message</span><span class="p">)</span>
-                <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-                <span class="n">previous_progress_message</span> <span class="o">=</span> <span class="n">progress_message</span>
-
-            <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
-                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;_lastline&#39;</span><span class="p">)</span>  <span class="c1"># Park cursor at the bottom</span>
+            <span class="n">previous_progress_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_follow_all_groups_progress</span><span class="p">(</span>
+                <span class="n">progress</span><span class="p">,</span> <span class="n">previous_progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">)</span>
 
             <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">runs_to_delete</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">run_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">runs_to_delete</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
@@ -1273,11 +1330,18 @@
             <span class="k">for</span> <span class="n">other_group</span> <span class="ow">in</span> <span class="n">other_groups</span><span class="p">:</span>
                 <span class="n">run_count</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">other_group</span><span class="o">.</span><span class="n">_runs</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
-            <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;Ending immediate run.&#39;</span><span class="p">)</span>
-            <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ending immediate run.&#39;</span><span class="p">)</span>
+        <span class="c1"># Final group progress update to address issue #1 - Group progress</span>
+        <span class="c1"># at the end of immediate runs sometimes is less than 100%.</span>
+        <span class="n">previous_progress_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_follow_all_groups_progress</span><span class="p">(</span>
+            <span class="n">progress</span><span class="p">,</span> <span class="n">previous_progress_message</span><span class="p">,</span> <span class="n">progress_bars</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">DETAIL_FULL</span><span class="p">:</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">(</span><span class="s1">&#39;Ending immediate run.&#39;</span><span class="p">)</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">print_line</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ending immediate run.&#39;</span><span class="p">)</span>
+        
         <span class="n">log</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
@@ -1312,20 +1376,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_value</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_label</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
-        <span class="k">if</span> <span class="n">const</span><span class="o">.</span><span class="n">IS_A_JUPYTER_NOTEBOOK</span><span class="p">:</span>
-            <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&lt;br&gt;&lt;h4&gt;</span><span class="si">{}</span><span class="s1">&lt;/h4&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_groupName</span><span class="p">)))</span>
-            <span class="k">for</span> <span class="n">runner_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runners</span><span class="p">:</span>
-                <span class="n">progress_bar</span> <span class="o">=</span> <span class="n">FloatProgress</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-                <span class="n">progress_runner_name</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">runner_name</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;15em&#39;</span><span class="p">))</span>
-                <span class="n">progress_description</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;65em&#39;</span><span class="p">))</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">progress_bar</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_runner_names</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">progress_runner_name</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_descriptions</span><span class="p">[</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">progress_description</span>
-                <span class="n">display</span><span class="p">(</span><span class="n">HBox</span><span class="p">([</span><span class="n">progress_runner_name</span><span class="p">,</span> <span class="n">progress_bar</span><span class="p">,</span> <span class="n">progress_description</span><span class="p">]))</span>
-
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="Group.at"><a class="viewcode-back" href="../docsource/api/runningtrack.html#runningtrack.Group.at">[docs]</a>    <span class="k">def</span> <span class="nf">at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.daily"><a class="viewcode-back" href="../docsource/api/runningtrack.html#runningtrack.Group.daily">[docs]</a>    <span class="k">def</span> <span class="nf">daily</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">):</span>
         <span class="k">if</span> <span class="s2">&quot;schedule&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_override</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_override</span><span class="p">[</span><span class="s2">&quot;schedule&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_override</span><span class="p">[</span><span class="s2">&quot;schedule&quot;</span><span class="p">][</span><span class="s2">&quot;sunday&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
@@ -1440,7 +1493,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_bars_previous_label</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_runner_names</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_runners_progress_descriptions</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_max_group_name_length</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_max_runner_name_length</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plugins</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pluginsConfigName</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
