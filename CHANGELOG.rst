@@ -8,7 +8,7 @@ Changelog
 Changes:
 ~~~~~~~~
 
-- 
+- Switch docs to Lato fonts
 
 ------------------------------------------------------
 
