@@ -113,3 +113,7 @@ footer p,
 .wy-menu-vertical a:hover span.toctree-expand {
     display: inline !important
 }
+
+.wy-side-scroll {
+    height: 125%
+}

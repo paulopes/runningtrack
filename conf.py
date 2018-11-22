@@ -19,7 +19,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Running Track'
+project = 'runningtrack'
 copyright = '2018, Paulo Lopes'
 author = 'Paulo Lopes'
 
