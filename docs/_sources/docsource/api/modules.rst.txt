@@ -1,5 +1,5 @@
-runningtrack
-============
+Running Track API
+=================
 
 .. toctree::
    :maxdepth: 4

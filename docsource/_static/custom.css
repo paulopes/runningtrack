@@ -106,11 +106,6 @@ footer p,
     padding-bottom: 10px
 }
 
-div.wy-menu-vertical a span.doctree-expand {
-    color: red !important;
-    /* display: none */
-}
-
 .wy-menu-vertical a span.toctree-expand {
     display: none !important
 }
@@ -118,4 +113,3 @@ div.wy-menu-vertical a span.doctree-expand {
 .wy-menu-vertical a:hover span.toctree-expand {
     display: inline !important
 }
-
