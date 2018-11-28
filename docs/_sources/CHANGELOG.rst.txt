@@ -9,6 +9,7 @@ Changes:
 ~~~~~~~~
 
 - Switch docs to Lato fonts
+- Various cosmetic improvements to docs
 
 ------------------------------------------------------
 

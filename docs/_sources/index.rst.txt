@@ -1,5 +1,5 @@
-Welcome to runningtrack's documentation!
-========================================
+**Running Track's** documentation
+=================================
 
 .. toctree::
    :maxdepth: 2

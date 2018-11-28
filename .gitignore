@@ -100,6 +100,7 @@ ENV/
 _build/
 .vscode/
 .cache/
+.pytest_cache/
 secret/
 
 .DS_Store
