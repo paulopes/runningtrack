@@ -2,6 +2,16 @@ Changelog
 =========
 
 
+0.4.6
+-----
+
+Changes:
+~~~~~~~~
+
+- Mitigate the effects of a recent bug in python 3.6
+
+------------------------------------------------------
+
 0.4.5
 -----
 

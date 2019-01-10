@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>runningtrack.log &mdash; runningtrack 0.4.5 documentation</title>
+  <title>runningtrack.log &mdash; runningtrack 0.4.6 documentation</title>
   
 
   
@@ -82,44 +82,48 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id1">0.4.5</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id1">0.4.6</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#changes">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id2">0.4.4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id2">0.4.5</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id3">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id4">0.4.3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id4">0.4.4</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id5">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id6">0.4.2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id6">0.4.3</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id7">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id8">0.4.1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id8">0.4.2</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id9">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id10">0.4.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id10">0.4.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id11">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id12">0.3.1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id12">0.4.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id13">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id14">0.3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id14">0.3.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id15">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id16">0.2.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id16">0.3.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id17">Changes:</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id18">0.1.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id18">0.2.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id19">Changes:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#id20">0.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../CHANGELOG.html#id21">Changes:</a></li>
 </ul>
 </li>
 </ul>
@@ -255,11 +259,12 @@
 <div class="viewcode-block" id="Log.kickoff_logging"><a class="viewcode-back" href="../../docsource/api/runningtrack.html#runningtrack.log.Log.kickoff_logging">[docs]</a>    <span class="k">def</span> <span class="nf">kickoff_logging</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">logging_initialized</span><span class="p">:</span>
 
-            <span class="c1"># self.logger.setLevel(logging.CRITICAL)</span>
-
             <span class="n">formater</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span>
                 <span class="s1">&#39;[</span><span class="si">%(asctime).19s</span><span class="s1">,</span><span class="si">%(msecs)03d</span><span class="s1">] </span><span class="si">%(levelname)s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
                 <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Mitigate the effects of a recent bug in python 3.6</span>
+            <span class="n">number_of_handlers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
             <span class="k">for</span> <span class="n">handler_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
                 <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="p">[</span><span class="n">handler_id</span><span class="p">]</span>
@@ -268,14 +273,24 @@
                 <span class="n">handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formater</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">level</span> <span class="o">!=</span> <span class="n">logging</span><span class="o">.</span><span class="n">NOTSET</span><span class="p">:</span>
                     <span class="n">handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+                    <span class="c1"># Mitigate the effects of a recent bug in python 3.6</span>
+                    <span class="k">if</span> <span class="n">number_of_handlers</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+                    <span class="c1"># Mitigate the effects of a recent bug in python 3.6</span>
+                    <span class="k">if</span> <span class="n">number_of_handlers</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="kc">None</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
                 <span class="n">handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
                 <span class="n">handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">CRITICAL</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+
+            <span class="c1"># Mitigate the effects of a recent bug in python 3.6</span>
+            <span class="k">if</span> <span class="n">number_of_handlers</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">CRITICAL</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">logging_initialized</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="bp">self</span></div>
@@ -342,7 +357,6 @@
         <script type="text/javascript" src="../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
 
   

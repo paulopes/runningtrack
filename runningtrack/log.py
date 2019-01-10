@@ -50,11 +50,12 @@ class Log(object):
     def kickoff_logging(self):
         if not self.logging_initialized:
 
-            # self.logger.setLevel(logging.CRITICAL)
-
             formater = logging.Formatter(
                 '[%(asctime).19s,%(msecs)03d] %(levelname)s %(message)s',
                 datefmt='%Y-%m-%d %H:%M:%S')
+
+            # Mitigate the effects of a recent bug in python 3.6
+            number_of_handlers = len(self.handlers.keys())
 
             for handler_id in self.handlers:
                 handler = self.handlers[handler_id]
@@ -63,14 +64,24 @@ class Log(object):
                 handler.setFormatter(formater)
                 if level != logging.NOTSET:
                     handler.setLevel(level)
+                    # Mitigate the effects of a recent bug in python 3.6
+                    if number_of_handlers == 1:
+                        self.logger.setLevel(level)
                 else:
                     handler.setLevel(logging.ERROR)
+                    # Mitigate the effects of a recent bug in python 3.6
+                    if number_of_handlers == 1:
+                        self.logger.setLevel(logging.ERROR)
                 self.logger.addHandler(handler)
 
             if None not in self.handlers:
                 handler = logging.StreamHandler()
                 handler.setLevel(logging.CRITICAL)
                 self.logger.addHandler(handler)
+
+            # Mitigate the effects of a recent bug in python 3.6
+            if number_of_handlers == 0:
+                self.logger.setLevel(logging.CRITICAL)
 
         self.logging_initialized = True
         return self
