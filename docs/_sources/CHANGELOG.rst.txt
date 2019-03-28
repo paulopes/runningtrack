@@ -2,6 +2,16 @@ Changelog
 =========
 
 
+0.4.7
+-----
+
+Changes:
+~~~~~~~~
+
+- New FileConsumer generator class in changes module, with is_idle() and poll() methods
+
+------------------------------------------------------
+
 0.4.6
 -----
 
