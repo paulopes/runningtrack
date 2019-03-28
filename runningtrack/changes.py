@@ -243,3 +243,108 @@ def every_file_in(path, filter=None):
                 else:
                     yield file_name
         file_path_set = set(file_list)
+
+
+class FileConsumer(object):
+    
+    def __init__(self, path, filter=None):
+        self.cancel = False
+        self.path = path
+        self.chunk = None
+
+        self._changing_folders = None
+        self._file_path_set = set()
+        self._iterable = None
+        self._wait_period = 1
+
+        if filter:
+            self._path_filter = os.path.join(path, filter)
+        else:
+            self._path_filter = os.path.join(path, '*')
+
+    def _get_first_chunk(self):
+        self._changing_folders = ChangingFolders()
+        self._changing_folders.add(self.path)
+
+        self.chunk = sorted(glob(self._path_filter))
+
+    def poll(self, timeout=None):
+        if self.is_idle():
+            polling_set = set(glob(self._path_filter))
+            if polling_set <= self._file_path_set:
+                waiting_for = 0
+                while timeout is None or waiting_for < timeout:
+                    waiting_for += self._wait_period
+                    if wait_for_beat_and_get_changed_folders(self._wait_period, self._changing_folders) is not None:
+                        polling_chunk = sorted(glob(self._path_filter))
+                        got_one = False
+                        file_path = None
+                        while not got_one and len(polling_chunk) > 0:
+                            file_path = polling_chunk.pop(0)
+                            if file_path not in self._file_path_set:
+                                got_one = True
+                        if got_one:
+                            if self._iterable is None:
+                                self._iterable = self._generator()
+                            return next(self._iterable)
+                return None  # Timed out
+            else:
+                if self._iterable is None:
+                    self._iterable = self._generator()
+                return next(self._iterable)
+        else:
+            if self._iterable is None:
+                self._iterable = self._generator()
+            return next(self._iterable)
+
+    def _generator(self):
+        if not self.cancel:
+
+            if self.chunk is None:
+                self._get_first_chunk()
+
+            while len(self.chunk) > 0:
+                file_path = self.chunk.pop(0)
+                self._file_path_set.add(file_path)
+                file_name = file_path[len(self.path):]
+                if len(file_name) > 0 and file_name[0] == os.sep:
+                    yield file_name[1:]
+                else:
+                    yield file_name
+                if self.cancel:
+                    break
+
+            while wait_for_beat_and_get_changed_folders(self._wait_period, self._changing_folders) is not None:
+                self.chunk = sorted(glob(self._path_filter))
+                while len(self.chunk) > 0:
+                    file_path = self.chunk.pop(0)
+                    if file_path not in self._file_path_set:
+                        self._file_path_set.add(file_path)
+                        file_name = file_path[len(self.path):]
+                        if len(file_name) > 0 and file_name[0] == os.sep:
+                            yield file_name[1:]
+                        else:
+                            yield file_name
+                    if self.cancel:
+                        break
+
+    def __iter__(self):
+        if self.chunk is None:
+            self._get_first_chunk()
+        if self._iterable is None:
+            self._iterable = self._generator()
+        return self._iterable
+
+    def __len__(self):
+        if self.chunk is None:
+            self._get_first_chunk()
+        return len(self.chunk)
+
+    def is_idle(self):
+        if len(self) == 0:
+            if len(set(glob(self._path_filter)) - self._file_path_set) > 0:
+                return False
+            else:
+                return True
+        else:
+            return False

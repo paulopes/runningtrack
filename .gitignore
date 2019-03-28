@@ -104,3 +104,5 @@ _build/
 secret/
 
 .DS_Store
+._*
+
